@@ -1,7 +1,7 @@
 import React from 'react';
-import HighContrastToggle from '../components/accessibility/HighContrastToggle';
 import TextSizeControl from '../components/accessibility/TextSizeControl';
 import VoiceAssistant from '../components/accessibility/VoiceAssistant';
+
 const AccessibilityPage = () => {
   return (
     <div className="max-w-4xl mx-auto">
@@ -11,9 +11,8 @@ const AccessibilityPage = () => {
         {/* Visual Preferences */}
         <section>
           <h2 className="text-2xl font-semibold mb-4">Visual Preferences</h2>
-          <HighContrastToggle />
           <TextSizeControl />
-           <VoiceAssistant />
+          <VoiceAssistant />
         </section>
         
         {/* Add other accessibility controls here */}

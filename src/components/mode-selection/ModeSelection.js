@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAccessibility } from '../../context/AccessibilityContext';
 import ModeCard from './ModeCard';
-import { Mic, Type, Eye, Monitor } from 'lucide-react';
+import { Mic, Type, Eye, Monitor, Hand } from 'lucide-react';
 
 const ModeSelection = () => {
   const navigate = useNavigate();
@@ -48,6 +48,16 @@ const ModeSelection = () => {
       color: 'from-amber-500 to-amber-600',
       textColor: 'text-amber-700',
       bgColor: 'bg-amber-50',
+    },
+    {
+      id: 'sign-language',
+      title: 'Sign Language Mode',
+      icon: <Hand size={48} />,
+      description: 'Use ASL hand signs to input symptoms',
+      features: ['Camera-based input', 'ASL alphabet recognition', 'Visual feedback', 'Letter-by-letter input'],
+      color: 'from-pink-500 to-pink-600',
+      textColor: 'text-pink-700',
+      bgColor: 'bg-pink-50',
     },
   ];
 

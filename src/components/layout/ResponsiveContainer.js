@@ -711,24 +711,6 @@ const ResponsiveContainer = ({
         .elderly .device-frame {
           border-width: 16px;
         }
-
-        /* High contrast mode */
-        .high-contrast .responsive-container {
-          background: #000;
-        }
-
-        .high-contrast .controls-sidebar,
-        .high-contrast .controls-bar,
-        .high-contrast .status-bar {
-          background: #000;
-          border-color: #fff;
-          color: #fff;
-        }
-
-        .high-contrast .device-frame {
-          border-color: #fff;
-          background: #000;
-        }
       `}</style>
     </div>
   );

@@ -24,6 +24,7 @@ import {
   Volume2
 } from 'lucide-react';
 import { useAccessibility } from '../../context/AccessibilityContext';
+import ModeToggle from '../mode-selection/ModeToggle';
 
 const Navigation = ({
   variant = 'sidebar',
@@ -34,7 +35,7 @@ const Navigation = ({
   onMobileMenuToggle,
   className = ''
 }) => {
-  const { settings } = useAccessibility();
+  const { settings, updateSettings } = useAccessibility();
   const location = useLocation();
   const navigate = useNavigate();
   const [activePath, setActivePath] = useState('/');
@@ -61,18 +62,18 @@ const Navigation = ({
       description: 'Start new booking'
     },
     {
-      id: 'doctors',
-      path: '/doctors',
-      label: 'Find Doctors',
-      icon: <Users size={20} />,
-      description: 'Search specialists'
-    },
-    {
       id: 'symptoms',
       path: '/symptoms',
       label: 'Symptoms Checker',
       icon: <Stethoscope size={20} />,
       description: 'Describe your symptoms'
+    },
+    {
+      id: 'doctors',
+      path: '/doctors',
+      label: 'Find Doctors',
+      icon: <Users size={20} />,
+      description: 'Search specialists'
     },
     {
       id: 'history',
@@ -84,13 +85,6 @@ const Navigation = ({
   ];
 
   const userMenuItems = [
-    {
-      id: 'profile',
-      path: '/profile',
-      label: 'Profiles', // Changed from 'My Profile' to 'Profiles'
-      icon: <User size={20} />,
-      description: 'Personal information'
-    },
     {
       id: 'settings',
       path: '/settings',
@@ -149,24 +143,15 @@ const Navigation = ({
     `;
 
     if (isActive) {
-      return settings.highContrast 
-        ? `${baseClasses} bg-black text-white` 
-        : `${baseClasses} bg-primary-100 text-primary-700`;
+      return `${baseClasses} bg-primary-100 text-primary-700`;
     }
 
-    return `
-      ${baseClasses} 
-      ${settings.highContrast 
-        ? 'text-black hover:bg-gray-200' 
-        : 'text-gray-700 hover:bg-gray-100'}
-    `;
+    return `${baseClasses} text-gray-700 hover:bg-gray-100`;
   };
 
   const getIconClasses = (isActive) => {
     if (isActive) {
-      return settings.highContrast 
-        ? 'text-white' 
-        : 'text-primary-600';
+      return 'text-primary-600';
     }
     return 'text-gray-500';
   };
@@ -211,9 +196,7 @@ const Navigation = ({
   const renderSidebar = () => {
     return (
       <aside className={`
-        ${settings.highContrast 
-          ? 'bg-white border-2 border-black' 
-          : 'bg-white border-r border-gray-200'}
+        bg-white border-r border-gray-200
         h-screen sticky top-0
         transition-all duration-300
         ${collapsed ? 'w-16' : 'w-64'}
@@ -221,8 +204,7 @@ const Navigation = ({
       `}>
         {/* Header */}
         <div className={`
-          p-4 border-b 
-          ${settings.highContrast ? 'border-black' : 'border-gray-200'}
+          p-4 border-b border-gray-200
           ${collapsed ? 'text-center' : ''}
         `}>
           <div className="flex items-center justify-between">
@@ -348,37 +330,23 @@ const Navigation = ({
   const renderTopNav = () => {
     return (
       <nav className={`
-        ${settings.highContrast 
-          ? 'bg-white border-b-2 border-black' 
-          : 'bg-white border-b border-gray-200'}
+        bg-white border-b border-gray-200
         sticky top-0 z-30
         ${className}
       `}>
-        <div className="container mx-auto px-4">
+        <div className="max-w-full px-6">
           <div className="flex items-center justify-between h-16">
-            {/* Left Section */}
-            <div className="flex items-center">
-              <button
-                onClick={onMobileMenuToggle}
-                className="p-2 rounded-lg hover:bg-gray-100 lg:hidden"
-                aria-label="Toggle mobile menu"
-              >
-                <Menu size={24} />
-              </button>
-              
-              <div className="ml-4 flex items-center gap-3">
-                <div className="p-2 bg-primary-100 rounded-lg">
-                  <Stethoscope size={24} className="text-primary-600" />
-                </div>
-                <div>
-                  <h1 className="font-bold text-lg">SmartHealth Care</h1>
-                  <p className="text-xs text-gray-500">Appointment System</p>
-                </div>
-              </div>
-            </div>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={onMobileMenuToggle}
+              className="p-2 rounded-lg hover:bg-gray-100 lg:hidden"
+              aria-label="Toggle mobile menu"
+            >
+              <Menu size={24} />
+            </button>
 
-            {/* Center Section - Navigation Links */}
-            <div className="hidden lg:flex items-center space-x-1">
+            {/* Left Section - Navigation Links */}
+            <div className="hidden lg:flex items-center space-x-2">
               {mainMenuItems.map(item => {
                 const isActive = item.exact 
                   ? activePath === item.path 
@@ -390,19 +358,15 @@ const Navigation = ({
                     to={item.path}
                     end={item.exact}
                     className={`
-                      px-4 py-2 rounded-lg font-medium transition-colors
+                      flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
                       ${isActive 
-                        ? settings.highContrast 
-                          ? 'bg-black text-white' 
-                          : 'bg-primary-100 text-primary-700'
+                        ? 'bg-blue-600 text-white'
                         : 'text-gray-700 hover:bg-gray-100'
                       }
                     `}
                   >
-                    <div className="flex items-center gap-2">
-                      {item.icon}
-                      {item.label}
-                    </div>
+                    {item.icon}
+                    <span>{item.label}</span>
                   </NavLink>
                 );
               })}
@@ -411,43 +375,46 @@ const Navigation = ({
               <NavLink
                 to="/profile"
                 className={`
-                  px-4 py-2 rounded-lg font-medium transition-colors
+                  flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
                   ${activePath === '/profile'
-                    ? settings.highContrast 
-                      ? 'bg-black text-white' 
-                      : 'bg-primary-100 text-primary-700'
+                    ? 'bg-blue-600 text-white'
                     : 'text-gray-700 hover:bg-gray-100'
                   }
                 `}
               >
-                <div className="flex items-center gap-2">
-                  <User size={20} />
-                  Profiles
-                </div>
+                <User size={20} />
+                <span>Profiles</span>
               </NavLink>
               
               {/* Settings link in top navigation */}
               <NavLink
                 to="/settings"
                 className={`
-                  px-4 py-2 rounded-lg font-medium transition-colors
+                  flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
                   ${activePath === '/settings'
-                    ? settings.highContrast 
-                      ? 'bg-black text-white' 
-                      : 'bg-primary-100 text-primary-700'
+                    ? 'bg-blue-600 text-white'
                     : 'text-gray-700 hover:bg-gray-100'
                   }
                 `}
               >
-                <div className="flex items-center gap-2">
-                  <Settings size={20} />
-                  Settings
-                </div>
+                <Settings size={20} />
+                <span>Settings</span>
               </NavLink>
             </div>
 
             {/* Right Section */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2">
+              {/* Mode Toggle */}
+              <div className="relative">
+                <ModeToggle 
+                  compact={true}
+                  position="inline"
+                  floating={false}
+                  autoClose={true}
+                  showLabels={true}
+                />
+              </div>
+              
               {settings.voiceAssistance && (
                 <button
                   className="p-2 rounded-full bg-primary-100 text-primary-600 hover:bg-primary-200"
@@ -626,12 +593,7 @@ const Navigation = ({
     case 'sidebar':
       return renderSidebar();
     case 'top':
-      return (
-        <>
-          {renderTopNav()}
-          {renderBreadcrumb()}
-        </>
-      );
+      return renderTopNav();
     case 'breadcrumb':
       return renderBreadcrumb();
     case 'mobile':

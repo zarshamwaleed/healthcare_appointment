@@ -161,20 +161,17 @@ export const useUserPreferences = (userId) => {
     const personaMap = {
       'default': {
         textSize: 'medium',
-        highContrast: false,
         simplifiedLayout: false,
         reducedMotion: false
       },
       'elderly': {
         textSize: 'large',
-        highContrast: true,
         simplifiedLayout: true,
         reducedMotion: true,
         voiceAssistant: true
       },
       'low-literacy': {
         textSize: 'large',
-        highContrast: true,
         simplifiedLayout: true,
         reducedMotion: true,
         voiceAssistant: true,
@@ -182,7 +179,6 @@ export const useUserPreferences = (userId) => {
       },
       'visually-impaired': {
         textSize: 'xlarge',
-        highContrast: true,
         simplifiedLayout: true,
         reducedMotion: true,
         voiceAssistant: true

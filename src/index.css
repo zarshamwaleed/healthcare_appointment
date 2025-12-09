@@ -1,3 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* High Contrast Mode - Must come after Tailwind to override */
+@import './styles/globals.css';

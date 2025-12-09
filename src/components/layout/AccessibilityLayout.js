@@ -20,7 +20,6 @@ const AccessibilityLayout = ({ children }) => {
   const { 
     settings, 
     updateSettings,
-    toggleHighContrast,
     toggleReducedMotion,
     increaseTextSize,
     decreaseTextSize,
@@ -31,15 +30,6 @@ const AccessibilityLayout = ({ children }) => {
   useEffect(() => {
     // Apply text size
     document.documentElement.style.fontSize = `${settings.baseFontSize}px`;
-    
-    // Apply high contrast
-    if (settings.highContrast) {
-      document.body.classList.add('high-contrast');
-      document.body.classList.remove('low-contrast');
-    } else {
-      document.body.classList.remove('high-contrast');
-      document.body.classList.add('low-contrast');
-    }
     
     // Apply reduced motion
     if (settings.reducedMotion) {
@@ -155,14 +145,6 @@ const AccessibilityLayout = ({ children }) => {
 
   // Quick access buttons for common accessibility features
   const quickAccessFeatures = [
-    {
-      id: 'contrast',
-      label: 'High Contrast',
-      icon: settings.highContrast ? <EyeOff size={16} /> : <Eye size={16} />,
-      action: () => toggleHighContrast(),
-      active: settings.highContrast,
-      description: 'Toggle high contrast mode'
-    },
     {
       id: 'text-plus',
       label: 'Increase Text',
@@ -294,12 +276,6 @@ const AccessibilityLayout = ({ children }) => {
                 </span>
               </div>
               <div className="flex items-center gap-4">
-                {settings.highContrast && (
-                  <span className="flex items-center gap-1 text-amber-600">
-                    <Eye size={14} />
-                    High Contrast
-                  </span>
-                )}
                 {settings.largeCursor && (
                   <span className="flex items-center gap-1 text-blue-600">
                     <MousePointer size={14} />
@@ -343,7 +319,6 @@ const AccessibilityLayout = ({ children }) => {
           <ul>
             <li>Mode: {settings.mode}</li>
             <li>Text size: {settings.baseFontSize} pixels</li>
-            <li>High contrast: {settings.highContrast ? 'On' : 'Off'}</li>
             <li>Reduced motion: {settings.reducedMotion ? 'On' : 'Off'}</li>
             <li>Voice guidance: {settings.voiceGuidance ? 'On' : 'Off'}</li>
             <li>Large cursor: {settings.largeCursor ? 'On' : 'Off'}</li>
@@ -359,11 +334,8 @@ const AccessibilityLayout = ({ children }) => {
         }
 
         .accessibility-toolbar {
-          background: ${settings.highContrast 
-            ? 'linear-gradient(135deg, #000 0%, #333 100%)' 
-            : 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)'
-          };
-          border-bottom: 2px solid ${settings.highContrast ? '#fff' : '#cbd5e0'};
+          background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+          border-bottom: 2px solid #cbd5e0;
           position: sticky;
           top: 0;
           z-index: 1000;
@@ -371,11 +343,8 @@ const AccessibilityLayout = ({ children }) => {
         }
 
         .accessibility-indicator {
-          background: ${settings.highContrast 
-            ? 'linear-gradient(135deg, #111 0%, #222 100%)' 
-            : 'linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%)'
-          };
-          border-bottom: 1px solid ${settings.highContrast ? '#444' : '#cbd5e0'};
+          background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
+          border-bottom: 1px solid #cbd5e0;
         }
 
         /* Focus styles for keyboard navigation */
@@ -384,7 +353,7 @@ const AccessibilityLayout = ({ children }) => {
         }
 
         :global(.user-is-tabbing *:focus) {
-          outline: 3px solid ${settings.highContrast ? '#fff' : '#0ea5e9'} !important;
+          outline: 3px solid #0ea5e9 !important;
           outline-offset: 2px;
           box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.3);
         }
@@ -394,14 +363,6 @@ const AccessibilityLayout = ({ children }) => {
           animation-duration: 0.001ms !important;
           animation-iteration-count: 1 !important;
           transition-duration: 0.001ms !important;
-        }
-
-        /* High contrast styles */
-        :global(.high-contrast) {
-          --text-color: #fff;
-          --bg-color: #000;
-          --primary-color: #ffff00;
-          --secondary-color: #00ffff;
         }
 
         :global(.low-contrast) {

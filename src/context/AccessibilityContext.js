@@ -4,12 +4,12 @@ const AccessibilityContext = createContext();
 
 export const AccessibilityProvider = ({ children }) => {
   const [settings, setSettings] = useState({
-    mode: 'standard', // 'standard', 'elderly', 'voice', 'icon'
+    mode: 'standard', // 'standard', 'elderly', 'voice', 'icon', 'visual-impairment'
     fontSize: 'medium', // 'small', 'medium', 'large', 'xlarge'
-    highContrast: false,
     simpleMode: false,
     voiceAssistance: false,
     reducedMotion: false,
+    visuallyImpaired: false,
   });
 
   const [userType, setUserType] = useState(null); // 'elderly', 'low-literacy', 'disabled', 'standard'
@@ -18,13 +18,21 @@ export const AccessibilityProvider = ({ children }) => {
     // Load settings from localStorage
     const savedSettings = localStorage.getItem('accessibilitySettings');
     if (savedSettings) {
-      setSettings(JSON.parse(savedSettings));
+      const parsed = JSON.parse(savedSettings);
+      setSettings(parsed);
     }
   }, []);
 
   useEffect(() => {
     // Save settings to localStorage
     localStorage.setItem('accessibilitySettings', JSON.stringify(settings));
+    
+    // Apply dark theme for visually impaired mode
+    if (settings.visuallyImpaired) {
+      document.body.classList.add('visually-impaired-theme');
+    } else {
+      document.body.classList.remove('visually-impaired-theme');
+    }
   }, [settings]);
 
   const updateSettings = (newSettings) => {
@@ -56,6 +64,23 @@ export const AccessibilityProvider = ({ children }) => {
           voiceAssistance: true
         });
         setUserType('disabled');
+        break;
+      case 'sign-language':
+        updateSettings({
+          mode: 'sign-language',
+          fontSize: 'large'
+        });
+        setUserType('disabled');
+        break;
+      case 'visual-impairment':
+        updateSettings({
+          mode: 'visual-impairment',
+          fontSize: 'xlarge',
+          visuallyImpaired: true,
+          voiceAssistance: true,
+          reducedMotion: true
+        });
+        setUserType('visually-impaired');
         break;
       default:
         updateSettings({

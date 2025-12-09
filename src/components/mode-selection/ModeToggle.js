@@ -49,119 +49,54 @@ const ModeToggle = ({
       description: 'Default settings for most users',
       icon: <Zap size={compact ? 16 : 20} />,
       color: 'bg-gray-100 text-gray-800',
-      activeColor: 'bg-gray-800 text-white',
+      activeColor: 'bg-blue-600 text-white',
       settings: {
         baseFontSize: 16,
-        highContrast: false,
         reducedMotion: false,
         voiceGuidance: false,
         largeCursor: false,
         screenReader: false,
-        keyboardNavigation: false
+        keyboardNavigation: false,
+        visuallyImpaired: false
       }
     },
     {
       id: 'elderly',
       label: 'Elderly Friendly',
-      description: 'Larger text, high contrast, simplified interface',
+      description: 'Larger text, simplified interface',
       icon: <Shield size={compact ? 16 : 20} />,
-      color: 'bg-blue-100 text-blue-800',
+      color: 'bg-gray-100 text-gray-800',
       activeColor: 'bg-blue-600 text-white',
       settings: {
         baseFontSize: 20,
-        highContrast: true,
         reducedMotion: true,
         voiceGuidance: true,
         largeCursor: true,
         screenReader: true,
-        keyboardNavigation: true
-      }
-    },
-    {
-      id: 'low-literacy',
-      label: 'Low Literacy',
-      description: 'Simple language, visual cues, step-by-step guidance',
-      icon: <Type size={compact ? 16 : 20} />,
-      color: 'bg-green-100 text-green-800',
-      activeColor: 'bg-green-600 text-white',
-      settings: {
-        baseFontSize: 18,
-        highContrast: false,
-        reducedMotion: true,
-        voiceGuidance: true,
-        largeCursor: false,
-        screenReader: false,
-        keyboardNavigation: true
+        keyboardNavigation: true,
+        visuallyImpaired: false
       }
     },
     {
       id: 'visual-impairment',
       label: 'Visual Impairment',
-      description: 'High contrast, screen reader optimized, keyboard navigation',
+      description: 'Screen reader optimized, keyboard navigation',
       icon: <Eye size={compact ? 16 : 20} />,
       color: 'bg-purple-100 text-purple-800',
       activeColor: 'bg-purple-600 text-white',
       settings: {
         baseFontSize: 18,
-        highContrast: true,
         reducedMotion: true,
         voiceGuidance: true,
         largeCursor: true,
         screenReader: true,
-        keyboardNavigation: true
-      }
-    },
-    {
-      id: 'cognitive',
-      label: 'Cognitive Support',
-      description: 'Reduced distractions, clear focus, simple navigation',
-      icon: <Brain size={compact ? 16 : 20} />,
-      color: 'bg-amber-100 text-amber-800',
-      activeColor: 'bg-amber-600 text-white',
-      settings: {
-        baseFontSize: 18,
-        highContrast: false,
-        reducedMotion: true,
-        voiceGuidance: true,
-        largeCursor: true,
-        screenReader: false,
-        keyboardNavigation: true
+        keyboardNavigation: true,
+        visuallyImpaired: true
       }
     }
   ];
 
-  const quickSettings = [
-    {
-      id: 'high-contrast',
-      label: 'High Contrast',
-      icon: settings.highContrast ? <EyeOff size={16} /> : <Eye size={16} />,
-      active: settings.highContrast,
-      action: () => updateSettings({ highContrast: !settings.highContrast })
-    },
-    {
-      id: 'large-text',
-      label: 'Large Text',
-      icon: <Type size={16} />,
-      active: settings.baseFontSize > 16,
-      action: () => updateSettings({ 
-        baseFontSize: settings.baseFontSize === 16 ? 20 : 16 
-      })
-    },
-    {
-      id: 'voice-guidance',
-      label: 'Voice Guide',
-      icon: <Volume2 size={16} />,
-      active: settings.voiceGuidance,
-      action: () => updateSettings({ voiceGuidance: !settings.voiceGuidance })
-    },
-    {
-      id: 'reduced-motion',
-      label: 'Reduced Motion',
-      icon: settings.reducedMotion ? <Moon size={16} /> : <Sun size={16} />,
-      active: settings.reducedMotion,
-      action: () => updateSettings({ reducedMotion: !settings.reducedMotion })
-    }
-  ];
+  const quickSettings = [];
 
   useEffect(() => {
     // Determine which preset is currently active
@@ -213,6 +148,10 @@ const ModeToggle = ({
   };
 
   const getPositionClasses = () => {
+    if (position === 'inline') {
+      return ''; // No positioning classes for inline mode
+    }
+    
     const baseClasses = floating ? 'fixed z-50' : 'absolute';
     
     switch(position) {
@@ -234,18 +173,20 @@ const ModeToggle = ({
   const renderCompactView = () => (
     <div className={getPositionClasses()}>
       <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: position === 'inline' ? 1 : 1.05 }}
+        whileTap={{ scale: position === 'inline' ? 1 : 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-2 p-3 rounded-full shadow-lg ${
-          currentMode.activeColor.replace('bg-', 'bg-')
-        } text-white`}
+        className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
+          position === 'inline' ? '' : 'shadow-lg'
+        } ${
+          settings.mode === 'standard' 
+            ? 'bg-blue-600 hover:bg-blue-700' 
+            : currentMode.activeColor.replace('bg-', 'bg-')
+        } text-white transition-all duration-200`}
         aria-label={`Accessibility settings. Current mode: ${currentMode.label}`}
       >
         <Accessibility size={20} />
-        {showLabels && (
-          <span className="font-medium hidden sm:inline">{currentMode.label}</span>
-        )}
+        <span className="font-medium">{currentMode.label}</span>
         {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
       </motion.button>
 
@@ -265,13 +206,6 @@ const ModeToggle = ({
                   <Accessibility size={20} className="text-gray-700" />
                   <span className="font-bold text-gray-800">Accessibility</span>
                 </div>
-                <button
-                  onClick={handleReset}
-                  className="p-1 hover:bg-gray-200 rounded"
-                  aria-label="Reset to default settings"
-                >
-                  <RotateCcw size={16} />
-                </button>
               </div>
               <p className="text-sm text-gray-600 mt-1">Choose your preferred mode</p>
             </div>
@@ -282,17 +216,17 @@ const ModeToggle = ({
                 <button
                   key={mode.id}
                   onClick={() => handleModeChange(mode)}
-                  className={`w-full flex items-center gap-3 p-3 rounded-lg mb-1 transition-all ${
+                  className={`w-full flex items-center gap-3 p-3 rounded-lg mb-1 transition-all border-2 ${
                     settings.mode === mode.id
-                      ? mode.activeColor
-                      : `${mode.color} hover:opacity-90`
+                      ? `${mode.activeColor} border-yellow-400`
+                      : `${mode.color} hover:border-yellow-400 border-transparent`
                   }`}
                 >
                   <div className="flex-shrink-0">
                     {mode.icon}
                   </div>
                   <div className="flex-1 text-left">
-                    <div className="font-medium">{mode.label}</div>
+                    <div className="font-bold">{mode.label}</div>
                     <div className="text-xs opacity-80">{mode.description}</div>
                   </div>
                   {settings.mode === mode.id && (
@@ -300,38 +234,6 @@ const ModeToggle = ({
                   )}
                 </button>
               ))}
-            </div>
-
-            {/* Quick Settings */}
-            <div className="p-4 border-t">
-              <div className="grid grid-cols-2 gap-2">
-                {quickSettings.map(setting => (
-                  <button
-                    key={setting.id}
-                    onClick={setting.action}
-                    className={`flex flex-col items-center p-2 rounded-lg ${
-                      setting.active
-                        ? 'bg-primary-100 text-primary-700'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    {setting.icon}
-                    <span className="text-xs mt-1">{setting.label}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Footer */}
-            <div className="p-3 bg-gray-50 border-t">
-              <button
-                onClick={() => setShowAdvanced(!showAdvanced)}
-                className="w-full flex items-center justify-center gap-2 text-sm text-gray-600 hover:text-gray-800"
-              >
-                <Settings size={14} />
-                Advanced Settings
-                {showAdvanced ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-              </button>
             </div>
           </motion.div>
         )}

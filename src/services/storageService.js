@@ -232,7 +232,6 @@ export const storageService = {
   getAccessibilitySettings: () => {
     const defaultSettings = {
       textSize: 'medium',
-      highContrast: false,
       reducedMotion: false,
       voiceAssistant: true,
       screenReader: false,

@@ -62,13 +62,6 @@ export const UIProvider = ({ children }) => {
     // Add new persona class
     document.body.classList.add(`persona-${selectedPersona}`);
     
-    // Apply high contrast if enabled
-    if (user?.accessibility?.highContrast) {
-      document.body.classList.add('high-contrast');
-    } else {
-      document.body.classList.remove('high-contrast');
-    }
-    
     // Apply text size
     const textSize = user?.accessibility?.textSize || 'medium';
     document.body.classList.remove('text-small', 'text-medium', 'text-large', 'text-xlarge');

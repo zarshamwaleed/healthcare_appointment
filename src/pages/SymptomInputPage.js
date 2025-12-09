@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useAccessibility } from '../context/AccessibilityContext';
 import { useAppointment } from '../context/AppointmentContext';
 import { useUI } from '../context/UIContext';
+import useAIGuidePage from '../hooks/useAIGuidePage';
 
 import SymptomInput from '../components/symptom-input/SymptomInput';
 import BodyMap from '../components/symptom-input/BodyMap';
 import VoiceInput from '../components/symptom-input/VoiceInput';
-import { Mic, Keyboard, Map, ArrowRight } from 'lucide-react';
+import SignLanguageInput from '../components/symptom-input/SignLanguageInput';
+import { Mic, Keyboard, Map, ArrowRight, Hand } from 'lucide-react';
 
 const SymptomInputPage = () => {
   const navigate = useNavigate();
@@ -15,7 +17,24 @@ const SymptomInputPage = () => {
   const { addSymptoms, updateAppointment } = useAppointment();
   const { startLoading, stopLoading, addNotification } = useUI();
   
-  const [activeTab, setActiveTab] = useState('body');
+  // Notify AI Guide that user is on symptom input page
+  useAIGuidePage('symptomInput');
+  
+  // Set initial tab based on accessibility mode
+  const getInitialTab = () => {
+    if (settings.mode === 'voice' || settings.voiceGuidance) {
+      return 'voice';
+    }
+    if (settings.mode === 'standard') {
+      return 'text';
+    }
+    if (settings.mode === 'sign-language') {
+      return 'sign';
+    }
+    return 'body';
+  };
+  
+  const [activeTab, setActiveTab] = useState(getInitialTab());
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
 
   const handleSymptomsSubmit = (symptoms, bodyLocations) => {
@@ -40,6 +59,7 @@ const SymptomInputPage = () => {
   const tabs = [
     { id: 'body', label: 'Body Map', icon: <Map size={20} /> },
     { id: 'voice', label: 'Voice Input', icon: <Mic size={20} /> },
+    { id: 'sign', label: 'Sign Language', icon: <Hand size={20} /> },
     { id: 'text', label: 'Type Symptoms', icon: <Keyboard size={20} /> },
   ];
 
@@ -86,6 +106,11 @@ const SymptomInputPage = () => {
             {activeTab === 'voice' && (
               <VoiceInput
                 onTranscript={(text) => handleSymptomsSubmit([text], [])}
+              />
+            )}
+            {activeTab === 'sign' && (
+              <SignLanguageInput
+                onSubmit={(symptoms) => handleSymptomsSubmit(symptoms, [])}
               />
             )}
             {activeTab === 'text' && (

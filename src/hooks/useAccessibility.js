@@ -6,7 +6,6 @@ import { voiceService } from '../services/voiceService';
 export const useAccessibility = () => {
   const [settings, setSettings] = useState({
     textSize: 'medium',
-    highContrast: false,
     reducedMotion: false,
     voiceAssistant: true,
     screenReader: false,
@@ -36,13 +35,6 @@ export const useAccessibility = () => {
     // Text size
     root.classList.remove('text-small', 'text-medium', 'text-large', 'text-xlarge');
     root.classList.add(`text-${newSettings.textSize}`);
-    
-    // High contrast
-    if (newSettings.highContrast) {
-      root.classList.add('high-contrast');
-    } else {
-      root.classList.remove('high-contrast');
-    }
     
     // Reduced motion
     if (newSettings.reducedMotion) {
@@ -104,7 +96,6 @@ export const useAccessibility = () => {
   const resetSettings = useCallback(() => {
     const defaults = {
       textSize: 'medium',
-      highContrast: false,
       reducedMotion: false,
       voiceAssistant: true,
       screenReader: false,
@@ -239,28 +230,18 @@ export const useAccessibility = () => {
 
   // Get appropriate color scheme based on settings
   const getAccessibleColors = useCallback(() => {
-    const baseColors = settings.highContrast 
-      ? {
-          primary: '#000000',
-          secondary: '#000000',
-          background: '#FFFFFF',
-          surface: '#FFFFFF',
-          text: '#000000',
-          textSecondary: '#000000',
-          border: '#000000'
-        }
-      : {
-          primary: '#2563eb',
-          secondary: '#059669',
-          background: '#f9fafb',
-          surface: '#ffffff',
-          text: '#111827',
-          textSecondary: '#6b7280',
-          border: '#e5e7eb'
-        };
+    const baseColors = {
+      primary: '#2563eb',
+      secondary: '#059669',
+      background: '#f9fafb',
+      surface: '#ffffff',
+      text: '#111827',
+      textSecondary: '#6b7280',
+      border: '#e5e7eb'
+    };
     
     return baseColors;
-  }, [settings.highContrast]);
+  }, []);
 
   return {
     // State

@@ -49,10 +49,10 @@ const SymptomInput = ({
   ];
 
   const severityOptions = [
-    { id: 'mild', label: 'Mild', color: 'bg-green-100 text-green-800' },
-    { id: 'moderate', label: 'Moderate', color: 'bg-yellow-100 text-yellow-800' },
-    { id: 'severe', label: 'Severe', color: 'bg-orange-100 text-orange-800' },
-    { id: 'emergency', label: 'Emergency', color: 'bg-red-100 text-red-800' }
+    { id: 'mild', label: 'Mild', color: 'bg-pink-100 text-pink-800' },
+    { id: 'moderate', label: 'Moderate', color: 'bg-pink-100 text-pink-800' },
+    { id: 'severe', label: 'Severe', color: 'bg-pink-100 text-pink-800' },
+    { id: 'emergency', label: 'Emergency', color: 'bg-pink-100 text-pink-800' }
   ];
 
   useEffect(() => {

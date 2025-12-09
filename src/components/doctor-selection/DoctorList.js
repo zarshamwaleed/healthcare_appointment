@@ -45,103 +45,10 @@ const DoctorList = ({
   const [filteredDoctors, setFilteredDoctors] = useState([]);
 
   useEffect(() => {
-    let results = [...doctors];
-
-    // Apply search filter
-    if (searchTerm) {
-      const term = searchTerm.toLowerCase();
-      results = results.filter(doctor =>
-        doctor.name.toLowerCase().includes(term) ||
-        doctor.specialty.toLowerCase().includes(term) ||
-        doctor.hospital.toLowerCase().includes(term)
-      );
-    }
-
-    // Apply custom filters
-    if (filters.specialty) {
-      results = results.filter(doctor => doctor.specialtyId === filters.specialty);
-    }
-
-    if (filters.rating && filters.rating !== 'any') {
-      const minRating = parseFloat(filters.rating);
-      results = results.filter(doctor => parseFloat(doctor.rating) >= minRating);
-    }
-
-    if (filters.experience && filters.experience !== 'any') {
-      const minExperience = parseInt(filters.experience);
-      results = results.filter(doctor => parseInt(doctor.experience) >= minExperience);
-    }
-
-    if (filters.distance && filters.distance !== 'any') {
-      const maxDistance = parseFloat(filters.distance);
-      results = results.filter(doctor => parseFloat(doctor.distance) <= maxDistance);
-    }
-
-    if (filters.telemedicine) {
-      results = results.filter(doctor => doctor.telemedicine);
-    }
-
-    if (filters.elderlyFriendly) {
-      results = results.filter(doctor => doctor.isElderlyFriendly);
-    }
-
-    if (filters.languages && filters.languages.length > 0) {
-      results = results.filter(doctor =>
-        filters.languages.every(lang => doctor.languages.includes(lang))
-      );
-    }
-
-    if (filters.priceRange) {
-      const [minPrice, maxPrice] = filters.priceRange;
-      results = results.filter(doctor => 
-        doctor.consultationFee >= minPrice && doctor.consultationFee <= maxPrice
-      );
-    }
-
-    // Apply sorting
-    switch(sortBy) {
-      case 'rating':
-        results.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
-        break;
-      case 'experience':
-        results.sort((a, b) => parseInt(b.experience) - parseInt(a.experience));
-        break;
-      case 'distance':
-        results.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
-        break;
-      case 'price':
-        results.sort((a, b) => a.consultationFee - b.consultationFee);
-        break;
-      case 'availability':
-        results.sort((a, b) => {
-          const aPriority = a.availability === 'Available Today' ? 1 : 0;
-          const bPriority = b.availability === 'Available Today' ? 1 : 0;
-          return bPriority - aPriority;
-        });
-        break;
-      case 'recommended':
-      default:
-        // Sort by recommended, then rating
-        results.sort((a, b) => {
-          if (a.isRecommended && !b.isRecommended) return -1;
-          if (!a.isRecommended && b.isRecommended) return 1;
-          return parseFloat(b.rating) - parseFloat(a.rating);
-        });
-        break;
-    }
-
-    // For elderly users, prioritize elderly-friendly doctors
-    if (settings.mode === 'elderly') {
-      results.sort((a, b) => {
-        if (a.isElderlyFriendly && !b.isElderlyFriendly) return -1;
-        if (!a.isElderlyFriendly && b.isElderlyFriendly) return 1;
-        return 0;
-      });
-    }
-
-    setFilteredDoctors(results);
-    setCurrentPage(1); // Reset to first page when filters change
-  }, [doctors, filters, searchTerm, sortBy, settings.mode]);
+    // Just use the doctors passed from parent - they're already filtered
+    setFilteredDoctors(doctors);
+    setCurrentPage(1);
+  }, [doctors]);
 
   const totalPages = Math.ceil(filteredDoctors.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -479,28 +386,6 @@ const DoctorList = ({
           />
         </div>
       )}
-
-      {/* Stats */}
-      {doctors.length > 0 && renderStats()}
-
-      {/* Controls */}
-      {renderControls()}
-
-      {/* Results Summary */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h2 className="text-xl font-bold">
-            Available Doctors <span className="text-gray-600">({filteredDoctors.length})</span>
-          </h2>
-          <p className="text-gray-600">
-            {filteredDoctors.length > 0 ? (
-              `Showing ${startIndex + 1}-${Math.min(endIndex, filteredDoctors.length)} of ${filteredDoctors.length} doctors`
-            ) : (
-              'No doctors match your search criteria'
-            )}
-          </p>
-        </div>
-      </div>
 
       {/* Doctors Grid/List */}
       {filteredDoctors.length === 0 ? (

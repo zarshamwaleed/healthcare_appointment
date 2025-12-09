@@ -9,6 +9,7 @@
   
   body {
     @apply antialiased;
+    background-color: #f9fafb;
   }
 }
 
@@ -57,13 +58,218 @@
            transition-all duration-200 cursor-pointer
            border border-gray-200;
   }
-  
-  .high-contrast {
-    @apply bg-white text-black border-2 border-black;
-  }
-  
-  .high-contrast-btn {
-    @apply bg-black text-white border-2 border-white 
-           hover:bg-gray-800 active:bg-gray-900;
-  }
+}
+
+/* Visually Impaired / Color-blind Friendly Dark Theme */
+body.visually-impaired-theme {
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+body.visually-impaired-theme * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Background colors */
+body.visually-impaired-theme .bg-white,
+body.visually-impaired-theme [class*="bg-gray-50"],
+body.visually-impaired-theme [class*="bg-gray-100"],
+body.visually-impaired-theme [class*="bg-blue-50"],
+body.visually-impaired-theme [class*="bg-blue-100"],
+body.visually-impaired-theme [class*="bg-indigo-50"],
+body.visually-impaired-theme [class*="bg-purple-50"],
+body.visually-impaired-theme [class*="bg-purple-100"],
+body.visually-impaired-theme [class*="bg-green-50"],
+body.visually-impaired-theme [class*="bg-pink-50"],
+body.visually-impaired-theme [class*="bg-amber-50"] {
+  background-color: #2d2d2d !important;
+  color: #ffffff !important;
+}
+
+body.visually-impaired-theme [class*="bg-gray-200"],
+body.visually-impaired-theme [class*="bg-gray-300"] {
+  background-color: #3d3d3d !important;
+  color: #ffffff !important;
+}
+
+/* Primary buttons - High contrast yellow */
+body.visually-impaired-theme .bg-blue-600,
+body.visually-impaired-theme [class*="bg-primary"],
+body.visually-impaired-theme button[class*="bg-blue"] {
+  background-color: #FFD700 !important;
+  color: #000000 !important;
+  border-color: #FFA500 !important;
+}
+
+body.visually-impaired-theme .bg-blue-600:hover,
+body.visually-impaired-theme .bg-blue-700:hover,
+body.visually-impaired-theme button[class*="bg-blue"]:hover {
+  background-color: #FFA500 !important;
+  color: #000000 !important;
+}
+
+/* Text colors */
+body.visually-impaired-theme [class*="text-gray-600"],
+body.visually-impaired-theme [class*="text-gray-700"],
+body.visually-impaired-theme [class*="text-gray-800"],
+body.visually-impaired-theme [class*="text-gray-900"],
+body.visually-impaired-theme [class*="text-blue"],
+body.visually-impaired-theme [class*="text-indigo"],
+body.visually-impaired-theme [class*="text-purple"],
+body.visually-impaired-theme .text-black {
+  color: #ffffff !important;
+}
+
+/* Links and interactive elements - Cyan for high visibility */
+body.visually-impaired-theme a,
+body.visually-impaired-theme [class*="text-blue-600"],
+body.visually-impaired-theme [class*="text-blue-700"] {
+  color: #00FFFF !important;
+}
+
+body.visually-impaired-theme a:hover {
+  color: #00CED1 !important;
+}
+
+/* Borders */
+body.visually-impaired-theme [class*="border-gray"],
+body.visually-impaired-theme [class*="border-blue"],
+body.visually-impaired-theme .border {
+  border-color: #555555 !important;
+}
+
+/* Cards and containers */
+body.visually-impaired-theme .card,
+body.visually-impaired-theme [class*="shadow"] {
+  background-color: #2d2d2d !important;
+  border: 2px solid #555555 !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Inputs */
+body.visually-impaired-theme input,
+body.visually-impaired-theme textarea,
+body.visually-impaired-theme select {
+  background-color: #3d3d3d !important;
+  color: #ffffff !important;
+  border: 2px solid #666666 !important;
+}
+
+body.visually-impaired-theme input:focus,
+body.visually-impaired-theme textarea:focus,
+body.visually-impaired-theme select:focus {
+  border-color: #FFD700 !important;
+  outline: 2px solid #FFD700 !important;
+  outline-offset: 2px !important;
+}
+
+body.visually-impaired-theme input::placeholder,
+body.visually-impaired-theme textarea::placeholder {
+  color: #aaaaaa !important;
+}
+
+/* Footer override */
+body.visually-impaired-theme footer {
+  background-color: #000000 !important;
+  border-top: 3px solid #FF00FF !important;
+}
+
+/* Navigation */
+body.visually-impaired-theme nav {
+  background-color: #000000 !important;
+  border-bottom: 3px solid #FF00FF !important;
+}
+
+/* Success/positive elements - Use primary yellow */
+body.visually-impaired-theme [class*="bg-green"],
+body.visually-impaired-theme [class*="text-green"] {
+  background-color: #FFD700 !important;
+  color: #000000 !important;
+}
+
+/* Warning/attention elements - Use secondary magenta */
+body.visually-impaired-theme [class*="bg-amber"],
+body.visually-impaired-theme [class*="bg-orange"],
+body.visually-impaired-theme [class*="bg-yellow"] {
+  background-color: #FF00FF !important;
+  color: #000000 !important;
+}
+
+/* Error/danger elements - Use cyan for contrast */
+body.visually-impaired-theme [class*="bg-red"],
+body.visually-impaired-theme [class*="text-red"] {
+  background-color: #00FFFF !important;
+  color: #000000 !important;
+}
+
+/* Purple/violet/indigo elements - Magenta (secondary color) */
+body.visually-impaired-theme [class*="bg-purple"],
+body.visually-impaired-theme [class*="bg-violet"],
+body.visually-impaired-theme [class*="bg-indigo"] {
+  background-color: #FF00FF !important;
+  color: #000000 !important;
+}
+
+/* Blue elements - Cyan (tertiary color) */
+body.visually-impaired-theme [class*="bg-blue"],
+body.visually-impaired-theme [class*="bg-cyan"] {
+  background-color: #00FFFF !important;
+  color: #000000 !important;
+}
+
+/* Ensure cyan text is visible */
+body.visually-impaired-theme [class*="text-cyan"],
+body.visually-impaired-theme button[class*="bg-cyan"] *,
+body.visually-impaired-theme button[class*="bg-blue"] * {
+  color: #000000 !important;
+}
+
+/* Pink/Rose elements - Magenta (secondary color) */
+body.visually-impaired-theme [class*="bg-pink"],
+body.visually-impaired-theme [class*="bg-rose"] {
+  background-color: #FF00FF !important;
+  color: #000000 !important;
+}
+
+/* Ensure all gradient backgrounds are replaced */
+body.visually-impaired-theme [class*="bg-gradient"] {
+  background-image: none !important;
+  background-color: #2d2d2d !important;
+}
+
+/* Icons should be visible */
+body.visually-impaired-theme svg {
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+/* Improve focus visibility */
+body.visually-impaired-theme *:focus {
+  outline: 3px solid #FFD700 !important;
+  outline-offset: 3px !important;
+}
+
+/* Table elements */
+body.visually-impaired-theme table {
+  border: 2px solid #666666 !important;
+}
+
+body.visually-impaired-theme th,
+body.visually-impaired-theme td {
+  border: 1px solid #555555 !important;
+  background-color: #2d2d2d !important;
+}
+
+/* Disabled elements */
+body.visually-impaired-theme [disabled],
+body.visually-impaired-theme .disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+/* Mode selector buttons with text color overrides */
+body.visually-impaired-theme [class*="text-gray-800"],
+body.visually-impaired-theme [class*="text-blue-800"],
+body.visually-impaired-theme [class*="text-purple-800"] {
+  color: #000000 !important;
 }

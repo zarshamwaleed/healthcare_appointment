@@ -54,7 +54,7 @@ const Loader = ({
   const getColorClasses = () => {
     switch(color) {
       case 'primary':
-        return settings.highContrast ? 'text-black' : 'text-primary-600';
+        return 'text-primary-600';
       case 'white':
         return 'text-white';
       case 'black':

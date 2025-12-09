@@ -1,7 +1,6 @@
 import React from 'react';
 import { useAccessibility } from '../../context/AccessibilityContext';
 import { Volume2, Type, Eye, Contrast, Settings } from 'lucide-react';
-import HighContrastToggle from './HighContrastToggle';
 import TextSizeControl from './TextSizeControl';
 
 // Optional: create a small wrapper component for all accessibility controls
@@ -9,7 +8,6 @@ const AccessibilitySettings = () => {
   return (
     <div className="flex flex-wrap gap-4 items-center">
       <TextSizeControl />
-      <HighContrastToggle />
       {/* You can add other accessibility components here */}
     </div>
   );
@@ -19,7 +17,7 @@ const AccessibilityToolbar = () => {
   const { settings, updateSettings } = useAccessibility();
 
   return (
-    <div className={`${settings.highContrast ? 'bg-black text-white' : 'bg-gray-800 text-white'} py-2 px-4`}>
+    <div className="bg-gray-800 text-white py-2 px-4">
       <div className="container mx-auto flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <Settings size={16} />

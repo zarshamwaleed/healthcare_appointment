@@ -36,14 +36,10 @@ const Button = ({
 
     switch(variant) {
       case 'primary':
-        return settings.highContrast 
-          ? 'bg-black text-white border-2 border-white hover:bg-gray-800 focus:ring-white' 
-          : 'bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white border-primary-700 focus:ring-primary-500';
+        return 'bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white border-primary-700 focus:ring-primary-500';
       
       case 'secondary':
-        return settings.highContrast 
-          ? 'bg-white text-black border-2 border-black hover:bg-gray-100 focus:ring-black' 
-          : 'bg-white text-primary-700 border-2 border-primary-600 hover:bg-primary-50 active:bg-primary-100 focus:ring-primary-500';
+        return 'bg-white text-primary-700 border-2 border-primary-600 hover:bg-primary-50 active:bg-primary-100 focus:ring-primary-500';
       
       case 'outline':
         return 'bg-transparent text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400 focus:ring-gray-500';

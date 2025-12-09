@@ -1,70 +1,149 @@
-# Getting Started with Create React App
+# Healthcare Appointment System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An intelligent, inclusive healthcare appointment booking platform designed for everyone. This application provides multiple accessibility modes including voice commands, visual guides, large text mode, and sign language support to ensure healthcare is accessible to all users.
 
-## Available Scripts
+## 🌟 Features
 
-In the project directory, you can run:
+- **Multiple Accessibility Modes**: Elderly care, low-literacy visual mode, voice-enabled, sign language, and standard access
+- **High Contrast Mode**: Dark theme optimized for visual accessibility
+- **AI-Powered Assistance**: Integrated Gemini AI guide for personalized help
+- **Smart Doctor Recommendations**: AI-based specialist matching based on symptoms
+- **Voice & Sign Language Input**: Hands-free and camera-based symptom input
+- **Body Map Interface**: Visual symptom selection for better communication
+- **Priority-Based Scheduling**: Intelligent appointment booking considering urgency
 
-### `npm start`
+## 🚀 Quick Start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. **Set Up Environment Variables**
+   Create a `.env` file in the root directory:
+   ```
+   REACT_APP_GEMINI_API_KEY=your_gemini_api_key_here
+   ```
 
-### `npm test`
+3. **Start Development Server**
+   ```bash
+   npm start
+   ```
+   Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. **Build for Production**
+   ```bash
+   npm run build
+   ```
 
-### `npm run build`
+## 📁 Project Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+healthcare_appointment/
+├── docs/                          # Documentation files
+│   ├── AI_GUIDE_README.md        # AI integration guide
+│   ├── AI_INTEGRATION_SUMMARY.md # AI implementation details
+│   ├── PROJECT_PROPOSAL.md       # Original project proposal
+│   ├── QUICK_START.md            # Detailed setup guide
+│   └── WHERE_IS_THE_AI.txt       # AI features location guide
+├── public/                        # Static public assets
+├── src/
+│   ├── components/               # Reusable React components
+│   │   ├── accessibility/       # Accessibility-specific components
+│   │   ├── ai-guide/            # AI assistant components
+│   │   ├── appointment-booking/ # Booking interface components
+│   │   ├── common/              # Shared UI components
+│   │   ├── confirmation/        # Appointment confirmation components
+│   │   ├── doctor-selection/    # Doctor browsing & selection
+│   │   ├── layout/              # Layout wrappers
+│   │   ├── mode-selection/      # Accessibility mode selection
+│   │   ├── symptom-input/       # Symptom input interfaces
+│   │   └── user-profile/        # User preferences & history
+│   ├── context/                  # React Context providers
+│   │   ├── AccessibilityContext.js
+│   │   ├── AIGuideContext.js
+│   │   ├── AppointmentContext.js
+│   │   ├── UIContext.js
+│   │   └── UserContext.js
+│   ├── hooks/                    # Custom React hooks
+│   ├── pages/                    # Main application pages
+│   ├── services/                 # API and external services
+│   │   ├── geminiService.js     # Google Gemini AI integration
+│   │   ├── mockDataService.js   # Mock data for development
+│   │   ├── storageService.js    # LocalStorage utilities
+│   │   └── voiceService.js      # Web Speech API wrapper
+│   ├── styles/                   # Global styles and themes
+│   │   ├── globals.css          # Global CSS including high contrast
+│   │   └── themes/              # Theme-specific CSS
+│   ├── utils/                    # Utility functions
+│   ├── App.js                   # Main application component
+│   ├── routes.jsx               # Application routing
+│   └── index.js                 # Application entry point
+├── .env                          # Environment variables (create this)
+├── package.json                 # Dependencies and scripts
+└── tailwind.config.js           # Tailwind CSS configuration
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🎨 Accessibility Modes
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Elderly Care Mode**: Large text, simplified navigation, clear buttons
+2. **Visual/Low-Literacy Mode**: Icon-based interface, minimal text
+3. **Voice-Enabled Mode**: Complete voice control for hands-free operation
+4. **Sign Language Mode**: Camera-based ASL alphabet input
+5. **Standard Mode**: Full-featured interface with all capabilities
 
-### `npm run eject`
+## 🤖 AI Integration
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The application uses Google's Gemini AI for:
+- Contextual assistance throughout the booking process
+- Symptom analysis and doctor recommendations
+- Natural language query handling
+- Personalized guidance based on user mode
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+See `docs/AI_GUIDE_README.md` for detailed AI integration information.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🛠️ Technologies Used
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **React 19** - Frontend framework
+- **React Router v7** - Navigation
+- **Tailwind CSS** - Styling framework
+- **Framer Motion** - Animations
+- **Lucide React** - Icon library
+- **Google Gemini AI** - AI assistance
+- **Web Speech API** - Voice recognition
+- **date-fns** - Date utilities
 
-## Learn More
+## 📚 Documentation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **[AI Guide](docs/AI_GUIDE_README.md)** - How AI assistance works
+- **[Quick Start Guide](docs/QUICK_START.md)** - Detailed setup instructions
+- **[Project Proposal](docs/PROJECT_PROPOSAL.md)** - Original project vision
+- **[AI Feature Locations](docs/WHERE_IS_THE_AI.txt)** - Where to find AI code
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🧪 Testing
 
-### Code Splitting
+```bash
+npm test
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Launches the test runner in interactive watch mode.
 
-### Analyzing the Bundle Size
+## 📝 Available Scripts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- `npm start` - Start development server
+- `npm build` - Build for production
+- `npm test` - Run tests
+- `npm eject` - Eject from Create React App (one-way operation)
 
-### Making a Progressive Web App
+## 🤝 Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+This is an educational project demonstrating accessible healthcare interfaces with AI integration.
 
-### Advanced Configuration
+## 📄 License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+This project is for educational purposes.
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Built with ❤️ for accessibility and inclusive healthcare
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

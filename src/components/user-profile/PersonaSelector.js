@@ -27,7 +27,7 @@ const PersonaSelector = ({
   showDetails = true,
   multiSelect = false
 }) => {
-  const { settings } = useAccessibility();
+  const { settings, setUserMode } = useAccessibility();
   const [selectedPersonas, setSelectedPersonas] = useState(initialPersona ? [initialPersona] : []);
   const [showAllDetails, setShowAllDetails] = useState(false);
 
@@ -187,6 +187,12 @@ const PersonaSelector = ({
       }
     } else {
       setSelectedPersonas([persona]);
+      
+      // Apply accessibility mode based on persona
+      if (setUserMode) {
+        setUserMode(persona.id);
+      }
+      
       if (onPersonaSelect) {
         onPersonaSelect(persona);
       }

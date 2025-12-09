@@ -4,7 +4,9 @@ import { AccessibilityProvider } from "./context/AccessibilityContext";
 import { UserProvider } from "./context/UserContext";
 import { AppointmentProvider } from "./context/AppointmentContext";
 import { UIProvider } from "./context/UIContext";
+import { AIGuideProvider } from "./context/AIGuideContext";
 import MainLayout from "./components/layout/MainLayout";
+import AIAssistant from "./components/ai-guide/AIAssistant";
 import HomePage from "./pages/HomePage";
 import ModeSelectionPage from "./pages/ModeSelectionPage";
 import SymptomInputPage from "./pages/SymptomInputPage";
@@ -21,25 +23,28 @@ function App() {
         <UserProvider>
           <AppointmentProvider>
             <UIProvider>
-              <MainLayout>
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route
-                    path="/mode-selection"
-                    element={<ModeSelectionPage />}
-                  />
-                  <Route path="/symptoms" element={<SymptomInputPage />} />
-                  <Route path="/doctors" element={<DoctorSelectionPage />} />
-                  <Route path="/booking" element={<AppointmentBookingPage />} />
-                  <Route path="/confirmation" element={<ConfirmationPage />} />
-                  <Route
-                    path="/accessibility"
-                    element={<AccessibilityPage />}
-                  />
-                  <Route path="/settings" element={<SettingsPage />} />
-                  <Route path="/profile" element={<UserProfilePage />} />
-                </Routes>
-              </MainLayout>
+              <AIGuideProvider>
+                <MainLayout>
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route
+                      path="/mode-selection"
+                      element={<ModeSelectionPage />}
+                    />
+                    <Route path="/symptoms" element={<SymptomInputPage />} />
+                    <Route path="/doctors" element={<DoctorSelectionPage />} />
+                    <Route path="/booking" element={<AppointmentBookingPage />} />
+                    <Route path="/confirmation" element={<ConfirmationPage />} />
+                    <Route
+                      path="/accessibility"
+                      element={<AccessibilityPage />}
+                    />
+                    <Route path="/settings" element={<SettingsPage />} />
+                    <Route path="/profile" element={<UserProfilePage />} />
+                  </Routes>
+                </MainLayout>
+                <AIAssistant />
+              </AIGuideProvider>
             </UIProvider>
           </AppointmentProvider>
         </UserProvider>

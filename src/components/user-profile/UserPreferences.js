@@ -67,8 +67,7 @@ const UserPreferences = ({
       voiceGuidance: settings.voiceGuidance,
       screenReader: settings.screenReader,
       keyboardNavigation: settings.keyboardNavigation,
-      largeCursor: settings.largeCursor,
-      highContrast: settings.highContrast
+      largeCursor: settings.largeCursor
     },
     data: {
       autoBackup: true,
@@ -127,7 +126,6 @@ const UserPreferences = ({
       screenReader: preferences.accessibility.screenReader,
       keyboardNavigation: preferences.accessibility.keyboardNavigation,
       largeCursor: preferences.accessibility.largeCursor,
-      highContrast: preferences.accessibility.highContrast,
       mode: preferences.display.theme === 'dark' ? 'standard' : settings.mode // Keep mode, adjust theme
     });
 
@@ -184,8 +182,7 @@ const UserPreferences = ({
       voiceGuidance: false,
       screenReader: false,
       keyboardNavigation: false,
-      largeCursor: false,
-      highContrast: false
+      largeCursor: false
     },
     data: {
       autoBackup: true,

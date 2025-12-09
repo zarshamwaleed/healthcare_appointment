@@ -38,16 +38,12 @@ const Card = ({
     }
 
     if (selected) {
-      return settings.highContrast 
-        ? 'bg-black text-white border-2 border-white' 
-        : 'bg-primary-50 border-primary-300 text-primary-900';
+      return 'bg-primary-50 border-primary-300 text-primary-900';
     }
 
     switch(variant) {
       case 'primary':
-        return settings.highContrast 
-          ? 'bg-black text-white border-2 border-white' 
-          : 'bg-gradient-to-br from-primary-50 to-blue-50 border-primary-200 text-primary-900';
+        return 'bg-gradient-to-br from-primary-50 to-blue-50 border-primary-200 text-primary-900';
       
       case 'secondary':
         return 'bg-gray-50 border-gray-200 text-gray-900';
