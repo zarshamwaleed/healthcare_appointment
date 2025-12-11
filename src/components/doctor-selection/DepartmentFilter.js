@@ -199,18 +199,18 @@ const DepartmentFilter = ({
   };
 
   const renderCompactView = () => (
-    <div className="bg-white rounded-xl border border-gray-200 p-4">
+    <div className="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-4">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg"
+        className="w-full flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-lg"
       >
         <div className="flex items-center gap-3">
           <div className="p-2 bg-primary-100 rounded-lg">
             <Filter size={20} className="text-primary-600" />
           </div>
           <div className="text-left">
-            <h3 className="font-bold">Filters</h3>
-            <p className="text-sm text-gray-600">
+            <h3 className="font-bold text-gray-900 dark:text-white">Filters</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-300">
               {getActiveFilterCount()} active filter{getActiveFilterCount() !== 1 ? 's' : ''}
             </p>
           </div>
@@ -234,7 +234,7 @@ const DepartmentFilter = ({
       </button>
 
       {isOpen && (
-        <div className="mt-4 pt-4 border-t border-gray-200">
+        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-slate-700">
           {renderFilterContent()}
         </div>
       )}
@@ -246,7 +246,7 @@ const DepartmentFilter = ({
       {/* Recommended Departments */}
       {symptoms.length > 0 && (
         <div>
-          <h4 className="font-semibold mb-3 flex items-center gap-2">
+          <h4 className="font-semibold mb-3 flex items-center gap-2 text-gray-900 dark:text-white">
             <Star size={18} className="text-amber-500 fill-amber-500" />
             Recommended for Your Symptoms
           </h4>
@@ -257,15 +257,17 @@ const DepartmentFilter = ({
                 <button
                   key={dept.id}
                   onClick={() => handleSpecialtyChange(dept.id)}
-                  className={`flex items-center gap-2 px-4 py-3 rounded-xl transition-all ${
+                  className={`flex items-center gap-2 px-4 py-3 rounded-xl transition-all text-left w-full ${
                     filters.specialty === dept.id
-                      ? 'bg-primary-600 text-white shadow-md'
-                      : `${dept.color} hover:opacity-80 hover:shadow-sm`
+                      ? 'bg-primary-600 text-white shadow-md border-primary-600'
+                      : `border border-transparent ${dept.color} hover:opacity-80 hover:shadow-sm dark:bg-transparent dark:text-white`
                   }`}
                 >
-                  {dept.icon}
-                  <span className="text-sm font-medium">{dept.name}</span>
-                  {filters.specialty === dept.id && <Check size={16} className="ml-auto" />}
+                  <div className={`p-2 rounded-lg flex-shrink-0 ${dept.color} dark:bg-slate-700 dark:text-white`}>
+                    {dept.icon}
+                  </div>
+                  <span className="text-sm font-medium dark:text-white">{dept.name}</span>
+                  {filters.specialty === dept.id && <Check size={16} className="ml-auto text-white" />}
                 </button>
               ))}
           </div>
@@ -274,22 +276,22 @@ const DepartmentFilter = ({
 
       {/* All Departments */}
       <div>
-        <h4 className="font-semibold mb-3 text-gray-900">Medical Specialties</h4>
+        <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">Medical Specialties</h4>
         <div className="grid grid-cols-2 gap-3">
           {departments.map(dept => (
             <button
               key={dept.id}
               onClick={() => handleSpecialtyChange(dept.id)}
-              className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all text-left ${
+              className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all text-left w-full ${
                 filters.specialty === dept.id
-                  ? 'border-primary-500 bg-primary-50 shadow-md'
-                  : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50'
+                  ? 'border-primary-500 bg-primary-50 shadow-md dark:bg-primary-600 dark:text-white'
+                  : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50 dark:border-slate-700 dark:hover:bg-slate-700 dark:text-white'
               }`}
             >
-              <div className={`p-2 rounded-lg flex-shrink-0 ${dept.color}`}>
+              <div className={`p-2 rounded-lg flex-shrink-0 ${dept.color} dark:bg-slate-700 dark:text-white`}>
                 {dept.icon}
               </div>
-              <span className="text-xs font-medium flex-1 truncate">{dept.name}</span>
+              <span className="text-xs font-medium flex-1 truncate dark:text-white">{dept.name}</span>
               {filters.specialty === dept.id && (
                 <Check size={16} className="text-primary-600 flex-shrink-0" />
               )}
@@ -300,20 +302,20 @@ const DepartmentFilter = ({
 
       {/* Availability */}
       <div>
-        <h4 className="font-semibold mb-3 text-gray-900">Availability</h4>
+        <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">Availability</h4>
         <div className="grid grid-cols-2 gap-3">
           {availabilityOptions.map(option => (
             <button
               key={option.id}
               onClick={() => handleAvailabilityChange(option.id)}
-              className={`flex items-center gap-2 p-3.5 rounded-xl border-2 transition-all ${
+              className={`flex items-center gap-2 p-3.5 rounded-xl border-2 transition-all w-full ${
                 filters.availability === option.id
-                  ? 'border-primary-500 bg-primary-50 shadow-md'
-                  : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50'
+                  ? 'border-primary-500 bg-primary-50 shadow-md dark:bg-primary-600 dark:text-white'
+                  : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50 dark:border-slate-700 dark:hover:bg-slate-700 dark:text-white'
               }`}
             >
-              {option.icon}
-              <span className="text-sm font-medium">{option.label}</span>
+              <div className="mr-2 text-gray-600 dark:text-gray-300">{option.icon}</div>
+              <span className="text-sm font-medium dark:text-white">{option.label}</span>
               {filters.availability === option.id && <Check size={16} className="ml-auto text-primary-600" />}
             </button>
           ))}
@@ -325,23 +327,23 @@ const DepartmentFilter = ({
         <div>
           <h4 className="font-semibold mb-3 text-gray-900">Minimum Rating</h4>
           <div className="space-y-2">
-            {ratingOptions.map(option => (
-              <button
-                key={option.value}
-                onClick={() => handleRatingChange(option.value)}
-                className={`w-full text-left px-4 py-3 rounded-lg border transition-all ${
-                  filters.rating === option.value
-                    ? 'bg-primary-100 text-primary-700 border-primary-300 font-medium'
-                    : 'border-gray-200 hover:bg-gray-50 hover:border-gray-300'
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-sm">{option.label}</span>
-                  {filters.rating === option.value && <Check size={16} />}
-                </div>
-              </button>
-            ))}
-          </div>
+              {ratingOptions.map(option => (
+                <button
+                  key={option.value}
+                  onClick={() => handleRatingChange(option.value)}
+                  className={`w-full text-left px-4 py-3 rounded-lg border transition-all ${
+                    filters.rating === option.value
+                      ? 'bg-primary-100 text-primary-700 border-primary-300 font-medium dark:bg-primary-600 dark:text-white'
+                      : 'border-gray-200 hover:bg-gray-50 hover:border-gray-300 dark:border-slate-700 dark:hover:bg-slate-700 dark:text-white'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm dark:text-white">{option.label}</span>
+                    {filters.rating === option.value && <Check size={16} />}
+                  </div>
+                </button>
+              ))}
+            </div>
         </div>
 
         <div>
@@ -353,12 +355,12 @@ const DepartmentFilter = ({
                 onClick={() => handleExperienceChange(option.value)}
                 className={`w-full text-left px-4 py-3 rounded-lg border transition-all ${
                   filters.experience === option.value
-                    ? 'bg-primary-100 text-primary-700 border-primary-300 font-medium'
-                    : 'border-gray-200 hover:bg-gray-50 hover:border-gray-300'
+                    ? 'bg-primary-100 text-primary-700 border-primary-300 font-medium dark:bg-primary-600 dark:text-white'
+                    : 'border-gray-200 hover:bg-gray-50 hover:border-gray-300 dark:border-slate-700 dark:hover:bg-slate-700 dark:text-white'
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-sm">{option.label}</span>
+                  <span className="text-sm dark:text-white">{option.label}</span>
                   {filters.experience === option.value && <Check size={16} />}
                 </div>
               </button>
@@ -375,13 +377,13 @@ const DepartmentFilter = ({
             <button
               key={option.value}
               onClick={() => handleDistanceChange(option.value)}
-              className={`px-4 py-3 rounded-lg border-2 transition-all ${
+              className={`px-4 py-3 rounded-lg border-2 transition-all w-full ${
                 filters.distance === option.value
-                  ? 'border-primary-500 bg-primary-50 shadow-md font-medium'
-                  : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50'
+                  ? 'border-primary-500 bg-primary-50 shadow-md font-medium dark:bg-primary-600 dark:text-white'
+                  : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50 dark:border-slate-700 dark:hover:bg-slate-700 dark:text-white'
               }`}
             >
-              <span className="text-sm font-medium">{option.label}</span>
+              <span className="text-sm font-medium dark:text-white">{option.label}</span>
               {filters.distance === option.value && <Check size={16} className="ml-auto text-primary-600" />}
             </button>
           ))}
@@ -394,34 +396,34 @@ const DepartmentFilter = ({
         <div className="grid grid-cols-1 gap-3">
           <button
             onClick={handleTelemedicineChange}
-            className={`flex items-center justify-between p-4 rounded-xl border-2 transition-all ${
+            className={`flex items-center justify-between p-4 rounded-xl border-2 transition-all w-full ${
               filters.telemedicine
-                ? 'border-green-500 bg-green-50 shadow-md'
-                : 'border-gray-200 hover:border-green-300 hover:bg-gray-50'
+                ? 'border-green-500 bg-green-50 shadow-md dark:bg-green-900/20 dark:text-white'
+                : 'border-gray-200 hover:border-green-300 hover:bg-gray-50 dark:border-slate-700 dark:hover:bg-slate-700 dark:text-white'
             }`}
           >
             <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-lg ${filters.telemedicine ? 'bg-green-100' : 'bg-gray-100'}`}>
+              <div className={`p-2 rounded-lg ${filters.telemedicine ? 'bg-green-100' : 'bg-gray-100'} dark:bg-slate-700 dark:text-white`}>
                 <Users size={18} className={filters.telemedicine ? 'text-green-600' : 'text-gray-600'} />
               </div>
-              <span className="font-medium">Telemedicine Available</span>
+              <span className="font-medium dark:text-white">Telemedicine Available</span>
             </div>
             {filters.telemedicine && <Check size={20} className="text-green-600" />}
           </button>
 
           <button
             onClick={handleElderlyFriendlyChange}
-            className={`flex items-center justify-between p-4 rounded-xl border-2 transition-all ${
+            className={`flex items-center justify-between p-4 rounded-xl border-2 transition-all w-full ${
               filters.elderlyFriendly
-                ? 'border-blue-500 bg-blue-50 shadow-md'
-                : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
+                ? 'border-blue-500 bg-blue-50 shadow-md dark:bg-blue-900/20 dark:text-white'
+                : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50 dark:border-slate-700 dark:hover:bg-slate-700 dark:text-white'
             }`}
           >
             <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-lg ${filters.elderlyFriendly ? 'bg-blue-100' : 'bg-gray-100'}`}>
+              <div className={`p-2 rounded-lg ${filters.elderlyFriendly ? 'bg-blue-100' : 'bg-gray-100'} dark:bg-slate-700 dark:text-white`}>
                 <Star size={18} className={filters.elderlyFriendly ? 'text-blue-600' : 'text-gray-600'} />
               </div>
-              <span className="font-medium">Elderly Friendly</span>
+              <span className="font-medium dark:text-white">Elderly Friendly</span>
             </div>
             {filters.elderlyFriendly && <Check size={20} className="text-blue-600" />}
           </button>
@@ -429,7 +431,7 @@ const DepartmentFilter = ({
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-3 pt-4 border-t border-gray-200">
+      <div className="flex gap-3 pt-4 border-t border-gray-200 dark:border-slate-700">
         <button
           onClick={() => setIsOpen(false)}
           className="flex-1 px-4 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
@@ -441,22 +443,22 @@ const DepartmentFilter = ({
   );
 
   const renderDetailedView = () => (
-    <div className="bg-white rounded-xl border border-gray-200 p-6">
+    <div className="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-6">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-primary-100 rounded-lg">
-            <Filter size={24} className="text-primary-600" />
+          <div className="p-2 bg-primary-100 dark:bg-slate-700 rounded-lg">
+            <Filter size={24} className="text-primary-600 dark:text-primary-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold">Filter Doctors</h2>
-            <p className="text-sm text-gray-600">Refine your search by specialty, availability, and more</p>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Filter Doctors</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Refine your search by specialty, availability, and more</p>
           </div>
         </div>
         
         {getActiveFilterCount() > 0 && (
           <button
             onClick={clearFilters}
-            className="text-sm text-red-600 hover:text-red-800 font-medium"
+            className="text-sm text-red-600 dark:text-red-400 hover:text-red-800 font-medium"
           >
             Clear All ({getActiveFilterCount()})
           </button>

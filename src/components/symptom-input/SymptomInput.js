@@ -148,7 +148,7 @@ const SymptomInput = ({
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder={placeholder}
-                className={`w-full pl-4 pr-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
+                className={`w-full pl-4 pr-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white text-gray-900 dark:bg-slate-800 dark:text-white dark:placeholder-gray-400 dark:border-slate-700 ${
                   settings.mode === 'elderly' ? 'text-lg py-4' : ''
                 }`}
                 aria-label="Enter symptom"
@@ -167,19 +167,19 @@ const SymptomInput = ({
 
             {/* Suggestions Dropdown */}
             {showDropdown && suggestions.length > 0 && (
-              <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+              <div className="absolute z-10 w-full mt-1 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-700 rounded-lg shadow-lg max-h-60 overflow-y-auto">
                 {suggestions.map((symptom, index) => (
                   <button
                     key={index}
                     onClick={() => handleAddSymptom(symptom.name)}
-                    className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 text-left border-b last:border-b-0"
+                    className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 dark:hover:bg-slate-700 text-left border-b last:border-b-0"
                   >
-                    <div className="text-gray-500">
+                    <div className="text-gray-500 dark:text-gray-300">
                       {symptom.icon}
                     </div>
                     <div className="flex-1">
-                      <div className="font-medium">{symptom.name}</div>
-                      <div className="text-sm text-gray-500">{symptom.category}</div>
+                      <div className="font-medium dark:text-white">{symptom.name}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">{symptom.category}</div>
                     </div>
                     <Plus size={16} className="text-primary-600" />
                   </button>
@@ -201,8 +201,8 @@ const SymptomInput = ({
                   onClick={() => setSeverity(option.id)}
                   className={`px-4 py-2 rounded-lg border transition-all ${
                     severity === option.id
-                      ? 'border-primary-500 bg-primary-50 font-medium'
-                      : 'border-gray-300 hover:bg-gray-50'
+                      ? 'border-primary-500 bg-primary-50 font-medium dark:bg-primary-600 dark:text-white'
+                      : 'border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 dark:text-white'
                   } ${option.color}`}
                 >
                   {option.label}
@@ -222,7 +222,7 @@ const SymptomInput = ({
               value={duration}
               onChange={(e) => setDuration(e.target.value)}
               placeholder="e.g., 2 days, 1 week, 3 hours"
-              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
+              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white dark:bg-slate-800 dark:text-white dark:placeholder-gray-400 dark:border-slate-700 ${
                 settings.mode === 'elderly' ? 'text-lg py-4' : ''
               }`}
             />
@@ -247,17 +247,17 @@ const SymptomInput = ({
             {symptoms.map((symptom, index) => (
               <div
                 key={symptom.id}
-                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+                className="flex items-center justify-between p-4 bg-gray-50 dark:bg-slate-800 rounded-lg"
               >
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-1">
-                    <span className="font-medium">{symptom.name}</span>
-                    <span className={`px-2 py-1 rounded text-xs ${severityOptions.find(s => s.id === symptom.severity)?.color}`}>
+                    <span className="font-medium dark:text-white">{symptom.name}</span>
+                    <span className={`px-2 py-1 rounded text-xs ${severityOptions.find(s => s.id === symptom.severity)?.color} dark:bg-opacity-20`}>
                       {getSeverityIcon(symptom.severity)} {symptom.severity.charAt(0).toUpperCase() + symptom.severity.slice(1)}
                     </span>
                   </div>
                   {symptom.duration && (
-                    <div className="text-sm text-gray-600 flex items-center gap-1">
+                    <div className="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-1">
                       <Clock size={14} />
                       Duration: {symptom.duration}
                     </div>
@@ -266,7 +266,7 @@ const SymptomInput = ({
                 
                 <button
                   onClick={() => handleRemoveSymptom(index)}
-                  className="p-2 text-gray-500 hover:text-red-600"
+                  className="p-2 text-gray-500 dark:text-gray-300 hover:text-red-600"
                   aria-label={`Remove ${symptom.name}`}
                 >
                   <X size={20} />
@@ -301,17 +301,17 @@ const SymptomInput = ({
                 key={index}
                 onClick={() => handleAddSymptom(symptom.name)}
                 disabled={symptoms.length >= maxSymptoms}
-                className="flex flex-col items-center p-4 border border-gray-300 rounded-xl hover:bg-gray-50 hover:border-primary-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group flex flex-col items-center p-4 border border-gray-300 rounded-xl hover:bg-white dark:hover:bg-white hover:text-black dark:border-slate-700 dark:bg-transparent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <div className="text-gray-600 mb-2">
+                <div className="text-gray-600 dark:text-white group-hover:text-black transition-colors mb-2">
                   {symptom.icon}
                 </div>
-                <span className="font-medium text-sm text-center">{symptom.name}</span>
+                <span className="font-medium text-sm text-center text-gray-900 dark:text-white group-hover:text-black">{symptom.name}</span>
               </button>
             ))}
           </div>
           
-          <div className="mt-4 text-center text-sm text-gray-500">
+          <div className="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
             {symptoms.length >= maxSymptoms 
               ? `Maximum ${maxSymptoms} symptoms reached`
               : `${maxSymptoms - symptoms.length} more symptoms can be added`}

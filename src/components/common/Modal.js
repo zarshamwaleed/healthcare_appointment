@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { X, AlertTriangle, CheckCircle, Info, HelpCircle } from 'lucide-react';
 import { useAccessibility } from '../../context/AccessibilityContext';
+import { useTheme } from '../../context/ThemeContext';
 import Button from './Button';
 
 const Modal = ({
@@ -22,6 +23,7 @@ const Modal = ({
   focusFirstElement = true
 }) => {
   const { settings } = useAccessibility();
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleEscape = (e) => {
@@ -85,15 +87,15 @@ const Modal = ({
   const getTypeClasses = () => {
     switch(type) {
       case 'success':
-        return 'border-green-200';
+        return 'border-green-200 dark:border-green-700';
       case 'warning':
-        return 'border-amber-200';
+        return 'border-amber-200 dark:border-amber-700';
       case 'danger':
-        return 'border-red-200';
+        return 'border-red-200 dark:border-red-700';
       case 'info':
-        return 'border-blue-200';
+        return 'border-blue-200 dark:border-blue-700';
       default:
-        return 'border-gray-200';
+        return 'border-gray-200 dark:border-slate-700';
     }
   };
 
@@ -102,13 +104,13 @@ const Modal = ({
     
     switch(type) {
       case 'success':
-        return <CheckCircle className="w-6 h-6 text-green-600" />;
+        return <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />;
       case 'warning':
-        return <AlertTriangle className="w-6 h-6 text-amber-600" />;
+        return <AlertTriangle className="w-6 h-6 text-amber-600 dark:text-amber-400" />;
       case 'danger':
-        return <AlertTriangle className="w-6 h-6 text-red-600" />;
+        return <AlertTriangle className="w-6 h-6 text-red-600 dark:text-red-400" />;
       case 'info':
-        return <Info className="w-6 h-6 text-blue-600" />;
+        return <Info className="w-6 h-6 text-blue-600 dark:text-blue-400" />;
       default:
         return null;
     }
@@ -117,15 +119,15 @@ const Modal = ({
   const getTypeColors = () => {
     switch(type) {
       case 'success':
-        return { bg: 'bg-green-50', text: 'text-green-800' };
+        return { bg: 'bg-green-50 dark:bg-green-900', text: 'text-green-800 dark:text-green-100' };
       case 'warning':
-        return { bg: 'bg-amber-50', text: 'text-amber-800' };
+        return { bg: 'bg-amber-50 dark:bg-amber-900', text: 'text-amber-800 dark:text-amber-100' };
       case 'danger':
-        return { bg: 'bg-red-50', text: 'text-red-800' };
+        return { bg: 'bg-red-50 dark:bg-red-900', text: 'text-red-800 dark:text-red-100' };
       case 'info':
-        return { bg: 'bg-blue-50', text: 'text-blue-800' };
+        return { bg: 'bg-blue-50 dark:bg-blue-900', text: 'text-blue-800 dark:text-blue-100' };
       default:
-        return { bg: 'bg-white', text: 'text-gray-900' };
+        return { bg: 'bg-white dark:bg-slate-800', text: 'text-gray-900 dark:text-gray-100' };
     }
   };
 
@@ -154,7 +156,7 @@ const Modal = ({
       >
         <div 
           className={`
-            modal-content bg-white rounded-2xl shadow-2xl 
+            modal-content bg-white dark:bg-slate-800 rounded-2xl shadow-2xl 
             ${getSizeClasses()} 
             ${getTypeClasses()} 
             ${className}
@@ -184,7 +186,7 @@ const Modal = ({
                 {showCloseButton && (
                   <button
                     onClick={onClose}
-                    className="p-2 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-100 transition-colors"
+                    className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
                     aria-label="Close modal"
                   >
                     <X size={settings.mode === 'elderly' ? 24 : 20} />

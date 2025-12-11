@@ -23,38 +23,38 @@ const Button = ({
 
   const getVariantClasses = () => {
     if (disabled) {
-      return 'bg-gray-300 text-gray-500 cursor-not-allowed border-gray-300';
+      return 'bg-gray-300 dark:bg-slate-600 text-gray-500 dark:text-gray-400 cursor-not-allowed border-gray-300 dark:border-slate-600';
     }
 
     if (success) {
-      return 'bg-green-600 hover:bg-green-700 active:bg-green-800 text-white border-green-700 focus:ring-green-500';
+      return 'bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600 active:bg-green-800 text-white border-green-700 focus:ring-green-500 dark:focus:ring-green-400';
     }
 
     if (danger) {
-      return 'bg-red-600 hover:bg-red-700 active:bg-red-800 text-white border-red-700 focus:ring-red-500';
+      return 'bg-red-600 dark:bg-red-700 hover:bg-red-700 dark:hover:bg-red-600 active:bg-red-800 text-white border-red-700 focus:ring-red-500 dark:focus:ring-red-400';
     }
 
     switch(variant) {
       case 'primary':
-        return 'bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white border-primary-700 focus:ring-primary-500';
+        return 'bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-500 active:bg-blue-800 text-white border-blue-700 dark:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-400';
       
       case 'secondary':
-        return 'bg-white text-primary-700 border-2 border-primary-600 hover:bg-primary-50 active:bg-primary-100 focus:ring-primary-500';
+        return 'bg-white dark:bg-slate-700 text-blue-700 dark:text-blue-300 border-2 border-blue-600 dark:border-blue-400 hover:bg-blue-50 dark:hover:bg-slate-600 active:bg-blue-100 dark:active:bg-slate-500 focus:ring-blue-500 dark:focus:ring-blue-400';
       
       case 'outline':
-        return 'bg-transparent text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400 focus:ring-gray-500';
+        return 'bg-transparent dark:bg-transparent text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-700 hover:border-gray-400 dark:hover:border-slate-500 focus:ring-gray-500 dark:focus:ring-blue-400';
       
       case 'ghost':
-        return 'bg-transparent text-gray-700 hover:bg-gray-100 focus:ring-gray-500';
+        return 'bg-transparent dark:bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 focus:ring-gray-500 dark:focus:ring-blue-400';
       
       case 'text':
-        return 'bg-transparent text-primary-600 hover:text-primary-800 hover:underline focus:ring-primary-500';
+        return 'bg-transparent dark:bg-transparent text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline focus:ring-blue-500 dark:focus:ring-blue-400';
       
       case 'elderly':
-        return 'bg-blue-600 hover:bg-blue-700 text-white text-xl font-bold border-4 border-blue-400 focus:ring-4 focus:ring-blue-300';
+        return 'bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-500 text-white text-xl font-bold border-4 border-blue-400 dark:border-blue-500 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-400';
       
       default:
-        return 'bg-primary-600 hover:bg-primary-700 text-white';
+        return 'bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-500 text-white';
     }
   };
 

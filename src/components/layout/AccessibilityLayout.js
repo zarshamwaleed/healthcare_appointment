@@ -236,7 +236,7 @@ const AccessibilityLayout = ({ children }) => {
                   className={`p-2 rounded-lg flex items-center gap-2 transition-all ${
                     feature.active
                       ? 'bg-primary-100 text-primary-700 border border-primary-300'
-                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 dark:bg-slate-800 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700'
                   }`}
                   aria-label={feature.description}
                   title={feature.description}

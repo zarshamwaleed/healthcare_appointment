@@ -296,7 +296,7 @@ const DoctorSelectionPage = () => {
   }
 
   return (
-    <div className="w-full px-6 py-8 bg-gray-50">
+    <div className="w-full px-6 py-8 bg-gray-50 dark:bg-slate-900 min-h-screen transition-colors">
       {/* Main Content */}
       <div>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -314,17 +314,17 @@ const DoctorSelectionPage = () => {
           {/* Main Content - Doctor List */}
           <div className="lg:col-span-3">
             {/* Search & Sort Bar */}
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 mb-6">
+            <div className="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm p-4 mb-6">
               <div className="flex flex-col md:flex-row gap-4">
                 {/* Search Input */}
                 <div className="flex-1 relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" size={20} />
                   <input
                     type="text"
                     placeholder="Search by name, specialty, or hospital..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className={`w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                    className={`w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent ${
                       settings.mode === 'elderly' ? 'text-lg' : ''
                     }`}
                   />
@@ -334,7 +334,7 @@ const DoctorSelectionPage = () => {
                 <div className="flex gap-2">
                   <button
                     onClick={() => setShowMobileFilters(!showMobileFilters)}
-                    className="lg:hidden flex items-center gap-2 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="lg:hidden flex items-center gap-2 px-4 py-3 border border-gray-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
                   >
                     <Filter size={20} />
                     Filters
@@ -348,7 +348,7 @@ const DoctorSelectionPage = () => {
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className={`px-2 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-xs font-normal ${
+                    className={`px-2 py-1.5 border border-gray-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 bg-white dark:bg-slate-700 dark:text-white text-xs font-normal ${
                       settings.mode === 'elderly' ? 'text-sm' : 'text-xs'
                     }`}
                     style={{ fontSize: settings.mode === 'elderly' ? '14px' : '11px' }}
@@ -406,8 +406,8 @@ const DoctorSelectionPage = () => {
 
             {/* Results Summary */}
             <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <p className="text-gray-700">
-                Showing <span className="font-bold text-gray-900">{filteredDoctors.length}</span> doctor{filteredDoctors.length !== 1 ? 's' : ''}
+              <p className="text-gray-700 dark:text-gray-300">
+                Showing <span className="font-bold text-gray-900 dark:text-white">{filteredDoctors.length}</span> doctor{filteredDoctors.length !== 1 ? 's' : ''}
               </p>
               
               {selectedDoctor && (
@@ -454,9 +454,9 @@ const DoctorSelectionPage = () => {
             {/* Empty State */}
             {filteredDoctors.length === 0 && (
               <Card className="p-12 text-center bg-white">
-                <Stethoscope size={48} className="mx-auto text-gray-300 mb-4" />
-                <h3 className="text-xl font-bold text-gray-900 mb-2">No doctors found</h3>
-                <p className="text-gray-600 mb-6">
+                <Stethoscope size={48} className="mx-auto text-gray-300 dark:text-gray-600 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">No doctors found</h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-6">
                   Try adjusting your filters or search terms
                 </p>
                 <PrimaryButton onClick={clearFilters}>
@@ -467,54 +467,54 @@ const DoctorSelectionPage = () => {
 
             {/* Tips Section */}
             {filteredDoctors.length > 0 && (
-              <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
-                <h3 className="text-xl font-bold mb-4 text-blue-900">Tips for Choosing a Doctor</h3>
+              <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-700 rounded-xl border border-blue-200 dark:border-slate-700">
+                <h3 className="text-xl font-bold mb-4 text-blue-900 dark:text-white">Tips for Choosing a Doctor</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-4 bg-white rounded-lg shadow-sm">
+                  <div className="p-4 bg-white dark:bg-slate-800 rounded-lg shadow-sm">
                     <div className="flex items-center gap-2 mb-2">
                       <Star size={18} className="text-amber-500" />
-                      <h4 className="font-semibold text-gray-900">Check Ratings</h4>
+                      <h4 className="font-semibold text-gray-900 dark:text-white">Check Ratings</h4>
                     </div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                       Look for doctors with 4+ stars and positive patient reviews
                     </p>
                   </div>
                   
-                  <div className="p-4 bg-white rounded-lg shadow-sm">
+                  <div className="p-4 bg-white dark:bg-slate-800 rounded-lg shadow-sm">
                     <div className="flex items-center gap-2 mb-2">
                       <Clock size={18} className="text-green-500" />
-                      <h4 className="font-semibold text-gray-900">Availability</h4>
+                      <h4 className="font-semibold text-gray-900 dark:text-white">Availability</h4>
                     </div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                       Consider wait times and next available slots
                     </p>
                   </div>
                   
-                  <div className="p-4 bg-white rounded-lg shadow-sm">
+                  <div className="p-4 bg-white dark:bg-slate-800 rounded-lg shadow-sm">
                     <div className="flex items-center gap-2 mb-2">
                       <MapPin size={18} className="text-red-500" />
-                      <h4 className="font-semibold text-gray-900">Location</h4>
+                      <h4 className="font-semibold text-gray-900 dark:text-white">Location</h4>
                     </div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                       Choose doctors closer to you for convenience
                     </p>
                   </div>
                   
-                  <div className="p-4 bg-white rounded-lg shadow-sm">
+                  <div className="p-4 bg-white dark:bg-slate-800 rounded-lg shadow-sm">
                     <div className="flex items-center gap-2 mb-2">
                       <Award size={18} className="text-purple-500" />
-                      <h4 className="font-semibold text-gray-900">Specialization</h4>
+                      <h4 className="font-semibold text-gray-900 dark:text-white">Specialization</h4>
                     </div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                       Match specialty with your health concerns
                     </p>
                   </div>
                 </div>
 
                 {settings.mode === 'elderly' && (
-                  <div className="mt-6 p-4 bg-blue-100 rounded-lg">
-                    <h4 className="font-semibold mb-2 text-blue-900">For Elderly Patients</h4>
-                    <ul className="text-sm text-blue-800 space-y-1">
+                  <div className="mt-6 p-4 bg-blue-100 dark:bg-slate-700 rounded-lg">
+                    <h4 className="font-semibold mb-2 text-blue-900 dark:text-white">For Elderly Patients</h4>
+                    <ul className="text-sm text-blue-800 dark:text-gray-200 space-y-1">
                       <li>• Look for "Elderly Friendly" doctors</li>
                       <li>• Consider telemedicine for routine checkups</li>
                       <li>• Choose doctors with shorter wait times</li>

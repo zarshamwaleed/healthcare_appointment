@@ -81,9 +81,9 @@ const HomePage = () => {
   const handleQuickStart = (mode) => { setUserMode(mode); navigate('/symptoms'); };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900 transition-colors duration-200">
       {/* Hero Section - Clean Medical Theme */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-white dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
         {/* Subtle Background Circles */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-40"></div>
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-100 rounded-full blur-3xl opacity-30"></div>
@@ -96,22 +96,22 @@ const HomePage = () => {
             <div className="text-left">
               {/* Badge */}
               <div className="inline-flex items-center justify-center mb-6">
-                <div className="px-5 py-2 rounded-full bg-blue-100 border border-blue-200">
-                  <span className="text-sm font-semibold text-blue-700">
+                <div className="px-5 py-2 rounded-full bg-blue-100 dark:bg-blue-900 border border-blue-200 dark:border-blue-700">
+                  <span className="text-sm font-semibold text-blue-700 dark:text-blue-300">
                     We Are Here For Your Care
                   </span>
                 </div>
               </div>
               
-              <h1 className={`font-bold mb-6 leading-tight text-gray-900 ${
+              <h1 className={`font-bold mb-6 leading-tight text-gray-900 dark:text-white ${
                 settings.mode === 'elderly' ? 'text-5xl md:text-6xl' : 'text-4xl md:text-5xl'
               }`}>
-                Best Care <span className="text-gray-700">&</span>
+                Best Care <span className="text-gray-700 dark:text-gray-300">&</span>
                 <br />
-                <span className="text-blue-600">Better Doctor</span>
+                <span className="text-blue-600 dark:text-blue-400">Better Doctor</span>
               </h1>
               
-              <p className={`text-gray-600 mb-8 leading-relaxed max-w-lg ${
+              <p className={`text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-lg ${
                 settings.mode === 'elderly' ? 'text-xl' : 'text-lg'
               }`}>
                 An intelligent, inclusive platform designed for everyone. Book your healthcare 
@@ -191,13 +191,13 @@ const HomePage = () => {
       </section>
 
       {/* Quick Start Section */}
-      <section className="relative py-20 bg-white">
+      <section className="relative py-20 bg-white dark:bg-slate-800 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className={`font-bold mb-4 text-gray-900 ${settings.mode === 'elderly' ? 'text-4xl' : 'text-3xl md:text-4xl'}`}>
+            <h2 className={`font-bold mb-4 text-gray-900 dark:text-white ${settings.mode === 'elderly' ? 'text-4xl' : 'text-3xl md:text-4xl'}`}>
               Choose Your Experience
             </h2>
-            <p className={`text-gray-600 max-w-2xl mx-auto ${settings.mode === 'elderly' ? 'text-xl' : 'text-lg'}`}>
+            <p className={`text-gray-600 dark:text-gray-300 max-w-2xl mx-auto ${settings.mode === 'elderly' ? 'text-xl' : 'text-lg'}`}>
               Select the interface that best suits your needs and preferences
             </p>
           </div>
@@ -208,10 +208,10 @@ const HomePage = () => {
                 key={user.type}
                 onClick={() => handleQuickStart(user.type)}
                 className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl 
-                         transform hover:-translate-y-2 transition-all duration-300 bg-white border-2 border-gray-100"
+                         transform hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-slate-800 border-2 border-gray-100 dark:border-slate-700"
               >
                 {/* Gradient Background on Hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${user.gradient} opacity-0 
+                <div className={`absolute inset-0 bg-gradient-to-br ${user.gradient} opacity-0 dark:opacity-20
                               group-hover:opacity-100 transition-opacity duration-300`}></div>
                 
                 {/* Content */}
@@ -222,20 +222,20 @@ const HomePage = () => {
                                   flex items-center justify-center`}>
                       <div className="w-8 h-8 bg-white/30 rounded-lg"></div>
                     </div>
-                    <h3 className={`font-bold mb-3 text-gray-900 group-hover:text-white transition-colors 
+                    <h3 className={`font-bold mb-3 text-gray-900 dark:text-white group-hover:text-white transition-colors 
                                   ${settings.mode === 'elderly' ? 'text-2xl' : 'text-xl'}`}>
                       {user.label}
                     </h3>
-                    <p className={`text-gray-600 group-hover:text-white/90 transition-colors leading-relaxed
+                    <p className={`text-gray-600 dark:text-gray-300 group-hover:text-white/90 transition-colors leading-relaxed
                                 ${settings.mode === 'elderly' ? 'text-lg' : 'text-sm'}`}>
                       {user.description}
                     </p>
                   </div>
                   <div className="mt-6 flex items-center justify-between">
-                    <span className="text-sm font-semibold text-gray-400 group-hover:text-white transition-colors">
+                    <span className="text-sm font-semibold text-gray-400 dark:text-gray-300 group-hover:text-white transition-colors">
                       Get Started
                     </span>
-                    <div className="text-gray-400 group-hover:text-white transition-colors">→</div>
+                    <div className="text-gray-400 dark:text-gray-300 group-hover:text-white transition-colors">→</div>
                   </div>
                 </div>
               </button>
@@ -245,17 +245,17 @@ const HomePage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="relative py-20 overflow-hidden bg-gradient-to-b from-blue-50 to-white">
+      <section className="relative py-20 overflow-hidden bg-gradient-to-b from-blue-50 to-white dark:from-slate-900 dark:to-slate-800 transition-colors">
         {/* Decorative Elements */}
         <div className="absolute top-10 left-10 w-64 h-64 bg-blue-100 rounded-full blur-3xl opacity-30"></div>
         <div className="absolute bottom-10 right-10 w-80 h-80 bg-indigo-100 rounded-full blur-3xl opacity-20"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className={`font-bold mb-4 text-gray-900 ${settings.mode === 'elderly' ? 'text-4xl' : 'text-3xl md:text-4xl'}`}>
+            <h2 className={`font-bold mb-4 text-gray-900 dark:text-white ${settings.mode === 'elderly' ? 'text-4xl' : 'text-3xl md:text-4xl'}`}>
               Intelligent Features
             </h2>
-            <p className={`text-gray-600 max-w-2xl mx-auto ${settings.mode === 'elderly' ? 'text-xl' : 'text-lg'}`}>
+            <p className={`text-gray-600 dark:text-gray-300 max-w-2xl mx-auto ${settings.mode === 'elderly' ? 'text-xl' : 'text-lg'}`}>
               Cutting-edge technology designed to make healthcare accessible to everyone
             </p>
           </div>
@@ -264,8 +264,8 @@ const HomePage = () => {
             {features.map((feature, index) => (
               <div 
                 key={index} 
-                className="group relative bg-white rounded-2xl shadow-md hover:shadow-xl 
-                         transition-all duration-300 overflow-hidden border border-gray-100 
+                className="group relative bg-white dark:bg-slate-800 rounded-2xl shadow-md hover:shadow-xl 
+                         transition-all duration-300 overflow-hidden border border-gray-100 dark:border-slate-700
                          hover:-translate-y-1"
               >
                 {/* Gradient Accent */}
@@ -279,10 +279,10 @@ const HomePage = () => {
                     {index + 1}
                   </div>
                   
-                  <h3 className={`font-bold mb-3 text-gray-900 ${settings.mode === 'elderly' ? 'text-2xl' : 'text-xl'}`}>
+                  <h3 className={`font-bold mb-3 text-gray-900 dark:text-white ${settings.mode === 'elderly' ? 'text-2xl' : 'text-xl'}`}>
                     {feature.title}
                   </h3>
-                  <p className={`text-gray-600 leading-relaxed ${settings.mode === 'elderly' ? 'text-lg' : 'text-base'}`}>
+                  <p className={`text-gray-600 dark:text-gray-300 leading-relaxed ${settings.mode === 'elderly' ? 'text-lg' : 'text-base'}`}>
                     {feature.desc}
                   </p>
                 </div>
@@ -293,12 +293,12 @@ const HomePage = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="relative py-20 bg-white">
+      <section className="relative py-20 bg-white dark:bg-slate-900">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className={`font-bold mb-4 text-center text-gray-900 ${settings.mode === 'elderly' ? 'text-4xl' : 'text-3xl md:text-4xl'}`}>
+          <h2 className={`font-bold mb-4 text-center text-gray-900 dark:text-white ${settings.mode === 'elderly' ? 'text-4xl' : 'text-3xl md:text-4xl'}`}>
             How It Works
           </h2>
-          <p className={`text-center text-gray-600 mb-16 max-w-2xl mx-auto ${settings.mode === 'elderly' ? 'text-xl' : 'text-lg'}`}>
+          <p className={`text-center text-gray-600 dark:text-gray-300 mb-16 max-w-2xl mx-auto ${settings.mode === 'elderly' ? 'text-xl' : 'text-lg'}`}>
             Four simple steps to book your healthcare appointment
           </p>
           
@@ -336,23 +336,23 @@ const HomePage = () => {
               <div key={index} className="relative">
                 {/* Connecting Arrow */}
                 {index < 3 && (
-                  <div className="hidden md:block absolute top-12 left-1/2 w-full h-0.5 bg-gray-200 z-0">
-                    <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-0 h-0 border-l-8 border-l-gray-200 border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
+                  <div className="hidden md:block absolute top-12 left-1/2 w-full h-0.5 bg-gray-200 dark:bg-slate-700 z-0">
+                    <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-0 h-0 border-l-8 border-l-gray-200 dark:border-l-slate-700 border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
                   </div>
                 )}
                 
                 <div className="relative text-center z-10">
                   {/* Step Number */}
-                  <div className={`inline-flex items-center justify-center w-20 h-20 mb-6 ${item.bgColor} rounded-2xl shadow-md`}>
+                  <div className={`inline-flex items-center justify-center w-20 h-20 mb-6 ${item.bgColor} dark:bg-slate-800 rounded-2xl shadow-md`}>
                     <span className={`font-bold bg-gradient-to-br ${item.color} bg-clip-text text-transparent ${settings.mode === 'elderly' ? 'text-3xl' : 'text-2xl'}`}>
                       {item.step}
                     </span>
                   </div>
                   
-                  <h3 className={`font-bold mb-3 text-gray-900 ${settings.mode === 'elderly' ? 'text-2xl' : 'text-xl'}`}>
+                  <h3 className={`font-bold mb-3 text-gray-900 dark:text-white ${settings.mode === 'elderly' ? 'text-2xl' : 'text-xl'}`}>
                     {item.title}
                   </h3>
-                  <p className={`text-gray-600 leading-relaxed ${settings.mode === 'elderly' ? 'text-lg' : 'text-base'}`}>
+                  <p className={`text-gray-600 dark:text-gray-300 leading-relaxed ${settings.mode === 'elderly' ? 'text-lg' : 'text-base'}`}>
                     {item.desc}
                   </p>
                 </div>

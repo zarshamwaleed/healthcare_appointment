@@ -99,21 +99,21 @@ const DoctorList = ({
 
     return (
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <Card className="text-center">
-          <div className="text-2xl font-bold text-primary-600">{stats.total}</div>
-          <div className="text-sm text-gray-600">Total Doctors</div>
+        <Card className="text-center bg-white dark:bg-slate-800">
+          <div className="text-2xl font-bold text-primary-600 dark:text-white">{stats.total}</div>
+          <div className="text-sm text-gray-600 dark:text-gray-300">Total Doctors</div>
         </Card>
-        <Card className="text-center">
-          <div className="text-2xl font-bold text-green-600">{stats.availableToday}</div>
-          <div className="text-sm text-gray-600">Available Today</div>
+        <Card className="text-center bg-white dark:bg-slate-800">
+          <div className="text-2xl font-bold text-green-600 dark:text-white">{stats.availableToday}</div>
+          <div className="text-sm text-gray-600 dark:text-gray-300">Available Today</div>
         </Card>
-        <Card className="text-center">
-          <div className="text-2xl font-bold text-blue-600">{stats.telemedicine}</div>
-          <div className="text-sm text-gray-600">Telemedicine</div>
+        <Card className="text-center bg-white dark:bg-slate-800">
+          <div className="text-2xl font-bold text-blue-600 dark:text-white">{stats.telemedicine}</div>
+          <div className="text-sm text-gray-600 dark:text-gray-300">Telemedicine</div>
         </Card>
-        <Card className="text-center">
-          <div className="text-2xl font-bold text-purple-600">{stats.elderlyFriendly}</div>
-          <div className="text-sm text-gray-600">Elderly Friendly</div>
+        <Card className="text-center bg-white dark:bg-slate-800">
+          <div className="text-2xl font-bold text-purple-600 dark:text-white">{stats.elderlyFriendly}</div>
+          <div className="text-sm text-gray-600 dark:text-gray-300">Elderly Friendly</div>
         </Card>
       </div>
     );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { useAccessibility } from '../../context/AccessibilityContext';
+import { useTheme } from '../../context/ThemeContext';
 
 import Footer from '../common/Footer';
 
@@ -12,7 +13,7 @@ const AccessibilityToolbar = () => {
   const { settings, updateSettings } = useAccessibility();
   
   return (
-    <div className="bg-gray-800 text-white py-2 px-4 text-sm">
+    <div className="bg-gray-800 dark:bg-slate-900 text-white py-2 px-4 text-sm">
       <div className="container mx-auto flex items-center justify-between">
         <span>Accessibility: {settings.mode} mode</span>
         <div className="flex gap-2">
@@ -24,13 +25,14 @@ const AccessibilityToolbar = () => {
 
 const MainLayout = ({ children }) => {
   const { settings } = useAccessibility();
+  const { theme } = useTheme();
   const location = useLocation();
   const [showPreferences, setShowPreferences] = useState(false);
 
   const isHomePage = location.pathname === '/';
 
   const getLayoutClasses = () => {
-    let classes = 'min-h-screen flex flex-col ';
+    let classes = 'min-h-screen flex flex-col bg-white dark:bg-slate-900 transition-colors duration-200 ';
 
     // Don't add background classes - let high contrast CSS handle it
     if (settings.mode === 'elderly') classes += 'text-lg ';
@@ -58,8 +60,8 @@ const MainLayout = ({ children }) => {
 
         {/* Quick Settings Panel */}
         {showPreferences && (
-          <div className="w-80 bg-gray-50 border-l p-4">
-            <h3 className="font-bold mb-4">Quick Settings</h3>
+          <div className="w-80 bg-gray-50 dark:bg-slate-800 border-l border-gray-200 dark:border-slate-700 p-4">
+            <h3 className="font-bold mb-4 dark:text-white">Quick Settings</h3>
             <PersonaSelector compact={true} />
           </div>
         )}

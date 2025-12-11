@@ -208,12 +208,12 @@ const UserPreferences = ({
         <h3 className="font-bold mb-4">Push Notifications</h3>
         <div className="space-y-3">
           {Object.entries(preferences.notifications).map(([key, value]) => (
-            <div key={key} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div key={key} className="flex items-center justify-between p-3 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
               <div>
-                <p className="font-medium">
+                <p className="font-medium text-gray-900 dark:text-white">
                   {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
                 </p>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-300">
                   {key.includes('Reminders') ? 'Receive reminders before appointments' :
                    key.includes('Tips') ? 'Get daily health tips and advice' :
                    key.includes('Alerts') ? 'Emergency and important alerts' :
@@ -223,7 +223,7 @@ const UserPreferences = ({
               <button
                 onClick={() => handlePreferenceChange('notifications', key, !value)}
                 className={`w-12 h-6 rounded-full transition-colors ${
-                  value ? 'bg-primary-600' : 'bg-gray-400'
+                  value ? 'bg-primary-600' : 'bg-gray-400 dark:bg-slate-600'
                 }`}
               >
                 <div className={`w-5 h-5 bg-white rounded-full transform transition-transform ${
@@ -238,15 +238,15 @@ const UserPreferences = ({
       <div>
         <h3 className="font-bold mb-4">Notification Schedule</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 bg-white border rounded-lg">
-            <p className="font-medium mb-2">Quiet Hours</p>
-            <p className="text-sm text-gray-600">10:00 PM - 7:00 AM</p>
-            <button className="text-primary-600 text-sm mt-2">Change</button>
+          <div className="p-4 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg">
+            <p className="font-medium mb-2 text-gray-900 dark:text-white">Quiet Hours</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">10:00 PM - 7:00 AM</p>
+            <button className="text-primary-600 dark:text-primary-400 text-sm mt-2">Change</button>
           </div>
-          <div className="p-4 bg-white border rounded-lg">
-            <p className="font-medium mb-2">Sound & Vibration</p>
-            <p className="text-sm text-gray-600">Custom sounds for different alerts</p>
-            <button className="text-primary-600 text-sm mt-2">Configure</button>
+          <div className="p-4 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg">
+            <p className="font-medium mb-2 text-gray-900 dark:text-white">Sound & Vibration</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Custom sounds for different alerts</p>
+            <button className="text-primary-600 dark:text-primary-400 text-sm mt-2">Configure</button>
           </div>
         </div>
       </div>
@@ -258,16 +258,16 @@ const UserPreferences = ({
       <div>
         <h3 className="font-bold mb-4">Data Sharing</h3>
         <div className="space-y-4">
-          <div className="p-4 bg-gray-50 rounded-lg">
+          <div className="p-4 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <Users size={20} />
-                <span className="font-medium">Share Health Data for Research</span>
+                <Users size={20} className="text-gray-700 dark:text-gray-300" />
+                <span className="font-medium text-gray-900 dark:text-white">Share Health Data for Research</span>
               </div>
               <button
                 onClick={() => handlePreferenceChange('privacy', 'shareHealthData', !preferences.privacy.shareHealthData)}
                 className={`w-12 h-6 rounded-full transition-colors ${
-                  preferences.privacy.shareHealthData ? 'bg-green-600' : 'bg-gray-400'
+                  preferences.privacy.shareHealthData ? 'bg-green-600' : 'bg-gray-400 dark:bg-slate-600'
                 }`}
               >
                 <div className={`w-5 h-5 bg-white rounded-full transform transition-transform ${
@@ -275,21 +275,21 @@ const UserPreferences = ({
                 }`} />
               </button>
             </div>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-gray-300">
               Share anonymized health data to help medical research. No personal information is shared.
             </p>
           </div>
 
-          <div className="p-4 bg-gray-50 rounded-lg">
+          <div className="p-4 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <EyeOff size={20} />
-                <span className="font-medium">Anonymous Usage Analytics</span>
+                <EyeOff size={20} className="text-gray-700 dark:text-gray-300" />
+                <span className="font-medium text-gray-900 dark:text-white">Anonymous Usage Analytics</span>
               </div>
               <button
                 onClick={() => handlePreferenceChange('privacy', 'anonymousUsage', !preferences.privacy.anonymousUsage)}
                 className={`w-12 h-6 rounded-full transition-colors ${
-                  preferences.privacy.anonymousUsage ? 'bg-blue-600' : 'bg-gray-400'
+                  preferences.privacy.anonymousUsage ? 'bg-blue-600' : 'bg-gray-400 dark:bg-slate-600'
                 }`}
               >
                 <div className={`w-5 h-5 bg-white rounded-full transform transition-transform ${
@@ -297,7 +297,7 @@ const UserPreferences = ({
                 }`} />
               </button>
             </div>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-gray-300">
               Help us improve the app by sharing anonymous usage data.
             </p>
           </div>
@@ -364,7 +364,7 @@ const UserPreferences = ({
           <select
             value={preferences.communication.preferredLanguage}
             onChange={(e) => handlePreferenceChange('communication', 'preferredLanguage', e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg"
+            className="w-full px-4 py-2 border rounded-lg bg-white dark:bg-slate-800 dark:text-white dark:border-slate-700"
           >
             {languages.map(lang => (
               <option key={lang} value={lang}>{lang}</option>
@@ -381,8 +381,8 @@ const UserPreferences = ({
                 onClick={() => handlePreferenceChange('communication', 'contactMethod', method)}
                 className={`px-4 py-2 rounded-lg border ${
                   preferences.communication.contactMethod === method
-                    ? 'border-primary-500 bg-primary-50 text-primary-700'
-                    : 'border-gray-300 hover:bg-gray-50'
+                    ? 'border-primary-500 bg-primary-50 text-primary-700 dark:bg-primary-600 dark:text-white'
+                    : 'border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 dark:text-white'
                 }`}
               >
                 {method.toUpperCase()}
@@ -396,7 +396,7 @@ const UserPreferences = ({
           <select
             value={preferences.communication.contactFrequency}
             onChange={(e) => handlePreferenceChange('communication', 'contactFrequency', e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg"
+            className="w-full px-4 py-2 border rounded-lg bg-white dark:bg-slate-800 dark:text-white dark:border-slate-700"
           >
             {frequencies.map(freq => (
               <option key={freq} value={freq}>
@@ -413,7 +413,7 @@ const UserPreferences = ({
               <p className="text-gray-500">No emergency contacts added</p>
             ) : (
               preferences.communication.emergencyContacts.map((contact, idx) => (
-                <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div key={idx} className="flex items-center justify-between p-3 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
                   <div>
                     <p className="font-medium">{contact.name}</p>
                     <p className="text-sm text-gray-600">{contact.phone}</p>
@@ -440,7 +440,7 @@ const UserPreferences = ({
                   handlePreferenceChange('communication', 'emergencyContacts', newContacts);
                 }
               }}
-              className="text-primary-600 hover:text-primary-800"
+              className="text-primary-600 dark:text-primary-400 hover:text-primary-800"
             >
               + Add Emergency Contact
             </button>
@@ -463,7 +463,7 @@ const UserPreferences = ({
                 className={`flex-1 p-4 rounded-lg border-2 flex flex-col items-center ${
                   preferences.display.theme === theme
                     ? 'border-primary-500 bg-primary-50'
-                    : 'border-gray-300 hover:bg-gray-50'
+                    : 'border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 dark:text-white'
                 }`}
               >
                 {theme === 'light' ? <Sun size={24} /> : theme === 'dark' ? <Moon size={24} /> : <Globe size={24} />}
@@ -485,7 +485,7 @@ const UserPreferences = ({
             max="24"
             value={preferences.display.fontSize}
             onChange={(e) => handlePreferenceChange('display', 'fontSize', parseInt(e.target.value))}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            className="w-full h-2 bg-gray-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer"
           />
           <div className="flex justify-between text-xs text-gray-500 mt-1">
             <span>Small</span>
@@ -504,8 +504,8 @@ const UserPreferences = ({
                 onClick={() => handlePreferenceChange('display', 'density', density)}
                 className={`flex-1 p-3 rounded-lg border ${
                   preferences.display.density === density
-                    ? 'border-primary-500 bg-primary-50'
-                    : 'border-gray-300 hover:bg-gray-50'
+                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-600 dark:text-white'
+                    : 'border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 dark:text-white'
                 }`}
               >
                 <span className="font-medium">
@@ -516,7 +516,7 @@ const UserPreferences = ({
           </div>
         </div>
 
-        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+        <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
           <div>
             <p className="font-medium">Animations</p>
             <p className="text-sm text-gray-600">Enable interface animations and transitions</p>
@@ -592,7 +592,7 @@ const UserPreferences = ({
   const renderDataSettings = () => (
     <div className="space-y-6">
       <div className="space-y-4">
-        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
           <div>
             <p className="font-medium">Auto Backup</p>
             <p className="text-sm text-gray-600">Automatically backup your health data</p>
@@ -614,7 +614,7 @@ const UserPreferences = ({
           <select
             value={preferences.data.backupFrequency}
             onChange={(e) => handlePreferenceChange('data', 'backupFrequency', e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg"
+            className="w-full px-4 py-2 border rounded-lg bg-white dark:bg-slate-800 dark:text-white dark:border-slate-700"
             disabled={!preferences.data.autoBackup}
           >
             <option value="daily">Daily</option>
@@ -623,7 +623,7 @@ const UserPreferences = ({
           </select>
         </div>
 
-        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+        <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
           <div>
             <p className="font-medium">Cloud Sync</p>
             <p className="text-sm text-gray-600">Sync data across all your devices</p>
@@ -653,8 +653,8 @@ const UserPreferences = ({
                 onClick={() => handlePreferenceChange('data', 'exportFormat', format)}
                 className={`px-4 py-2 rounded-lg border ${
                   preferences.data.exportFormat === format
-                    ? 'border-primary-500 bg-primary-50 text-primary-700'
-                    : 'border-gray-300 hover:bg-gray-50'
+                    ? 'border-primary-500 bg-primary-50 text-primary-700 dark:bg-primary-600 dark:text-white'
+                    : 'border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 dark:text-white'
                 }`}
               >
                 {format.toUpperCase()}
@@ -683,12 +683,12 @@ const UserPreferences = ({
           </Button>
         </div>
 
-        <div className="p-4 bg-red-50 rounded-lg">
+        <div className="p-4 bg-red-50 dark:bg-slate-700 rounded-lg">
           <div className="flex items-start gap-3">
             <AlertCircle size={20} className="text-red-600 mt-0.5" />
             <div>
-              <h4 className="font-bold text-red-800 mb-1">Warning</h4>
-              <p className="text-sm text-red-700">
+              <h4 className="font-bold text-red-800 dark:text-red-200 mb-1">Warning</h4>
+              <p className="text-sm text-red-700 dark:text-red-200">
                 Deleting your data is permanent and cannot be undone. 
                 Make sure to export your data before proceeding.
               </p>

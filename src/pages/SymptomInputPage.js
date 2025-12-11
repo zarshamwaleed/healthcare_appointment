@@ -65,12 +65,12 @@ const SymptomInputPage = () => {
 
   return (
    
-      <div className="max-w-6xl mx-auto p-6">
+      <div className="max-w-6xl mx-auto p-6 min-h-screen bg-gradient-to-br from-white to-gray-50 dark:from-slate-900 dark:to-slate-800 transition-colors">
         <div className="mb-8">
-          <h1 className={`font-bold mb-4 ${settings.mode === 'elderly' ? 'text-3xl' : 'text-2xl'}`}>
+          <h1 className={`font-bold mb-4 text-gray-900 dark:text-white ${settings.mode === 'elderly' ? 'text-3xl' : 'text-2xl'}`}>
             How are you feeling today?
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Describe your symptoms using any method below. The system will recommend the right doctor.
           </p>
         </div>
@@ -84,8 +84,8 @@ const SymptomInputPage = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all ${
                   activeTab === tab.id
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-blue-600 dark:bg-blue-600 text-white'
+                    : 'bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-600'
                 }`}
               >
                 {tab.icon}
@@ -95,7 +95,7 @@ const SymptomInputPage = () => {
           </div>
 
           {/* Tab Content */}
-          <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6">
             {activeTab === 'body' && (
               <BodyMap
                 onSelectLocation={(locations) => {
@@ -121,14 +121,14 @@ const SymptomInputPage = () => {
 
         {/* Symptom Suggestions */}
         <div className="mb-8">
-          <h3 className="font-semibold mb-4">Common Symptoms</h3>
+          <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">Common Symptoms</h3>
           <div className="flex flex-wrap gap-3">
             {['Headache', 'Fever', 'Cough', 'Stomach Pain', 'Skin Rash', 'Back Pain', 'Fatigue', 'Dizziness'].map(
               (symptom) => (
                 <button
                   key={symptom}
                   onClick={() => setSelectedSymptoms([...selectedSymptoms, symptom])}
-                  className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
+                  className="px-4 py-2 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-700 dark:text-gray-300 rounded-full transition-colors"
                 >
                   {symptom}
                 </button>
@@ -139,13 +139,13 @@ const SymptomInputPage = () => {
 
         {/* Selected Symptoms */}
         {selectedSymptoms.length > 0 && (
-          <div className="mb-8 p-6 bg-primary-50 rounded-xl">
-            <h3 className="font-semibold mb-3">Selected Symptoms</h3>
+          <div className="mb-8 p-6 bg-blue-50 dark:bg-blue-900/30 rounded-xl border border-blue-200 dark:border-blue-800">
+            <h3 className="font-semibold mb-3 text-gray-900 dark:text-white">Selected Symptoms</h3>
             <div className="flex flex-wrap gap-3 mb-6">
               {selectedSymptoms.map((symptom, index) => (
                 <div
                   key={index}
-                  className="px-4 py-2 bg-white border border-primary-200 rounded-full flex items-center gap-2"
+                  className="px-4 py-2 bg-white dark:bg-slate-700 border border-blue-200 dark:border-slate-600 rounded-full flex items-center gap-2 text-gray-900 dark:text-white"
                 >
                   {symptom}
                   <button

@@ -16,6 +16,7 @@ import {
 
 
 import { useAccessibility } from '../../context/AccessibilityContext';
+import { useTheme } from '../../context/ThemeContext';
 
 const Card = ({
   children,
@@ -31,43 +32,44 @@ const Card = ({
   ...props
 }) => {
   const { settings } = useAccessibility();
+  const { theme } = useTheme();
 
   const getVariantClasses = () => {
     if (disabled) {
-      return 'bg-gray-100 text-gray-400 border-gray-200';
+      return 'bg-gray-100 dark:bg-slate-700 text-gray-400 dark:text-gray-500 border-gray-200 dark:border-slate-600';
     }
 
     if (selected) {
-      return 'bg-primary-50 border-primary-300 text-primary-900';
+      return 'bg-blue-50 dark:bg-blue-900 border-blue-300 dark:border-blue-600 text-blue-900 dark:text-blue-100';
     }
 
     switch(variant) {
       case 'primary':
-        return 'bg-gradient-to-br from-primary-50 to-blue-50 border-primary-200 text-primary-900';
+        return 'bg-gradient-to-br from-blue-50 to-blue-50 dark:from-slate-800 dark:to-slate-800 border-blue-200 dark:border-blue-700 text-blue-900 dark:text-blue-100';
       
       case 'secondary':
-        return 'bg-gray-50 border-gray-200 text-gray-900';
+        return 'bg-gray-50 dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-900 dark:text-gray-100';
       
       case 'success':
-        return 'bg-green-50 border-green-200 text-green-900';
+        return 'bg-green-50 dark:bg-green-900 border-green-200 dark:border-green-700 text-green-900 dark:text-green-100';
       
       case 'warning':
-        return 'bg-amber-50 border-amber-200 text-amber-900';
+        return 'bg-amber-50 dark:bg-amber-900 border-amber-200 dark:border-amber-700 text-amber-900 dark:text-amber-100';
       
       case 'danger':
-        return 'bg-red-50 border-red-200 text-red-900';
+        return 'bg-red-50 dark:bg-red-900 border-red-200 dark:border-red-700 text-red-900 dark:text-red-100';
       
       case 'info':
-        return 'bg-blue-50 border-blue-200 text-blue-900';
+        return 'bg-blue-50 dark:bg-blue-900 border-blue-200 dark:border-blue-700 text-blue-900 dark:text-blue-100';
       
       case 'elderly':
-        return 'bg-blue-50 border-4 border-blue-300 text-blue-900 text-lg';
+        return 'bg-blue-50 dark:bg-blue-900 border-4 border-blue-300 dark:border-blue-600 text-blue-900 dark:text-blue-100 text-lg';
       
       case 'simple':
-        return 'bg-white border-gray-100 text-gray-900';
+        return 'bg-white dark:bg-slate-800 border-gray-100 dark:border-slate-700 text-gray-900 dark:text-gray-100';
       
       default:
-        return 'bg-white border-gray-200 text-gray-900';
+        return 'bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-900 dark:text-gray-100';
     }
   };
 
@@ -146,21 +148,22 @@ export const CardHeader = ({
   className = '' 
 }) => {
   const { settings } = useAccessibility();
+  const { theme } = useTheme();
   
   return (
     <div className={`flex items-start justify-between mb-4 ${className}`}>
       <div className="flex items-start gap-3">
         {icon && (
-          <div className="p-2 bg-primary-100 text-primary-600 rounded-lg">
+          <div className="p-2 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-lg">
             {React.cloneElement(icon, { size: settings.mode === 'elderly' ? 24 : 20 })}
           </div>
         )}
         <div>
-          <h3 className={`font-bold ${settings.mode === 'elderly' ? 'text-xl' : 'text-lg'}`}>
+          <h3 className={`font-bold dark:text-white ${settings.mode === 'elderly' ? 'text-xl' : 'text-lg'}`}>
             {title}
           </h3>
           {subtitle && (
-            <p className={`text-gray-600 ${settings.mode === 'elderly' ? 'text-lg' : 'text-sm'}`}>
+            <p className={`text-gray-600 dark:text-gray-400 ${settings.mode === 'elderly' ? 'text-lg' : 'text-sm'}`}>
               {subtitle}
             </p>
           )}
@@ -237,24 +240,24 @@ export const DoctorCard = ({
       <CardContent>
         <div className={`space-y-2 ${settings.mode === 'elderly' ? 'space-y-3' : ''}`}>
           <div className="flex items-center gap-2">
-            <Award size={16} className="text-gray-500" />
-            <span className="text-gray-700">{experience} years experience</span>
+            <Award size={16} className="text-gray-500 dark:text-gray-400" />
+            <span className="text-gray-700 dark:text-gray-300">{experience} years experience</span>
           </div>
           <div className="flex items-center gap-2">
-            <Clock size={16} className="text-gray-500" />
-            <span className={`${availability === 'Available Now' ? 'text-green-600 font-semibold' : 'text-gray-700'}`}>
+            <Clock size={16} className="text-gray-500 dark:text-gray-400" />
+            <span className={`${availability === 'Available Now' ? 'text-green-600 dark:text-green-400 font-semibold' : 'text-gray-700 dark:text-gray-300'}`}>
               {availability}
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <MapPin size={16} className="text-gray-500" />
-            <span className="text-gray-700">{distance} away</span>
+            <MapPin size={16} className="text-gray-500 dark:text-gray-400" />
+            <span className="text-gray-700 dark:text-gray-300">{distance} away</span>
           </div>
         </div>
       </CardContent>
       
       <CardFooter>
-        <button className="text-primary-600 hover:text-primary-800 font-medium flex items-center gap-1">
+        <button className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center gap-1">
           View Profile
           <ChevronRight size={16} />
         </button>
@@ -298,15 +301,15 @@ export const AppointmentCard = ({
       <CardContent>
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <MapPin size={16} className="text-gray-500" />
-            <span className="text-gray-700">{location}</span>
+            <MapPin size={16} className="text-gray-500 dark:text-gray-400" />
+            <span className="text-gray-700 dark:text-gray-300">{location}</span>
           </div>
           <div className="flex items-center gap-2">
-            <Users size={16} className="text-gray-500" />
-            <span className="text-gray-700">Room 304, 3rd Floor</span>
+            <Users size={16} className="text-gray-500 dark:text-gray-400" />
+            <span className="text-gray-700 dark:text-gray-300">Room 304, 3rd Floor</span>
           </div>
-          <div className="p-3 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-600">
+          <div className="p-3 bg-gray-50 dark:bg-slate-700 rounded-lg">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               Please arrive 15 minutes early and bring your ID and insurance card.
             </p>
           </div>
@@ -318,13 +321,13 @@ export const AppointmentCard = ({
           <>
             <button 
               onClick={onReschedule}
-              className="text-primary-600 hover:text-primary-800 font-medium"
+              className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium"
             >
               Reschedule
             </button>
             <button 
               onClick={onCancel}
-              className="text-red-600 hover:text-red-800 font-medium"
+              className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 font-medium"
             >
               Cancel
             </button>
@@ -338,27 +341,27 @@ export const AppointmentCard = ({
 export const InfoCard = ({
   title,
   description,
- icon = <InfoIcon size={24} />,
+  icon = <InfoIcon size={24} />,
   variant = 'info',
   action,
   className = ''
 }) => {
   const variantIcons = {
-    info: <AlertCircle size={24} className="text-blue-600" />,
-    success: <CheckCircle size={24} className="text-green-600" />,
-    warning: <AlertCircle size={24} className="text-amber-600" />,
-    danger: <AlertCircle size={24} className="text-red-600" />
+    info: <AlertCircle size={24} className="text-blue-600 dark:text-blue-400" />,
+    success: <CheckCircle size={24} className="text-green-600 dark:text-green-400" />,
+    warning: <AlertCircle size={24} className="text-amber-600 dark:text-amber-400" />,
+    danger: <AlertCircle size={24} className="text-red-600 dark:text-red-400" />
   };
 
   return (
     <Card variant={variant} className={className}>
       <div className="flex items-start gap-4">
-        <div className="p-3 bg-white rounded-lg">
+        <div className="p-3 bg-white dark:bg-slate-700 rounded-lg">
           {variantIcons[variant] || icon}
         </div>
         <div className="flex-1">
-          <h4 className="font-bold text-lg mb-2">{title}</h4>
-          <p className="text-gray-600">{description}</p>
+          <h4 className="font-bold text-lg mb-2 dark:text-white">{title}</h4>
+          <p className="text-gray-600 dark:text-gray-400">{description}</p>
           {action && (
             <div className="mt-4">
               {action}

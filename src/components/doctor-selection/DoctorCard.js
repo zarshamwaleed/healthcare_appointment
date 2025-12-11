@@ -139,8 +139,8 @@ const DoctorCard = ({
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between mb-2">
             <div>
-              <h3 className="font-bold text-lg truncate">{name}</h3>
-              <p className="text-gray-600 text-sm">{specialty}</p>
+              <h3 className="font-bold text-lg truncate text-gray-900 dark:text-white">{name}</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">{specialty}</p>
             </div>
             <div className="flex items-center gap-1">
               {renderRatingStars(rating)}
@@ -148,7 +148,7 @@ const DoctorCard = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+          <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300 mb-3">
             <div className="flex items-center gap-1">
               <Award size={14} />
               <span>{experience} years</span>
@@ -164,9 +164,7 @@ const DoctorCard = ({
           </div>
 
           <div className="flex items-center justify-between">
-            <span className={`px-2 py-1 rounded-full text-xs font-medium ${getAvailabilityColor(availability)}`}>
-              {availability}
-            </span>
+            <span className={`px-2 py-1 rounded-full text-xs font-medium ${getAvailabilityColor(availability)} dark:bg-opacity-20`}>{availability}</span>
             <button
               onClick={handleBook}
               className="px-3 py-1.5 bg-primary-600 text-white text-sm rounded-lg hover:bg-primary-700"
@@ -203,37 +201,37 @@ const DoctorCard = ({
               )}
             </div>
             <div>
-              <h3 className="font-bold text-lg">{name}</h3>
-              <p className="text-gray-600">{specialty}</p>
+              <h3 className="font-bold text-lg text-gray-900 dark:text-white">{name}</h3>
+              <p className="text-gray-600 dark:text-gray-300">{specialty}</p>
             </div>
           </div>
           
-          <div className="flex flex-col items-end">
-            <div className="flex items-center gap-1 mb-1">
+            <div className="flex flex-col items-end">
+            <div className="flex items-center gap-1 mb-1 text-gray-900 dark:text-white">
               {renderRatingStars(rating)}
               <span className="font-bold ml-1">{rating}</span>
             </div>
             <span className="text-2xl font-bold text-primary-600">₹{consultationFee}</span>
-            <span className="text-xs text-gray-500">Consultation Fee</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">Consultation Fee</span>
           </div>
         </div>
 
         {/* Badges */}
-        <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-2 mb-4">
           {isRecommended && (
-            <span className="px-2 py-1 bg-amber-100 text-amber-800 text-xs rounded-full flex items-center gap-1">
+            <span className="px-2 py-1 bg-amber-100 text-amber-800 text-xs rounded-full flex items-center gap-1 dark:bg-amber-900/20 dark:text-amber-300">
               <TrendingUp size={10} />
               Recommended
             </span>
           )}
           {isElderlyFriendly && (
-            <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full flex items-center gap-1">
+            <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full flex items-center gap-1 dark:bg-blue-900/20 dark:text-blue-200">
               <Shield size={10} />
               Elderly Friendly
             </span>
           )}
           {telemedicine && (
-            <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full flex items-center gap-1">
+            <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full flex items-center gap-1 dark:bg-green-900/20 dark:text-green-200">
               <Video size={10} />
               Telemedicine
             </span>
@@ -245,18 +243,18 @@ const DoctorCard = ({
       </div>
 
       {/* Doctor Details */}
-      <div className="space-y-3 mb-6">
+          <div className="space-y-3 mb-6">
         <div className="grid grid-cols-2 gap-3">
-          <div className="flex items-center gap-2">
-            <Award size={16} className="text-gray-500" />
+              <div className="flex items-center gap-2">
+            <Award size={16} className="text-gray-500 dark:text-gray-300" />
             <div>
               <p className="text-sm text-gray-500">Experience</p>
               <p className="font-medium">{experience} years</p>
             </div>
           </div>
           
-          <div className="flex items-center gap-2">
-            <Clock size={16} className="text-gray-500" />
+              <div className="flex items-center gap-2">
+            <Clock size={16} className="text-gray-500 dark:text-gray-300" />
             <div>
               <p className="text-sm text-gray-500">Next Available</p>
               <p className="font-medium">{nextAvailable}</p>
@@ -281,9 +279,9 @@ const DoctorCard = ({
         </div>
 
         {/* Languages */}
-        {languages.length > 0 && (
+          {languages.length > 0 && (
           <div className="flex items-center gap-2">
-            <Languages size={16} className="text-gray-500" />
+            <Languages size={16} className="text-gray-500 dark:text-gray-300" />
             <div className="flex flex-wrap gap-1">
               {languages.map((lang, index) => (
                 <span key={index} className="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs rounded">
@@ -303,14 +301,14 @@ const DoctorCard = ({
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 gap-4 p-3 bg-gray-50 rounded-lg mb-6">
+        <div className="grid grid-cols-2 gap-4 p-3 bg-gray-50 dark:bg-slate-800 rounded-lg mb-6">
         <div className="text-center">
-          <p className="text-2xl font-bold">{patientReviews}</p>
-          <p className="text-xs text-gray-600">Patient Reviews</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">{patientReviews}</p>
+          <p className="text-xs text-gray-600 dark:text-gray-300">Patient Reviews</p>
         </div>
         <div className="text-center">
-          <p className="text-2xl font-bold">{waitTime}</p>
-          <p className="text-xs text-gray-600">Avg Wait Time</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">{waitTime}</p>
+          <p className="text-xs text-gray-600 dark:text-gray-300">Avg Wait Time</p>
         </div>
       </div>
 
@@ -318,7 +316,7 @@ const DoctorCard = ({
       <div className="flex gap-3">
         <button
           onClick={handleViewProfile}
-          className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50"
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-300 dark:border-slate-700 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700"
         >
           <ChevronRight size={16} />
           View Profile

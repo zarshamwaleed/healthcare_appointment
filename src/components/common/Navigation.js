@@ -21,9 +21,12 @@ import {
   History,
   Star,
   Shield,
-  Volume2
+  Volume2,
+  Moon,
+  Sun
 } from 'lucide-react';
 import { useAccessibility } from '../../context/AccessibilityContext';
+import { useTheme } from '../../context/ThemeContext';
 import ModeToggle from '../mode-selection/ModeToggle';
 
 const Navigation = ({
@@ -36,6 +39,7 @@ const Navigation = ({
   className = ''
 }) => {
   const { settings, updateSettings } = useAccessibility();
+  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
   const [activePath, setActivePath] = useState('/');
@@ -138,22 +142,22 @@ const Navigation = ({
     const baseClasses = `
       flex items-center rounded-lg
       transition-all duration-200
-      focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1
+      focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:ring-offset-1
       ${settings.mode === 'elderly' ? 'text-lg' : 'text-base'}
     `;
 
     if (isActive) {
-      return `${baseClasses} bg-primary-100 text-primary-700`;
+      return `${baseClasses} bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-100`;
     }
 
-    return `${baseClasses} text-gray-700 hover:bg-gray-100`;
+    return `${baseClasses} text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700`;
   };
 
   const getIconClasses = (isActive) => {
     if (isActive) {
-      return 'text-primary-600';
+      return 'text-blue-600 dark:text-blue-300';
     }
-    return 'text-gray-500';
+    return 'text-gray-500 dark:text-gray-400';
   };
 
   const renderNavItem = (item) => {
@@ -196,7 +200,7 @@ const Navigation = ({
   const renderSidebar = () => {
     return (
       <aside className={`
-        bg-white border-r border-gray-200
+        bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700
         h-screen sticky top-0
         transition-all duration-300
         ${collapsed ? 'w-16' : 'w-64'}
@@ -204,24 +208,24 @@ const Navigation = ({
       `}>
         {/* Header */}
         <div className={`
-          p-4 border-b border-gray-200
+          p-4 border-b border-gray-200 dark:border-slate-700
           ${collapsed ? 'text-center' : ''}
         `}>
           <div className="flex items-center justify-between">
             {!collapsed ? (
               <>
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-primary-100 rounded-lg">
-                    <Stethoscope size={24} className="text-primary-600" />
+                  <div className="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
+                    <Stethoscope size={24} className="text-blue-600 dark:text-blue-300" />
                   </div>
                   <div>
-                    <h1 className="font-bold">SmartHealth</h1>
-                    <p className="text-xs text-gray-500">Navigation</p>
+                    <h1 className="font-bold dark:text-white">SmartHealth</h1>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Navigation</p>
                   </div>
                 </div>
                 <button
                   onClick={onToggleCollapse}
-                  className="p-1 rounded hover:bg-gray-100"
+                  className="p-1 rounded hover:bg-gray-100 dark:hover:bg-slate-700"
                   aria-label="Collapse menu"
                 >
                   <ChevronRight size={18} />
@@ -230,7 +234,7 @@ const Navigation = ({
             ) : (
               <button
                 onClick={onToggleCollapse}
-                className="p-2 rounded hover:bg-gray-100 mx-auto"
+                className="p-2 rounded hover:bg-gray-100 dark:hover:bg-slate-700 mx-auto"
                 aria-label="Expand menu"
               >
                 <Menu size={20} />
@@ -244,7 +248,7 @@ const Navigation = ({
           {/* Main Menu */}
           {!collapsed && (
             <div className="mb-6">
-              <h3 className="text-xs uppercase text-gray-500 font-semibold mb-2 px-4">
+              <h3 className="text-xs uppercase text-gray-500 dark:text-gray-400 font-semibold mb-2 px-4">
                 Main Menu
               </h3>
               <div className="space-y-1">
@@ -256,7 +260,7 @@ const Navigation = ({
           {/* User Menu */}
           {!collapsed && (
             <div className="mb-6">
-              <h3 className="text-xs uppercase text-gray-500 font-semibold mb-2 px-4">
+              <h3 className="text-xs uppercase text-gray-500 dark:text-gray-400 font-semibold mb-2 px-4">
                 My Account
               </h3>
               <div className="space-y-1">
@@ -268,7 +272,7 @@ const Navigation = ({
           {/* Settings Menu */}
           <div className={collapsed ? 'space-y-1' : 'mb-6'}>
             {!collapsed && (
-              <h3 className="text-xs uppercase text-gray-500 font-semibold mb-2 px-4">
+              <h3 className="text-xs uppercase text-gray-500 dark:text-gray-400 font-semibold mb-2 px-4">
                 Preferences
               </h3>
             )}
@@ -300,26 +304,26 @@ const Navigation = ({
 
         {/* Footer */}
         {!collapsed && (
-          <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
+          <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-slate-700">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
-                <User size={20} className="text-primary-600" />
+              <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                <User size={20} className="text-blue-600 dark:text-blue-300" />
               </div>
               <div className="flex-1">
-                <p className="font-medium">John Doe</p>
-                <p className="text-xs text-gray-500">Patient</p>
+                <p className="font-medium dark:text-white">John Doe</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Patient</p>
               </div>
             </div>
             
             <button
               onClick={() => navigate('/settings')}
-              className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 transition-colors"
+              className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <Settings size={18} className="text-gray-500" />
-                <span className="text-gray-700">Profile Settings</span> {/* Changed from 'Settings' to 'Profile Settings' */}
+                <Settings size={18} className="text-gray-500 dark:text-gray-400" />
+                <span className="text-gray-700 dark:text-gray-300">Profile Settings</span>
               </div>
-              <ChevronRight size={16} className="text-gray-400" />
+              <ChevronRight size={16} className="text-gray-400 dark:text-gray-500" />
             </button>
           </div>
         )}
@@ -330,7 +334,7 @@ const Navigation = ({
   const renderTopNav = () => {
     return (
       <nav className={`
-        bg-white border-b border-gray-200
+        bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700
         sticky top-0 z-30
         ${className}
       `}>
@@ -339,10 +343,10 @@ const Navigation = ({
             {/* Mobile Menu Button */}
             <button
               onClick={onMobileMenuToggle}
-              className="p-2 rounded-lg hover:bg-gray-100 lg:hidden"
+              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 lg:hidden"
               aria-label="Toggle mobile menu"
             >
-              <Menu size={24} />
+              <Menu size={24} className="dark:text-gray-200" />
             </button>
 
             {/* Left Section - Navigation Links */}
@@ -360,8 +364,8 @@ const Navigation = ({
                     className={`
                       flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
                       ${isActive 
-                        ? 'bg-blue-600 text-white'
-                        : 'text-gray-700 hover:bg-gray-100'
+                        ? 'bg-blue-600 dark:bg-blue-600 text-white'
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'
                       }
                     `}
                   >
@@ -377,8 +381,8 @@ const Navigation = ({
                 className={`
                   flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
                   ${activePath === '/profile'
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    ? 'bg-blue-600 dark:bg-blue-600 text-white'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'
                   }
                 `}
               >
@@ -392,8 +396,8 @@ const Navigation = ({
                 className={`
                   flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
                   ${activePath === '/settings'
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    ? 'bg-blue-600 dark:bg-blue-600 text-white'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'
                   }
                 `}
               >
@@ -404,6 +408,20 @@ const Navigation = ({
 
             {/* Right Section */}
             <div className="flex items-center space-x-2">
+              {/* Theme Toggle Button */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
+                aria-label="Toggle theme"
+                title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+              >
+                {theme === 'light' ? (
+                  <Moon size={20} className="text-gray-700" />
+                ) : (
+                  <Sun size={20} className="text-gray-300" />
+                )}
+              </button>
+
               {/* Mode Toggle */}
               <div className="relative">
                 <ModeToggle 
@@ -417,7 +435,7 @@ const Navigation = ({
               
               {settings.voiceAssistance && (
                 <button
-                  className="p-2 rounded-full bg-primary-100 text-primary-600 hover:bg-primary-200"
+                  className="p-2 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800"
                   aria-label="Voice assistant"
                 >
                   <Volume2 size={20} />
@@ -425,10 +443,10 @@ const Navigation = ({
               )}
               
               <button
-                className="p-2 rounded-full hover:bg-gray-100 relative"
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 relative"
                 aria-label="Notifications"
               >
-                <Bell size={20} />
+                <Bell size={20} className="dark:text-gray-200" />
                 <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
                   3
                 </span>
@@ -436,10 +454,10 @@ const Navigation = ({
               
               <button
                 onClick={() => navigate('/profile')}
-                className="p-2 rounded-full hover:bg-gray-100"
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700"
                 aria-label="User profile"
               >
-                <User size={20} />
+                <User size={20} className="dark:text-gray-200" />
               </button>
             </div>
           </div>
@@ -462,28 +480,28 @@ const Navigation = ({
         {/* Menu Panel */}
         <div className={`
           absolute top-0 ${position === 'left' ? 'left-0' : 'right-0'}
-          w-64 h-full bg-white shadow-xl
+          w-64 h-full bg-white dark:bg-slate-800 shadow-xl
           transform transition-transform duration-300
           ${showMobileMenu ? 'translate-x-0' : position === 'left' ? '-translate-x-full' : 'translate-x-full'}
         `}>
           {/* Header */}
-          <div className="p-4 border-b border-gray-200">
+          <div className="p-4 border-b border-gray-200 dark:border-slate-700">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary-100 rounded-lg">
-                  <Stethoscope size={24} className="text-primary-600" />
+                <div className="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
+                  <Stethoscope size={24} className="text-blue-600 dark:text-blue-300" />
                 </div>
                 <div>
-                  <h1 className="font-bold">SmartHealth</h1>
-                  <p className="text-xs text-gray-500">Mobile Menu</p>
+                  <h1 className="font-bold dark:text-white">SmartHealth</h1>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Mobile Menu</p>
                 </div>
               </div>
               <button
                 onClick={onMobileMenuToggle}
-                className="p-2 rounded hover:bg-gray-100"
+                className="p-2 rounded hover:bg-gray-100 dark:hover:bg-slate-700"
                 aria-label="Close menu"
               >
-                <X size={24} />
+                <X size={24} className="dark:text-gray-200" />
               </button>
             </div>
           </div>
@@ -491,7 +509,7 @@ const Navigation = ({
           {/* Menu Content */}
           <div className="p-4 space-y-6">
             <div>
-              <h3 className="text-sm uppercase text-gray-500 font-semibold mb-3">
+              <h3 className="text-sm uppercase text-gray-500 dark:text-gray-400 font-semibold mb-3">
                 Main Navigation
               </h3>
               <div className="space-y-1">
@@ -500,7 +518,7 @@ const Navigation = ({
             </div>
 
             <div>
-              <h3 className="text-sm uppercase text-gray-500 font-semibold mb-3">
+              <h3 className="text-sm uppercase text-gray-500 dark:text-gray-400 font-semibold mb-3">
                 My Account
               </h3>
               <div className="space-y-1">
@@ -509,7 +527,7 @@ const Navigation = ({
             </div>
 
             <div>
-              <h3 className="text-sm uppercase text-gray-500 font-semibold mb-3">
+              <h3 className="text-sm uppercase text-gray-500 dark:text-gray-400 font-semibold mb-3">
                 Preferences
               </h3>
               <div className="space-y-1">
@@ -517,15 +535,39 @@ const Navigation = ({
               </div>
             </div>
 
+            {/* Theme Toggle in Mobile Menu */}
+            <div className="pt-6 border-t border-gray-200 dark:border-slate-700">
+              <button
+                onClick={toggleTheme}
+                className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
+                aria-label="Toggle theme"
+              >
+                <div className="flex items-center gap-3">
+                  {theme === 'light' ? (
+                    <>
+                      <Moon size={20} className="text-gray-600 dark:text-gray-300" />
+                      <span className="text-gray-700 dark:text-gray-300">Dark Mode</span>
+                    </>
+                  ) : (
+                    <>
+                      <Sun size={20} className="text-gray-600 dark:text-gray-300" />
+                      <span className="text-gray-700 dark:text-gray-300">Light Mode</span>
+                    </>
+                  )}
+                </div>
+                <ChevronRight size={16} className="text-gray-400 dark:text-gray-500" />
+              </button>
+            </div>
+
             {/* User Info */}
-            <div className="pt-6 border-t border-gray-200">
+            <div className="pt-6 border-t border-gray-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
-                  <User size={24} className="text-primary-600" />
+                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                  <User size={24} className="text-blue-600 dark:text-blue-300" />
                 </div>
                 <div>
-                  <p className="font-bold">John Doe</p>
-                  <p className="text-sm text-gray-500">john@example.com</p>
+                  <p className="font-bold dark:text-white">John Doe</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">john@example.com</p>
                 </div>
               </div>
               
@@ -534,13 +576,13 @@ const Navigation = ({
                   navigate('/settings');
                   onMobileMenuToggle();
                 }}
-                className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-gray-100"
+                className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700"
               >
                 <div className="flex items-center gap-3">
-                  <Settings size={18} className="text-gray-500" />
-                  <span>Profile Settings</span>
+                  <Settings size={18} className="text-gray-500 dark:text-gray-400" />
+                  <span className="dark:text-gray-300">Profile Settings</span>
                 </div>
-                <ChevronRight size={16} />
+                <ChevronRight size={16} className="dark:text-gray-500" />
               </button>
             </div>
           </div>
@@ -553,11 +595,11 @@ const Navigation = ({
     const pathSegments = location.pathname.split('/').filter(Boolean);
     
     return (
-      <nav className="bg-gray-50 py-3 px-4 border-b border-gray-200">
+      <nav className="bg-gray-50 dark:bg-slate-800 py-3 px-4 border-b border-gray-200 dark:border-slate-700">
         <div className="container mx-auto">
           <ol className="flex items-center space-x-2 text-sm">
             <li>
-              <NavLink to="/" className="text-primary-600 hover:text-primary-800">
+              <NavLink to="/" className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
                 <Home size={16} className="inline mr-1" />
                 Home
               </NavLink>
@@ -569,13 +611,13 @@ const Navigation = ({
               
               return (
                 <li key={path} className="flex items-center">
-                  <ChevronRight size={14} className="text-gray-400 mx-2" />
+                  <ChevronRight size={14} className="text-gray-400 dark:text-gray-500 mx-2" />
                   {isLast ? (
-                    <span className="text-gray-700 font-medium">{label}</span>
+                    <span className="text-gray-700 dark:text-gray-300 font-medium">{label}</span>
                   ) : (
                     <NavLink 
                       to={path} 
-                      className="text-gray-600 hover:text-gray-900"
+                      className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
                     >
                       {label}
                     </NavLink>

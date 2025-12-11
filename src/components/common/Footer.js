@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAccessibility } from '../../context/AccessibilityContext';
+import { useTheme } from '../../context/ThemeContext';
 import { Phone, Mail, MapPin, Accessibility } from 'lucide-react';
 
 const Footer = () => {
   const { settings } = useAccessibility();
+  const { theme } = useTheme();
 
   return (
-    <footer className="mt-12 bg-gray-800 text-white">
+    <footer className="mt-12 bg-gray-800 dark:bg-slate-950 text-white transition-colors duration-200">
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
@@ -23,17 +25,17 @@ const Footer = () => {
             <h4 className="font-semibold mb-4 text-white text-lg">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/mode-selection" className="text-white text-base">
+                <Link to="/mode-selection" className="text-white text-base hover:text-gray-300 dark:hover:text-gray-400">
                   Choose Your Mode
                 </Link>
               </li>
               <li>
-                <Link to="/accessibility" className="text-white text-base">
+                <Link to="/accessibility" className="text-white text-base hover:text-gray-300 dark:hover:text-gray-400">
                   Accessibility Features
                 </Link>
               </li>
               <li>
-                <Link to="/settings" className="text-white text-base">
+                <Link to="/settings" className="text-white text-base hover:text-gray-300 dark:hover:text-gray-400">
                   User Settings
                 </Link>
               </li>
@@ -70,7 +72,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-600 mt-8 pt-6 text-center">
+        <div className="border-t border-gray-600 dark:border-slate-700 mt-8 pt-6 text-center">
           <p className="text-white text-base">
             © {new Date().getFullYear()} SmartHealth Care. Part of HCI Research Project.
           </p>

@@ -310,10 +310,10 @@ const ResponsiveContainer = ({
                   key={key}
                   onClick={() => handleViewChange(key)}
                   className={`flex flex-col items-center p-2 rounded border ${
-                    currentView === key
-                      ? 'bg-primary-100 border-primary-500 text-primary-700'
-                      : 'bg-white border-gray-300 hover:bg-gray-50'
-                  }`}
+                      currentView === key
+                        ? 'bg-primary-100 border-primary-500 text-primary-700'
+                        : 'bg-white border-gray-300 hover:bg-gray-50 dark:bg-slate-800 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700'
+                    }`}
                 >
                   {breakpoint.icon}
                   <span className="text-xs mt-1">{key.split('-')[0]}</span>
