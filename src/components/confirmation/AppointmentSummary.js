@@ -49,6 +49,15 @@ const AppointmentSummary = ({ appointment, onAction, variant = 'detailed' }) => 
   };
 
   const statusColors = getStatusColor(appointment.status);
+  const iconClassMap = {
+    confirmed: 'text-green-600 dark:text-emerald-300',
+    pending: 'text-amber-600 dark:text-amber-300',
+    cancelled: 'text-red-600 dark:text-red-300',
+    completed: 'text-blue-600 dark:text-blue-300',
+    default: 'text-gray-600 dark:text-gray-300'
+  };
+  const statusKey = appointment.status ? appointment.status.toLowerCase() : 'default';
+  const statusIconClass = iconClassMap[statusKey] || iconClassMap.default;
 
   const renderCompactView = () => (
     <Card variant="primary" className="hover:shadow-lg transition-shadow">
@@ -105,10 +114,10 @@ const AppointmentSummary = ({ appointment, onAction, variant = 'detailed' }) => 
       </div>
 
       {/* Status Banner */}
-      <div className={`p-4 rounded-xl border ${statusColors.border} ${statusColors.bg}`}>
+      <div className={`p-4 rounded-xl border ${statusColors.border} ${statusColors.bg} dark:bg-opacity-30` }>
         <div className="flex items-center justify-between">
    <div className="flex items-center gap-3 p-4 rounded-lg bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-  <CheckCircle size={24} className={`${statusColors.text} dark:${statusColors.text.includes('text-') ? statusColors.text.replace('text-', 'text-') : 'text-gray-400'}`} />
+  <CheckCircle size={24} className={statusIconClass} />
   <div>
     <h3 className="font-bold text-gray-900 dark:text-white">Status: {appointment.status}</h3>
     <p className="text-sm text-gray-700 dark:text-gray-300">

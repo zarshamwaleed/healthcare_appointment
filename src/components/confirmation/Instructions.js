@@ -185,7 +185,7 @@ const Instructions = ({ appointmentType = 'general', specialInstructions = [], o
             ${isDark 
               ? 'bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700 hover:border-gray-600' 
               : 'bg-gradient-to-r from-gray-50 to-white hover:bg-gray-100 border border-gray-200'
-            }
+            } dark:border-slate-700
           `}
         >
           <div className="flex items-center gap-3">
@@ -193,7 +193,7 @@ const Instructions = ({ appointmentType = 'general', specialInstructions = [], o
               p-2 rounded-lg shadow-sm ${isDark 
                 ? 'bg-gray-800 border border-gray-700' 
                 : 'bg-white border border-gray-200'
-              }
+              } dark:border-slate-700
             `}>
               <IconComponent size={20} className={
                 isEmergency 

@@ -220,7 +220,7 @@ const ConfirmationPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
         <Loader 
           type="healthcare" 
           size="large" 
@@ -232,7 +232,7 @@ const ConfirmationPage = () => {
 
   if (!appointment) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
         <div className="max-w-md mx-4 text-center">
           <AlertCircle size={64} className="text-amber-500 dark:text-amber-400 mx-auto mb-6" />
           <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">No Appointment Found</h2>
@@ -248,7 +248,7 @@ const ConfirmationPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
       {/* Success Modal */}
       <ElderlyModal
         isOpen={showSuccessModal}
@@ -287,7 +287,7 @@ const ConfirmationPage = () => {
           </p>
           
           {/* Confirmation Number */}
-          <div className="inline-flex items-center gap-4 px-6 py-3 rounded-xl bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
+          <div className="inline-flex items-center gap-4 px-6 py-3 rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-gray-200 dark:border-slate-700 mb-6">
             <div className="text-left">
               <p className="text-sm text-gray-500 dark:text-gray-400">Confirmation Number</p>
               <p className="font-mono font-bold text-xl text-gray-900 dark:text-white">
@@ -296,7 +296,7 @@ const ConfirmationPage = () => {
             </div>
             <button
               onClick={handleCopyConfirmation}
-              className={`p-2 rounded-lg ${isDark ? 'hover:bg-gray-700' : 'hover:bg-gray-100'} transition-colors`}
+              className={`p-2 rounded-lg ${isDark ? 'hover:bg-slate-700' : 'hover:bg-gray-100'} transition-colors`}
               aria-label="Copy confirmation number"
             >
               {copied ? (
@@ -309,7 +309,7 @@ const ConfirmationPage = () => {
         </div>
 {/* Quick Info Cards */}
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-  <div className="p-5 rounded-xl border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+  <div className="p-5 rounded-xl border bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
     <div className="flex items-center gap-4">
       <div className="p-3 bg-blue-100 dark:bg-blue-900/40 rounded-lg">
         <Calendar size={20} className="text-blue-600 dark:text-blue-400" />
@@ -321,7 +321,7 @@ const ConfirmationPage = () => {
     </div>
   </div>
   
-  <div className="p-5 rounded-xl border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+  <div className="p-5 rounded-xl border bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
     <div className="flex items-center gap-4">
       <div className="p-3 bg-purple-100 dark:bg-purple-900/40 rounded-lg">
         <Clock size={20} className="text-purple-600 dark:text-purple-400" />
@@ -333,7 +333,7 @@ const ConfirmationPage = () => {
     </div>
   </div>
   
-  <div className="p-5 rounded-xl border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+  <div className="p-5 rounded-xl border bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
     <div className="flex items-center gap-4">
       <div className="p-3 bg-green-100 dark:bg-green-900/40 rounded-lg">
         <Stethoscope size={20} className="text-green-600 dark:text-green-400" />
@@ -345,7 +345,7 @@ const ConfirmationPage = () => {
     </div>
   </div>
   
-  <div className="p-5 rounded-xl border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+  <div className="p-5 rounded-xl border bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
     <div className="flex items-center gap-4">
       <div className="p-3 bg-amber-100 dark:bg-amber-900/40 rounded-lg">
         <MapPin size={20} className="text-amber-600 dark:text-amber-400" />
@@ -362,7 +362,7 @@ const ConfirmationPage = () => {
         <div className="flex flex-wrap gap-3 mb-8">
           <button
             onClick={handlePrint}
-            className="flex items-center gap-2 px-5 py-3 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-xl transition-all hover:shadow-md text-gray-700 dark:text-gray-200"
+            className="flex items-center gap-2 px-5 py-3 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 border border-gray-200 dark:border-slate-700 rounded-xl transition-all hover:shadow-md text-gray-700 dark:text-gray-100"
           >
             <Printer size={18} />
             <span>Print</span>
@@ -370,7 +370,7 @@ const ConfirmationPage = () => {
           
           <button
             onClick={handleDownload}
-            className="flex items-center gap-2 px-5 py-3 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-xl transition-all hover:shadow-md text-gray-700 dark:text-gray-200"
+            className="flex items-center gap-2 px-5 py-3 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 border border-gray-200 dark:border-slate-700 rounded-xl transition-all hover:shadow-md text-gray-700 dark:text-gray-100"
           >
             <Download size={18} />
             <span>Download</span>
@@ -378,7 +378,7 @@ const ConfirmationPage = () => {
           
           <button
             onClick={handleShare}
-            className="flex items-center gap-2 px-5 py-3 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-xl transition-all hover:shadow-md text-gray-700 dark:text-gray-200"
+            className="flex items-center gap-2 px-5 py-3 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 border border-gray-200 dark:border-slate-700 rounded-xl transition-all hover:shadow-md text-gray-700 dark:text-gray-100"
           >
             <Share2 size={18} />
             <span>{copied ? 'Copied!' : 'Share'}</span>
@@ -386,7 +386,7 @@ const ConfirmationPage = () => {
           
           <button
             onClick={() => setShowQRModal(true)}
-            className="flex items-center gap-2 px-5 py-3 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-xl transition-all hover:shadow-md text-gray-700 dark:text-gray-200"
+            className="flex items-center gap-2 px-5 py-3 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 border border-gray-200 dark:border-slate-700 rounded-xl transition-all hover:shadow-md text-gray-700 dark:text-gray-100"
           >
             <QrCode size={18} />
             <span>QR Code</span>
