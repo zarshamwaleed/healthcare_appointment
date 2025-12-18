@@ -49,10 +49,34 @@ const SymptomInput = ({
   ];
 
   const severityOptions = [
-    { id: 'mild', label: 'Mild', color: 'bg-pink-100 text-pink-800' },
-    { id: 'moderate', label: 'Moderate', color: 'bg-pink-100 text-pink-800' },
-    { id: 'severe', label: 'Severe', color: 'bg-pink-100 text-pink-800' },
-    { id: 'emergency', label: 'Emergency', color: 'bg-pink-100 text-pink-800' }
+    { 
+      id: 'mild', 
+      label: 'Mild', 
+      color: 'bg-green-100 text-green-800 border-green-200',
+      darkColor: 'dark:bg-green-900/30 dark:text-green-300 dark:border-green-800',
+      icon: '🟢'
+    },
+    { 
+      id: 'moderate', 
+      label: 'Moderate', 
+      color: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+      darkColor: 'dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-800',
+      icon: '🟡'
+    },
+    { 
+      id: 'severe', 
+      label: 'Severe', 
+      color: 'bg-orange-100 text-orange-800 border-orange-200',
+      darkColor: 'dark:bg-orange-900/30 dark:text-orange-300 dark:border-orange-800',
+      icon: '🟠'
+    },
+    { 
+      id: 'emergency', 
+      label: 'Emergency', 
+      color: 'bg-red-100 text-red-800 border-red-200',
+      darkColor: 'dark:bg-red-900/30 dark:text-red-300 dark:border-red-800',
+      icon: '🔴'
+    }
   ];
 
   useEffect(() => {
@@ -104,28 +128,22 @@ const SymptomInput = ({
     }
   };
 
-  const getSeverityIcon = (severityLevel) => {
-    switch(severityLevel) {
-      case 'mild': return '🟢';
-      case 'moderate': return '🟡';
-      case 'severe': return '🟠';
-      case 'emergency': return '🔴';
-      default: return '⚪';
-    }
+  const getSeverityInfo = (severityLevel) => {
+    return severityOptions.find(option => option.id === severityLevel) || severityOptions[1];
   };
 
   return (
     <div className={`space-y-6 ${settings.mode === 'elderly' ? 'p-4' : ''}`}>
       {/* Header */}
       <div className="flex items-start gap-4">
-        <div className="p-3 bg-primary-100 rounded-xl">
-          <Stethoscope size={32} className="text-primary-600" />
+        <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-xl">
+          <Stethoscope size={32} className="text-primary-600 dark:text-primary-400" />
         </div>
         <div>
-          <h2 className={`font-bold mb-2 ${settings.mode === 'elderly' ? 'text-2xl' : 'text-xl'}`}>
+          <h2 className={`font-bold mb-2 ${settings.mode === 'elderly' ? 'text-2xl' : 'text-xl'} text-gray-900 dark:text-white`}>
             Describe Your Symptoms
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Add your symptoms below. The more specific you are, the better our recommendations.
           </p>
         </div>
@@ -137,8 +155,8 @@ const SymptomInput = ({
           {/* Search Input */}
           <div className="relative">
             <div className="flex items-center gap-2 mb-3">
-              <Search size={20} className="text-gray-500" />
-              <label className="font-medium">Symptom</label>
+              <Search size={20} className="text-gray-500 dark:text-gray-400" />
+              <label className="font-medium text-gray-900 dark:text-white">Symptom</label>
             </div>
             
             <div className="relative">
@@ -157,7 +175,7 @@ const SymptomInput = ({
               {inputValue && (
                 <button
                   onClick={() => handleAddSymptom(inputValue)}
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 transition-colors"
                   aria-label="Add symptom"
                 >
                   <Plus size={20} />
@@ -172,7 +190,7 @@ const SymptomInput = ({
                   <button
                     key={index}
                     onClick={() => handleAddSymptom(symptom.name)}
-                    className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 dark:hover:bg-slate-700 text-left border-b last:border-b-0"
+                    className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 dark:hover:bg-slate-700 text-left border-b dark:border-slate-700 last:border-b-0 transition-colors"
                   >
                     <div className="text-gray-500 dark:text-gray-300">
                       {symptom.icon}
@@ -181,7 +199,7 @@ const SymptomInput = ({
                       <div className="font-medium dark:text-white">{symptom.name}</div>
                       <div className="text-sm text-gray-500 dark:text-gray-400">{symptom.category}</div>
                     </div>
-                    <Plus size={16} className="text-primary-600" />
+                    <Plus size={16} className="text-primary-600 dark:text-primary-400" />
                   </button>
                 ))}
               </div>
@@ -191,31 +209,37 @@ const SymptomInput = ({
           {/* Severity Selection */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <AlertCircle size={20} className="text-gray-500" />
-              <label className="font-medium">Severity</label>
+              <AlertCircle size={20} className="text-gray-500 dark:text-gray-400" />
+              <label className="font-medium text-gray-900 dark:text-white">Severity</label>
             </div>
             <div className="flex flex-wrap gap-2">
-              {severityOptions.map(option => (
-                <button
-                  key={option.id}
-                  onClick={() => setSeverity(option.id)}
-                  className={`px-4 py-2 rounded-lg border transition-all ${
-                    severity === option.id
-                      ? 'border-primary-500 bg-primary-50 font-medium dark:bg-primary-600 dark:text-white'
-                      : 'border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 dark:text-white'
-                  } ${option.color}`}
-                >
-                  {option.label}
-                </button>
-              ))}
+              {severityOptions.map(option => {
+                const isSelected = severity === option.id;
+                return (
+                  <button
+                    key={option.id}
+                    onClick={() => setSeverity(option.id)}
+                    className={`px-4 py-2 rounded-lg border transition-all ${
+                      isSelected
+                        ? `${option.color} ${option.darkColor} font-medium border-2`
+                        : 'border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 text-gray-700 dark:text-gray-300'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">{option.icon}</span>
+                      <span>{option.label}</span>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* Duration Input */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <Clock size={20} className="text-gray-500" />
-              <label className="font-medium">Duration</label>
+              <Clock size={20} className="text-gray-500 dark:text-gray-400" />
+              <label className="font-medium text-gray-900 dark:text-white">Duration</label>
             </div>
             <input
               type="text"
@@ -234,49 +258,52 @@ const SymptomInput = ({
       {symptoms.length > 0 && (
         <Card>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold">Selected Symptoms ({symptoms.length})</h3>
+            <h3 className="font-bold text-gray-900 dark:text-white">Selected Symptoms ({symptoms.length})</h3>
             <button
               onClick={() => setSymptoms([])}
-              className="text-sm text-red-600 hover:text-red-800"
+              className="text-sm text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 transition-colors"
             >
               Clear All
             </button>
           </div>
           
           <div className="space-y-3">
-            {symptoms.map((symptom, index) => (
-              <div
-                key={symptom.id}
-                className="flex items-center justify-between p-4 bg-gray-50 dark:bg-slate-800 rounded-lg"
-              >
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-1">
-                    <span className="font-medium dark:text-white">{symptom.name}</span>
-                    <span className={`px-2 py-1 rounded text-xs ${severityOptions.find(s => s.id === symptom.severity)?.color} dark:bg-opacity-20`}>
-                      {getSeverityIcon(symptom.severity)} {symptom.severity.charAt(0).toUpperCase() + symptom.severity.slice(1)}
-                    </span>
-                  </div>
-                  {symptom.duration && (
-                    <div className="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-1">
-                      <Clock size={14} />
-                      Duration: {symptom.duration}
-                    </div>
-                  )}
-                </div>
-                
-                <button
-                  onClick={() => handleRemoveSymptom(index)}
-                  className="p-2 text-gray-500 dark:text-gray-300 hover:text-red-600"
-                  aria-label={`Remove ${symptom.name}`}
+            {symptoms.map((symptom, index) => {
+              const severityInfo = getSeverityInfo(symptom.severity);
+              return (
+                <div
+                  key={symptom.id}
+                  className="flex items-center justify-between p-4 bg-gray-50 dark:bg-slate-800 rounded-lg border dark:border-slate-700"
                 >
-                  <X size={20} />
-                </button>
-              </div>
-            ))}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-1">
+                      <span className="font-medium dark:text-white">{symptom.name}</span>
+                      <span className={`px-2 py-1 rounded text-xs border ${severityInfo.color} ${severityInfo.darkColor}`}>
+                        {severityInfo.icon} {severityInfo.label}
+                      </span>
+                    </div>
+                    {symptom.duration && (
+                      <div className="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-1">
+                        <Clock size={14} />
+                        Duration: {symptom.duration}
+                      </div>
+                    )}
+                  </div>
+                  
+                  <button
+                    onClick={() => handleRemoveSymptom(index)}
+                    className="p-2 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                    aria-label={`Remove ${symptom.name}`}
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+              );
+            })}
           </div>
 
           {/* Submit Button */}
-          <div className="mt-6 pt-4 border-t border-gray-200">
+          <div className="mt-6 pt-4 border-t border-gray-200 dark:border-slate-700">
             <Button
               onClick={handleSubmit}
               fullWidth
@@ -294,19 +321,19 @@ const SymptomInput = ({
       {/* Common Symptoms */}
       {showSuggestions && (
         <Card>
-          <h3 className="font-bold mb-4">Quick Select Common Symptoms</h3>
+          <h3 className="font-bold mb-4 text-gray-900 dark:text-white">Quick Select Common Symptoms</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {commonSymptoms.map((symptom, index) => (
               <button
                 key={index}
                 onClick={() => handleAddSymptom(symptom.name)}
                 disabled={symptoms.length >= maxSymptoms}
-                className="group flex flex-col items-center p-4 border border-gray-300 rounded-xl hover:bg-white dark:hover:bg-white hover:text-black dark:border-slate-700 dark:bg-transparent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group flex flex-col items-center p-4 border border-gray-300 dark:border-slate-700 rounded-xl hover:bg-gray-50 dark:hover:bg-slate-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <div className="text-gray-600 dark:text-white group-hover:text-black transition-colors mb-2">
+                <div className="text-gray-600 dark:text-gray-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors mb-2">
                   {symptom.icon}
                 </div>
-                <span className="font-medium text-sm text-center text-gray-900 dark:text-white group-hover:text-black">{symptom.name}</span>
+                <span className="font-medium text-sm text-center text-gray-900 dark:text-white">{symptom.name}</span>
               </button>
             ))}
           </div>

@@ -5,26 +5,25 @@ import {
   Globe, 
   Moon, 
   Sun, 
-  Volume2, 
   Shield, 
-  Lock, 
   Download,
-  Upload,
   Trash2,
   Eye,
-  EyeOff,
-  Heart,
-  Calendar,
+  Database,
+  ShieldCheck,
+  MessageCircle,
   MessageSquare,
-  Mail,
-  Phone,
-  Users,
-  Zap,
+  Smartphone,
   Check,
   X,
   RotateCcw,
   AlertCircle,
-  HelpCircle
+  HelpCircle,
+  ChevronRight,
+  Zap,
+  Mail,
+  Phone,
+  Users
 } from 'lucide-react';
 import { useAccessibility } from '../../context/AccessibilityContext';
 import Card from '../common/Card';
@@ -43,13 +42,17 @@ const UserPreferences = ({
       medicationReminders: true,
       healthTips: true,
       emergencyAlerts: true,
-      promotional: false
+      promotional: false,
+      doctorMessages: true,
+      labResults: true
     },
     privacy: {
       shareHealthData: false,
       anonymousUsage: true,
       dataRetention: '1-year',
-      autoDeleteOldData: false
+      autoDeleteOldData: false,
+      twoFactorAuth: false,
+      hidePersonalInfo: true
     },
     communication: {
       preferredLanguage: 'English',
@@ -59,41 +62,57 @@ const UserPreferences = ({
     },
     display: {
       theme: settings.mode === 'elderly' ? 'light' : 'system',
-      fontSize: settings.baseFontSize,
+      fontSize: settings.baseFontSize || 16,
       density: 'comfortable',
-      animations: !settings.reducedMotion
+      animations: !settings.reducedMotion,
+      highContrast: settings.highContrast || false,
+      reduceTransparency: false
     },
     accessibility: {
-      voiceGuidance: settings.voiceGuidance,
-      screenReader: settings.screenReader,
-      keyboardNavigation: settings.keyboardNavigation,
-      largeCursor: settings.largeCursor
+      voiceGuidance: settings.voiceGuidance || false,
+      screenReader: settings.screenReader || false,
+      keyboardNavigation: settings.keyboardNavigation || false,
+      largeCursor: settings.largeCursor || false,
+      colorBlindMode: false,
+      monoAudio: false
     },
     data: {
       autoBackup: true,
       backupFrequency: 'weekly',
       exportFormat: 'pdf',
-      cloudSync: true
+      cloudSync: true,
+      localBackup: false,
+      backupEncryption: true
     }
   });
 
   const [activeTab, setActiveTab] = useState('notifications');
   const [hasChanges, setHasChanges] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const tabs = [
-    { id: 'notifications', label: 'Notifications', icon: <Bell size={18} /> },
-    { id: 'privacy', label: 'Privacy', icon: <Shield size={18} /> },
-    { id: 'communication', label: 'Communication', icon: <MessageSquare size={18} /> },
-    { id: 'display', label: 'Display', icon: <Eye size={18} /> },
-    { id: 'accessibility', label: 'Accessibility', icon: <Zap size={18} /> },
-    { id: 'data', label: 'Data', icon: <Download size={18} /> }
+    { id: 'notifications', label: 'Notifications', icon: <Bell size={18} />, color: 'text-amber-600 dark:text-amber-400' },
+    { id: 'privacy', label: 'Privacy & Security', icon: <Shield size={18} />, color: 'text-blue-600 dark:text-blue-400' },
+    { id: 'communication', label: 'Communication', icon: <MessageSquare size={18} />, color: 'text-green-600 dark:text-green-400' },
+    { id: 'display', label: 'Display', icon: <Eye size={18} />, color: 'text-purple-600 dark:text-purple-400' },
+    { id: 'accessibility', label: 'Accessibility', icon: <Zap size={18} />, color: 'text-red-600 dark:text-red-400' },
+    { id: 'data', label: 'Data & Backup', icon: <Database size={18} />, color: 'text-indigo-600 dark:text-indigo-400' }
   ];
 
   const languages = ['English', 'Hindi', 'Tamil', 'Telugu', 'Bengali', 'Marathi', 'Spanish', 'French'];
-  const contactMethods = ['app', 'email', 'sms', 'phone', 'whatsapp'];
+  const contactMethods = [
+    { id: 'app', label: 'App', icon: <Smartphone size={16} /> },
+    { id: 'email', label: 'Email', icon: <Mail size={16} /> },
+    { id: 'sms', label: 'SMS', icon: <MessageCircle size={16} /> },
+    { id: 'phone', label: 'Phone', icon: <Phone size={16} /> }
+  ];
   const frequencies = ['daily', 'weekly', 'monthly', 'never'];
-  const themes = ['light', 'dark', 'system'];
+  const themes = [
+    { id: 'light', label: 'Light', icon: <Sun size={20} />, color: 'from-amber-400 to-orange-400' },
+    { id: 'dark', label: 'Dark', icon: <Moon size={20} />, color: 'from-slate-700 to-slate-900' },
+    { id: 'system', label: 'System', icon: <Globe size={20} />, color: 'from-blue-400 to-indigo-400' }
+  ];
   const densities = ['compact', 'comfortable', 'spacious'];
   const dataRetentionOptions = ['3-months', '6-months', '1-year', '2-years', 'forever'];
   const exportFormats = ['pdf', 'csv', 'json', 'xml'];
@@ -118,16 +137,8 @@ const UserPreferences = ({
   const handleSave = async () => {
     setSaving(true);
     
-    // Update accessibility settings
-    updateSettings({
-      baseFontSize: preferences.display.fontSize,
-      reducedMotion: !preferences.display.animations,
-      voiceGuidance: preferences.accessibility.voiceGuidance,
-      screenReader: preferences.accessibility.screenReader,
-      keyboardNavigation: preferences.accessibility.keyboardNavigation,
-      largeCursor: preferences.accessibility.largeCursor,
-      mode: preferences.display.theme === 'dark' ? 'standard' : settings.mode // Keep mode, adjust theme
-    });
+    
+ 
 
     // Simulate API call
     setTimeout(() => {
@@ -158,13 +169,17 @@ const UserPreferences = ({
       medicationReminders: true,
       healthTips: true,
       emergencyAlerts: true,
-      promotional: false
+      promotional: false,
+      doctorMessages: true,
+      labResults: true
     },
     privacy: {
       shareHealthData: false,
       anonymousUsage: true,
       dataRetention: '1-year',
-      autoDeleteOldData: false
+      autoDeleteOldData: false,
+      twoFactorAuth: false,
+      hidePersonalInfo: true
     },
     communication: {
       preferredLanguage: 'English',
@@ -176,19 +191,25 @@ const UserPreferences = ({
       theme: 'system',
       fontSize: 16,
       density: 'comfortable',
-      animations: true
+      animations: true,
+      highContrast: false,
+      reduceTransparency: false
     },
     accessibility: {
       voiceGuidance: false,
       screenReader: false,
       keyboardNavigation: false,
-      largeCursor: false
+      largeCursor: false,
+      colorBlindMode: false,
+      monoAudio: false
     },
     data: {
       autoBackup: true,
       backupFrequency: 'weekly',
       exportFormat: 'pdf',
-      cloudSync: true
+      cloudSync: true,
+      localBackup: false,
+      backupEncryption: true
     }
   });
 
@@ -202,157 +223,140 @@ const UserPreferences = ({
     }
   };
 
+  const SwitchToggle = ({ checked, onChange, label, description }) => (
+    <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600 transition-colors">
+      <div className="flex-1">
+        <p className="font-medium text-gray-900 dark:text-white">{label}</p>
+        {description && (
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{description}</p>
+        )}
+      </div>
+      <button
+        onClick={onChange}
+        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+          checked 
+            ? 'bg-gradient-to-r from-primary-500 to-blue-500 dark:from-primary-400 dark:to-blue-400' 
+            : 'bg-gray-300 dark:bg-slate-600'
+        }`}
+      >
+        <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+          checked ? 'translate-x-6' : 'translate-x-1'
+        }`} />
+      </button>
+    </div>
+  );
+
   const renderNotificationSettings = () => (
     <div className="space-y-6">
-      <div>
-        <h3 className="font-bold mb-4">Push Notifications</h3>
-        <div className="space-y-3">
-          {Object.entries(preferences.notifications).map(([key, value]) => (
-            <div key={key} className="flex items-center justify-between p-3 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white">
-                  {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
-                </p>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  {key.includes('Reminders') ? 'Receive reminders before appointments' :
-                   key.includes('Tips') ? 'Get daily health tips and advice' :
-                   key.includes('Alerts') ? 'Emergency and important alerts' :
-                   'Promotional offers and updates'}
-                </p>
-              </div>
-              <button
-                onClick={() => handlePreferenceChange('notifications', key, !value)}
-                className={`w-12 h-6 rounded-full transition-colors ${
-                  value ? 'bg-primary-600' : 'bg-gray-400 dark:bg-slate-600'
-                }`}
-              >
-                <div className={`w-5 h-5 bg-white rounded-full transform transition-transform ${
-                  value ? 'translate-x-7' : 'translate-x-1'
-                }`} />
-              </button>
-            </div>
-          ))}
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {Object.entries(preferences.notifications).map(([key, value]) => {
+          const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+          const descriptions = {
+            appointmentReminders: 'Reminders 24h and 1h before appointments',
+            medicationReminders: 'Daily medication schedule reminders',
+            healthTips: 'Weekly health tips and wellness advice',
+            emergencyAlerts: 'Critical health alerts and emergency notifications',
+            promotional: 'Promotional offers and healthcare news',
+            doctorMessages: 'Messages from your healthcare providers',
+            labResults: 'Alerts when new lab results are available'
+          };
+          
+          return (
+            <SwitchToggle
+              key={key}
+              checked={value}
+              onChange={() => handlePreferenceChange('notifications', key, !value)}
+              label={label}
+              description={descriptions[key]}
+            />
+          );
+        })}
       </div>
 
-      <div>
-        <h3 className="font-bold mb-4">Notification Schedule</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg">
-            <p className="font-medium mb-2 text-gray-900 dark:text-white">Quiet Hours</p>
-            <p className="text-sm text-gray-600 dark:text-gray-300">10:00 PM - 7:00 AM</p>
-            <button className="text-primary-600 dark:text-primary-400 text-sm mt-2">Change</button>
-          </div>
-          <div className="p-4 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg">
-            <p className="font-medium mb-2 text-gray-900 dark:text-white">Sound & Vibration</p>
-            <p className="text-sm text-gray-600 dark:text-gray-300">Custom sounds for different alerts</p>
-            <button className="text-primary-600 dark:text-primary-400 text-sm mt-2">Configure</button>
+      <Card className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/10 dark:to-orange-900/10 border-amber-200 dark:border-amber-800">
+        <div className="flex items-start gap-3">
+          <Bell size={20} className="text-amber-600 dark:text-amber-400 flex-shrink-0" />
+          <div>
+            <h4 className="font-bold text-amber-800 dark:text-amber-300 mb-1">Notification Preferences</h4>
+            <p className="text-amber-700 dark:text-amber-400 text-sm">
+              You can adjust notification sounds, vibration patterns, and quiet hours in the mobile app settings.
+            </p>
           </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 
   const renderPrivacySettings = () => (
     <div className="space-y-6">
-      <div>
-        <h3 className="font-bold mb-4">Data Sharing</h3>
-        <div className="space-y-4">
-          <div className="p-4 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <Users size={20} className="text-gray-700 dark:text-gray-300" />
-                <span className="font-medium text-gray-900 dark:text-white">Share Health Data for Research</span>
-              </div>
-              <button
-                onClick={() => handlePreferenceChange('privacy', 'shareHealthData', !preferences.privacy.shareHealthData)}
-                className={`w-12 h-6 rounded-full transition-colors ${
-                  preferences.privacy.shareHealthData ? 'bg-green-600' : 'bg-gray-400 dark:bg-slate-600'
-                }`}
-              >
-                <div className={`w-5 h-5 bg-white rounded-full transform transition-transform ${
-                  preferences.privacy.shareHealthData ? 'translate-x-7' : 'translate-x-1'
-                }`} />
-              </button>
-            </div>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
-              Share anonymized health data to help medical research. No personal information is shared.
-            </p>
-          </div>
-
-          <div className="p-4 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <EyeOff size={20} className="text-gray-700 dark:text-gray-300" />
-                <span className="font-medium text-gray-900 dark:text-white">Anonymous Usage Analytics</span>
-              </div>
-              <button
-                onClick={() => handlePreferenceChange('privacy', 'anonymousUsage', !preferences.privacy.anonymousUsage)}
-                className={`w-12 h-6 rounded-full transition-colors ${
-                  preferences.privacy.anonymousUsage ? 'bg-blue-600' : 'bg-gray-400 dark:bg-slate-600'
-                }`}
-              >
-                <div className={`w-5 h-5 bg-white rounded-full transform transition-transform ${
-                  preferences.privacy.anonymousUsage ? 'translate-x-7' : 'translate-x-1'
-                }`} />
-              </button>
-            </div>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
-              Help us improve the app by sharing anonymous usage data.
-            </p>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <SwitchToggle
+          checked={preferences.privacy.shareHealthData}
+          onChange={() => handlePreferenceChange('privacy', 'shareHealthData', !preferences.privacy.shareHealthData)}
+          label="Share Health Data for Research"
+          description="Anonymized data helps medical research (GDPR compliant)"
+        />
+        
+        <SwitchToggle
+          checked={preferences.privacy.anonymousUsage}
+          onChange={() => handlePreferenceChange('privacy', 'anonymousUsage', !preferences.privacy.anonymousUsage)}
+          label="Anonymous Usage Analytics"
+          description="Help us improve the app with anonymous data"
+        />
+        
+        <SwitchToggle
+          checked={preferences.privacy.twoFactorAuth}
+          onChange={() => handlePreferenceChange('privacy', 'twoFactorAuth', !preferences.privacy.twoFactorAuth)}
+          label="Two-Factor Authentication"
+          description="Extra security layer for your account"
+        />
+        
+        <SwitchToggle
+          checked={preferences.privacy.hidePersonalInfo}
+          onChange={() => handlePreferenceChange('privacy', 'hidePersonalInfo', !preferences.privacy.hidePersonalInfo)}
+          label="Hide Personal Information"
+          description="Mask personal details in shared screens"
+        />
       </div>
 
-      <div>
-        <h3 className="font-bold mb-4">Data Retention</h3>
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-2">Keep My Data For</label>
-            <select
-              value={preferences.privacy.dataRetention}
-              onChange={(e) => handlePreferenceChange('privacy', 'dataRetention', e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg"
-            >
-              {dataRetentionOptions.map(option => (
-                <option key={option} value={option}>
-                  {option.replace('-', ' ').replace(/^\w/, c => c.toUpperCase())}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-            <div>
-              <p className="font-medium">Auto-delete Old Data</p>
-              <p className="text-sm text-gray-600">Automatically delete data older than retention period</p>
-            </div>
-            <button
-              onClick={() => handlePreferenceChange('privacy', 'autoDeleteOldData', !preferences.privacy.autoDeleteOldData)}
-              className={`w-12 h-6 rounded-full transition-colors ${
-                preferences.privacy.autoDeleteOldData ? 'bg-red-600' : 'bg-gray-400'
-              }`}
-            >
-              <div className={`w-5 h-5 bg-white rounded-full transform transition-transform ${
-                preferences.privacy.autoDeleteOldData ? 'translate-x-7' : 'translate-x-1'
-              }`} />
-            </button>
-          </div>
+      <div className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
+            Data Retention Period
+          </label>
+          <select
+            value={preferences.privacy.dataRetention}
+            onChange={(e) => handlePreferenceChange('privacy', 'dataRetention', e.target.value)}
+            className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 text-gray-900 dark:text-white"
+          >
+            {dataRetentionOptions.map(option => (
+              <option key={option} value={option}>
+                {option.replace('-', ' ').replace(/^\w/, c => c.toUpperCase())}
+              </option>
+            ))}
+          </select>
         </div>
+
+        <SwitchToggle
+          checked={preferences.privacy.autoDeleteOldData}
+          onChange={() => handlePreferenceChange('privacy', 'autoDeleteOldData', !preferences.privacy.autoDeleteOldData)}
+          label="Auto-delete Old Data"
+          description="Automatically delete data older than retention period"
+        />
       </div>
 
-      <div className="p-4 bg-blue-50 rounded-lg">
+      <Card className="bg-gradient-to-r from-blue-50 to-primary-50 dark:from-blue-900/10 dark:to-primary-900/10 border-blue-200 dark:border-blue-800">
         <div className="flex items-start gap-3">
-          <Shield size={20} className="text-blue-600 mt-0.5" />
+          <ShieldCheck size={20} className="text-blue-600 dark:text-blue-400 flex-shrink-0" />
           <div>
-            <h4 className="font-bold text-blue-800 mb-1">Your Privacy is Protected</h4>
-            <p className="text-sm text-blue-700">
-              All health data is encrypted and stored securely. We comply with HIPAA and GDPR regulations.
-              Your data is never sold to third parties.
+            <h4 className="font-bold text-blue-800 dark:text-blue-300 mb-1">Your Privacy is Protected</h4>
+            <p className="text-blue-700 dark:text-blue-400 text-sm">
+              All health data is encrypted with AES-256. We comply with HIPAA, GDPR, and local regulations.
+              Your data is never sold to third parties. <a href="#" className="underline">Learn more</a>
             </p>
           </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 
@@ -360,11 +364,14 @@ const UserPreferences = ({
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium mb-2">Preferred Language</label>
+          <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
+            <Globe className="inline mr-2" size={16} />
+            Preferred Language
+          </label>
           <select
             value={preferences.communication.preferredLanguage}
             onChange={(e) => handlePreferenceChange('communication', 'preferredLanguage', e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg bg-white dark:bg-slate-800 dark:text-white dark:border-slate-700"
+            className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 text-gray-900 dark:text-white"
           >
             {languages.map(lang => (
               <option key={lang} value={lang}>{lang}</option>
@@ -373,30 +380,39 @@ const UserPreferences = ({
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Contact Method</label>
-          <div className="flex flex-wrap gap-2">
+          <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
+            <MessageSquare className="inline mr-2" size={16} />
+            Contact Method
+          </label>
+          <div className="grid grid-cols-2 gap-2">
             {contactMethods.map(method => (
               <button
-                key={method}
-                onClick={() => handlePreferenceChange('communication', 'contactMethod', method)}
-                className={`px-4 py-2 rounded-lg border ${
-                  preferences.communication.contactMethod === method
-                    ? 'border-primary-500 bg-primary-50 text-primary-700 dark:bg-primary-600 dark:text-white'
-                    : 'border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 dark:text-white'
+                key={method.id}
+                onClick={() => handlePreferenceChange('communication', 'contactMethod', method.id)}
+                className={`p-3 rounded-xl border flex flex-col items-center justify-center gap-2 transition-all ${
+                  preferences.communication.contactMethod === method.id
+                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
+                    : 'border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700'
                 }`}
               >
-                {method.toUpperCase()}
+                <div className={`${preferences.communication.contactMethod === method.id ? 'text-primary-600 dark:text-primary-400' : 'text-gray-600 dark:text-gray-400'}`}>
+                  {method.icon}
+                </div>
+                <span className="text-sm font-medium">{method.label}</span>
               </button>
             ))}
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Contact Frequency</label>
+          <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
+            <Bell className="inline mr-2" size={16} />
+            Contact Frequency
+          </label>
           <select
             value={preferences.communication.contactFrequency}
             onChange={(e) => handlePreferenceChange('communication', 'contactFrequency', e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg bg-white dark:bg-slate-800 dark:text-white dark:border-slate-700"
+            className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 text-gray-900 dark:text-white"
           >
             {frequencies.map(freq => (
               <option key={freq} value={freq}>
@@ -405,46 +421,57 @@ const UserPreferences = ({
             ))}
           </select>
         </div>
+      </div>
 
-        <div className="md:col-span-2">
-          <label className="block text-sm font-medium mb-2">Emergency Contacts</label>
-          <div className="space-y-2">
-            {preferences.communication.emergencyContacts.length === 0 ? (
-              <p className="text-gray-500">No emergency contacts added</p>
-            ) : (
-              preferences.communication.emergencyContacts.map((contact, idx) => (
-                <div key={idx} className="flex items-center justify-between p-3 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
-                  <div>
-                    <p className="font-medium">{contact.name}</p>
-                    <p className="text-sm text-gray-600">{contact.phone}</p>
+      <div>
+        <label className="block text-sm font-medium mb-3 text-gray-900 dark:text-white">
+          <Users className="inline mr-2" size={16} />
+          Emergency Contacts
+        </label>
+        <div className="space-y-3">
+          {preferences.communication.emergencyContacts.length === 0 ? (
+            <div className="text-center py-8 border-2 border-dashed border-gray-300 dark:border-slate-700 rounded-xl">
+              <Users size={32} className="text-gray-400 dark:text-gray-600 mx-auto mb-3" />
+              <p className="text-gray-500 dark:text-gray-400">No emergency contacts added</p>
+            </div>
+          ) : (
+            preferences.communication.emergencyContacts.map((contact, idx) => (
+              <div key={idx} className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-red-100 to-pink-100 dark:from-red-900/20 dark:to-pink-900/20 rounded-xl flex items-center justify-center">
+                    <Users size={18} className="text-red-600 dark:text-red-400" />
                   </div>
-                  <button
-                    onClick={() => {
-                      const newContacts = [...preferences.communication.emergencyContacts];
-                      newContacts.splice(idx, 1);
-                      handlePreferenceChange('communication', 'emergencyContacts', newContacts);
-                    }}
-                    className="text-red-600 hover:text-red-800"
-                  >
-                    <X size={18} />
-                  </button>
+                  <div>
+                    <p className="font-medium text-gray-900 dark:text-white">{contact.name}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{contact.phone}</p>
+                  </div>
                 </div>
-              ))
-            )}
-            <button
-              onClick={() => {
-                const name = prompt("Enter contact name:");
-                const phone = prompt("Enter phone number:");
-                if (name && phone) {
-                  const newContacts = [...preferences.communication.emergencyContacts, { name, phone }];
-                  handlePreferenceChange('communication', 'emergencyContacts', newContacts);
-                }
-              }}
-              className="text-primary-600 dark:text-primary-400 hover:text-primary-800"
-            >
-              + Add Emergency Contact
-            </button>
-          </div>
+                <button
+                  onClick={() => {
+                    const newContacts = [...preferences.communication.emergencyContacts];
+                    newContacts.splice(idx, 1);
+                    handlePreferenceChange('communication', 'emergencyContacts', newContacts);
+                  }}
+                  className="p-2 text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+            ))
+          )}
+          <button
+            onClick={() => {
+              const name = prompt("Enter contact name:");
+              const phone = prompt("Enter phone number:");
+              if (name && phone) {
+                const newContacts = [...preferences.communication.emergencyContacts, { name, phone }];
+                handlePreferenceChange('communication', 'emergencyContacts', newContacts);
+              }
+            }}
+            className="w-full py-3 border-2 border-dashed border-gray-300 dark:border-slate-700 rounded-xl hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors text-primary-600 dark:text-primary-400 font-medium"
+          >
+            + Add Emergency Contact
+          </button>
         </div>
       </div>
     </div>
@@ -452,60 +479,69 @@ const UserPreferences = ({
 
   const renderDisplaySettings = () => (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium mb-2">Theme</label>
-          <div className="flex gap-2">
-            {themes.map(theme => (
-              <button
-                key={theme}
-                onClick={() => handlePreferenceChange('display', 'theme', theme)}
-                className={`flex-1 p-4 rounded-lg border-2 flex flex-col items-center ${
-                  preferences.display.theme === theme
-                    ? 'border-primary-500 bg-primary-50'
-                    : 'border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 dark:text-white'
-                }`}
-              >
-                {theme === 'light' ? <Sun size={24} /> : theme === 'dark' ? <Moon size={24} /> : <Globe size={24} />}
-                <span className="mt-2 font-medium">
-                  {theme.charAt(0).toUpperCase() + theme.slice(1)}
-                </span>
-              </button>
-            ))}
-          </div>
+      <div>
+        <label className="block text-sm font-medium mb-4 text-gray-900 dark:text-white">
+          Theme Preference
+        </label>
+        <div className="grid grid-cols-3 gap-4">
+          {themes.map(theme => (
+            <button
+              key={theme.id}
+              onClick={() => handlePreferenceChange('display', 'theme', theme.id)}
+              className={`p-4 rounded-xl border-2 flex flex-col items-center gap-3 transition-all ${
+                preferences.display.theme === theme.id
+                  ? 'border-primary-500 bg-gradient-to-br from-primary-50 to-blue-50 dark:from-primary-900/20 dark:to-blue-900/20'
+                  : 'border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700'
+              }`}
+            >
+              <div className={`p-3 rounded-lg bg-gradient-to-br ${theme.color}`}>
+                <div className="text-white">
+                  {theme.icon}
+                </div>
+              </div>
+              <span className="font-medium text-gray-900 dark:text-white">{theme.label}</span>
+            </button>
+          ))}
         </div>
+      </div>
 
+      <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-2">
-            Text Size: {preferences.display.fontSize}px
+          <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
+            Text Size: <span className="text-primary-600 dark:text-primary-400">{preferences.display.fontSize}px</span>
           </label>
-          <input
-            type="range"
-            min="12"
-            max="24"
-            value={preferences.display.fontSize}
-            onChange={(e) => handlePreferenceChange('display', 'fontSize', parseInt(e.target.value))}
-            className="w-full h-2 bg-gray-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer"
-          />
-          <div className="flex justify-between text-xs text-gray-500 mt-1">
-            <span>Small</span>
-            <span>Medium</span>
-            <span>Large</span>
-            <span>X-Large</span>
+          <div className="space-y-2">
+            <input
+              type="range"
+              min="12"
+              max="24"
+              step="1"
+              value={preferences.display.fontSize}
+              onChange={(e) => handlePreferenceChange('display', 'fontSize', parseInt(e.target.value))}
+              className="w-full h-2 bg-gray-300 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary-600 dark:[&::-webkit-slider-thumb]:bg-primary-400"
+            />
+            <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
+              <span>Small (12px)</span>
+              <span>Medium (16px)</span>
+              <span>Large (20px)</span>
+              <span>X-Large (24px)</span>
+            </div>
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Interface Density</label>
-          <div className="flex gap-2">
+          <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
+            Interface Density
+          </label>
+          <div className="grid grid-cols-3 gap-2">
             {densities.map(density => (
               <button
                 key={density}
                 onClick={() => handlePreferenceChange('display', 'density', density)}
-                className={`flex-1 p-3 rounded-lg border ${
+                className={`p-3 rounded-xl border text-center ${
                   preferences.display.density === density
-                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-600 dark:text-white'
-                    : 'border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 dark:text-white'
+                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
+                    : 'border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700'
                 }`}
               >
                 <span className="font-medium">
@@ -515,106 +551,140 @@ const UserPreferences = ({
             ))}
           </div>
         </div>
+      </div>
 
-        <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
-          <div>
-            <p className="font-medium">Animations</p>
-            <p className="text-sm text-gray-600">Enable interface animations and transitions</p>
-          </div>
-          <button
-            onClick={() => handlePreferenceChange('display', 'animations', !preferences.display.animations)}
-            className={`w-12 h-6 rounded-full transition-colors ${
-              preferences.display.animations ? 'bg-primary-600' : 'bg-gray-400'
-            }`}
-          >
-            <div className={`w-5 h-5 bg-white rounded-full transform transition-transform ${
-              preferences.display.animations ? 'translate-x-7' : 'translate-x-1'
-            }`} />
-          </button>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <SwitchToggle
+          checked={preferences.display.animations}
+          onChange={() => handlePreferenceChange('display', 'animations', !preferences.display.animations)}
+          label="Interface Animations"
+          description="Smooth transitions and animations"
+        />
+        
+        <SwitchToggle
+          checked={preferences.display.highContrast}
+          onChange={() => handlePreferenceChange('display', 'highContrast', !preferences.display.highContrast)}
+          label="High Contrast Mode"
+          description="Better visibility with higher contrast"
+        />
+        
+        <SwitchToggle
+          checked={preferences.display.reduceTransparency}
+          onChange={() => handlePreferenceChange('display', 'reduceTransparency', !preferences.display.reduceTransparency)}
+          label="Reduce Transparency"
+          description="Minimize transparent effects"
+        />
       </div>
     </div>
   );
 
   const renderAccessibilitySettings = () => (
     <div className="space-y-6">
-      <div className="space-y-4">
-        <h3 className="font-bold">Accessibility Features</h3>
-        {Object.entries(preferences.accessibility).map(([key, value]) => (
-          <div key={key} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-            <div>
-              <p className="font-medium">
-                {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
-              </p>
-              <p className="text-sm text-gray-600">
-                {key === 'voiceGuidance' ? 'Audio guidance for all actions' :
-                 key === 'screenReader' ? 'Optimize for screen readers' :
-                 key === 'keyboardNavigation' ? 'Full keyboard navigation support' :
-                 key === 'largeCursor' ? 'Large cursor for better visibility' :
-                 'High contrast colors for better readability'}
-              </p>
-            </div>
-            <button
-              onClick={() => handlePreferenceChange('accessibility', key, !value)}
-              className={`w-12 h-6 rounded-full transition-colors ${
-                value ? 'bg-primary-600' : 'bg-gray-400'
-              }`}
-            >
-              <div className={`w-5 h-5 bg-white rounded-full transform transition-transform ${
-                value ? 'translate-x-7' : 'translate-x-1'
-              }`} />
-            </button>
-          </div>
-        ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <SwitchToggle
+          checked={preferences.accessibility.voiceGuidance}
+          onChange={() => handlePreferenceChange('accessibility', 'voiceGuidance', !preferences.accessibility.voiceGuidance)}
+          label="Voice Guidance"
+          description="Audio guidance for all actions"
+        />
+        
+        <SwitchToggle
+          checked={preferences.accessibility.screenReader}
+          onChange={() => handlePreferenceChange('accessibility', 'screenReader', !preferences.accessibility.screenReader)}
+          label="Screen Reader Optimized"
+          description="Enhanced compatibility with screen readers"
+        />
+        
+        <SwitchToggle
+          checked={preferences.accessibility.keyboardNavigation}
+          onChange={() => handlePreferenceChange('accessibility', 'keyboardNavigation', !preferences.accessibility.keyboardNavigation)}
+          label="Keyboard Navigation"
+          description="Full keyboard navigation support"
+        />
+        
+        <SwitchToggle
+          checked={preferences.accessibility.largeCursor}
+          onChange={() => handlePreferenceChange('accessibility', 'largeCursor', !preferences.accessibility.largeCursor)}
+          label="Large Cursor"
+          description="Larger cursor for better visibility"
+        />
+        
+        <SwitchToggle
+          checked={preferences.accessibility.colorBlindMode}
+          onChange={() => handlePreferenceChange('accessibility', 'colorBlindMode', !preferences.accessibility.colorBlindMode)}
+          label="Color Blind Mode"
+          description="Color adjustments for different vision types"
+        />
+        
+        <SwitchToggle
+          checked={preferences.accessibility.monoAudio}
+          onChange={() => handlePreferenceChange('accessibility', 'monoAudio', !preferences.accessibility.monoAudio)}
+          label="Mono Audio"
+          description="Combine stereo audio to mono"
+        />
       </div>
 
-      <div className="p-4 bg-blue-50 rounded-lg">
+      <Card className="bg-gradient-to-r from-primary-50 to-blue-50 dark:from-primary-900/10 dark:to-blue-900/10 border-primary-200 dark:border-primary-800">
         <div className="flex items-start gap-3">
-          <Zap size={20} className="text-blue-600 mt-0.5" />
+          <Zap size={20} className="text-primary-600 dark:text-primary-400 flex-shrink-0" />
           <div>
-            <h4 className="font-bold text-blue-800 mb-1">Quick Accessibility Mode</h4>
-            <p className="text-sm text-blue-700 mb-3">
-              For quick accessibility adjustments, use the mode selector in the top-right corner.
+            <h4 className="font-bold text-primary-800 dark:text-primary-300 mb-1">Quick Accessibility Mode</h4>
+            <p className="text-primary-700 dark:text-primary-400 text-sm mb-3">
+              For quick accessibility adjustments, use the accessibility toggle in the navigation bar.
             </p>
-            <Button
-              variant="primary"
-              size="small"
+            <button
               onClick={() => window.location.href = '/accessibility'}
+              className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 transition-colors text-sm"
             >
-              Open Accessibility Settings
-            </Button>
+              Open Accessibility Panel
+            </button>
           </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 
   const renderDataSettings = () => (
     <div className="space-y-6">
-      <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
-          <div>
-            <p className="font-medium">Auto Backup</p>
-            <p className="text-sm text-gray-600">Automatically backup your health data</p>
-          </div>
-          <button
-            onClick={() => handlePreferenceChange('data', 'autoBackup', !preferences.data.autoBackup)}
-            className={`w-12 h-6 rounded-full transition-colors ${
-              preferences.data.autoBackup ? 'bg-green-600' : 'bg-gray-400'
-            }`}
-          >
-            <div className={`w-5 h-5 bg-white rounded-full transform transition-transform ${
-              preferences.data.autoBackup ? 'translate-x-7' : 'translate-x-1'
-            }`} />
-          </button>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <SwitchToggle
+          checked={preferences.data.autoBackup}
+          onChange={() => handlePreferenceChange('data', 'autoBackup', !preferences.data.autoBackup)}
+          label="Automatic Backup"
+          description="Automatically backup your health data"
+        />
+        
+        <SwitchToggle
+          checked={preferences.data.cloudSync}
+          onChange={() => handlePreferenceChange('data', 'cloudSync', !preferences.data.cloudSync)}
+          label="Cloud Sync"
+          description="Sync data across all your devices"
+        />
+        
+        <SwitchToggle
+          checked={preferences.data.localBackup}
+          onChange={() => handlePreferenceChange('data', 'localBackup', !preferences.data.localBackup)}
+          label="Local Backup"
+          description="Create local backups on your device"
+        />
+        
+        <SwitchToggle
+          checked={preferences.data.backupEncryption}
+          onChange={() => handlePreferenceChange('data', 'backupEncryption', !preferences.data.backupEncryption)}
+          label="Encrypt Backups"
+          description="Add encryption to all backup files"
+        />
+      </div>
 
+      <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-2">Backup Frequency</label>
+          <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
+            Backup Frequency
+          </label>
           <select
             value={preferences.data.backupFrequency}
             onChange={(e) => handlePreferenceChange('data', 'backupFrequency', e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg bg-white dark:bg-slate-800 dark:text-white dark:border-slate-700"
+            className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 text-gray-900 dark:text-white"
             disabled={!preferences.data.autoBackup}
           >
             <option value="daily">Daily</option>
@@ -623,78 +693,62 @@ const UserPreferences = ({
           </select>
         </div>
 
-        <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
-          <div>
-            <p className="font-medium">Cloud Sync</p>
-            <p className="text-sm text-gray-600">Sync data across all your devices</p>
-          </div>
-          <button
-            onClick={() => handlePreferenceChange('data', 'cloudSync', !preferences.data.cloudSync)}
-            className={`w-12 h-6 rounded-full transition-colors ${
-              preferences.data.cloudSync ? 'bg-blue-600' : 'bg-gray-400'
-            }`}
-          >
-            <div className={`w-5 h-5 bg-white rounded-full transform transition-transform ${
-              preferences.data.cloudSync ? 'translate-x-7' : 'translate-x-1'
-            }`} />
-          </button>
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        <h3 className="font-bold">Data Management</h3>
-        
         <div>
-          <label className="block text-sm font-medium mb-2">Export Format</label>
-          <div className="flex flex-wrap gap-2">
+          <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
+            Export Format
+          </label>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {exportFormats.map(format => (
               <button
                 key={format}
                 onClick={() => handlePreferenceChange('data', 'exportFormat', format)}
-                className={`px-4 py-2 rounded-lg border ${
+                className={`p-3 rounded-xl border flex flex-col items-center gap-1 ${
                   preferences.data.exportFormat === format
-                    ? 'border-primary-500 bg-primary-50 text-primary-700 dark:bg-primary-600 dark:text-white'
-                    : 'border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 dark:text-white'
+                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
+                    : 'border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700'
                 }`}
               >
-                {format.toUpperCase()}
+                <span className="text-lg font-bold">{format.toUpperCase()}</span>
+                <span className="text-xs">Format</span>
               </button>
             ))}
           </div>
         </div>
+      </div>
 
+      <div className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Button
-            variant="outline"
-            icon={<Download size={18} />}
+          <button
             onClick={handleExportData}
-            fullWidth
+            className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors flex flex-col items-center justify-center gap-2"
           >
-            Export All Data
-          </Button>
+            <Download size={24} className="text-primary-600 dark:text-primary-400" />
+            <span className="font-medium text-gray-900 dark:text-white">Export All Data</span>
+            <span className="text-sm text-gray-600 dark:text-gray-400">Download your complete health history</span>
+          </button>
           
-          <Button
-            variant="danger"
-            icon={<Trash2 size={18} />}
+          <button
             onClick={handleDeleteData}
-            fullWidth
+            className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-red-300 dark:border-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex flex-col items-center justify-center gap-2"
           >
-            Delete All Data
-          </Button>
+            <Trash2 size={24} className="text-red-600 dark:text-red-400" />
+            <span className="font-medium text-red-700 dark:text-red-300">Delete All Data</span>
+            <span className="text-sm text-red-600 dark:text-red-400">Permanent deletion (irreversible)</span>
+          </button>
         </div>
 
-        <div className="p-4 bg-red-50 dark:bg-slate-700 rounded-lg">
+        <Card className="bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/10 dark:to-orange-900/10 border-red-200 dark:border-red-800">
           <div className="flex items-start gap-3">
-            <AlertCircle size={20} className="text-red-600 mt-0.5" />
+            <AlertCircle size={20} className="text-red-600 dark:text-red-400 flex-shrink-0" />
             <div>
-              <h4 className="font-bold text-red-800 dark:text-red-200 mb-1">Warning</h4>
-              <p className="text-sm text-red-700 dark:text-red-200">
+              <h4 className="font-bold text-red-800 dark:text-red-300 mb-1">Warning: Irreversible Action</h4>
+              <p className="text-red-700 dark:text-red-400 text-sm">
                 Deleting your data is permanent and cannot be undone. 
-                Make sure to export your data before proceeding.
+                Make sure to export your data before proceeding. This action will remove all your health records, appointments, and personal information.
               </p>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );
@@ -720,125 +774,10 @@ const UserPreferences = ({
 
   return (
     <div className={`${settings.mode === 'elderly' ? 'p-4' : ''}`}>
-      {/* Header */}
-      {showHeader && (
-        <div className="mb-8">
-          <h1 className={`font-bold mb-4 ${settings.mode === 'elderly' ? 'text-2xl' : 'text-xl'}`}>
-            <Settings className="inline mr-2 text-primary-600" />
-            User Preferences
-          </h1>
-          <p className="text-gray-600">
-            Customize your healthcare experience with these settings
-          </p>
-        </div>
-      )}
+   
 
-      {/* Main Content */}
-      <Card>
-        <div className="space-y-6">
-          {/* Tabs */}
-          <div className="border-b border-gray-200">
-            <div className="flex flex-wrap gap-2">
-              {tabs.map(tab => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-4 py-3 font-medium border-b-2 transition-colors ${
-                    activeTab === tab.id
-                      ? 'border-primary-500 text-primary-700'
-                      : 'border-transparent text-gray-600 hover:text-gray-800'
-                  }`}
-                >
-                  {tab.icon}
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-          </div>
 
-          {/* Tab Content */}
-          <div className="min-h-[400px]">
-            {renderTabContent()}
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-gray-200">
-            <div className="flex gap-3">
-              <Button
-                variant="outline"
-                icon={<RotateCcw size={18} />}
-                onClick={() => handleReset(activeTab)}
-                disabled={saving}
-              >
-                Reset {tabs.find(t => t.id === activeTab)?.label}
-              </Button>
-              
-              <Button
-                variant="outline"
-                onClick={handleReset}
-                disabled={saving}
-              >
-                Reset All
-              </Button>
-            </div>
-            
-            <div className="flex gap-3">
-              {onCancel && (
-                <Button
-                  variant="outline"
-                  onClick={onCancel}
-                  disabled={saving}
-                >
-                  Cancel
-                </Button>
-              )}
-              
-              <Button
-                variant="primary"
-                onClick={handleSave}
-                disabled={!hasChanges || saving}
-                loading={saving}
-                icon={<Check size={18} />}
-              >
-                {saving ? 'Saving...' : 'Save Preferences'}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </Card>
-
-      {/* Quick Help */}
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <div className="flex items-center gap-2 mb-2">
-            <HelpCircle size={20} className="text-gray-600" />
-            <h4 className="font-medium">Need Help?</h4>
-          </div>
-          <p className="text-sm text-gray-600">
-            Visit our help center for detailed explanations of all settings.
-          </p>
-        </div>
-        
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <div className="flex items-center gap-2 mb-2">
-            <Shield size={20} className="text-gray-600" />
-            <h4 className="font-medium">Privacy First</h4>
-          </div>
-          <p className="text-sm text-gray-600">
-            Your data is encrypted and protected. We never share without permission.
-          </p>
-        </div>
-        
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <div className="flex items-center gap-2 mb-2">
-            <Zap size={20} className="text-gray-600" />
-            <h4 className="font-medium">Quick Changes</h4>
-          </div>
-          <p className="text-sm text-gray-600">
-            Use the accessibility toggle for quick mode changes.
-          </p>
-        </div>
-      </div>
+     
     </div>
   );
 };

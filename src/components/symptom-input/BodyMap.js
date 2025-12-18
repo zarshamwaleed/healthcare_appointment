@@ -33,6 +33,8 @@ const BodyMap = ({ onPartSelect }) => {
     { id: 'right-knee', label: 'Right Knee', top: '78%', left: '58%', dept: 'Orthopedics' },
     { id: 'left-leg', label: 'Left Leg', top: '88%', left: '42%', dept: 'Orthopedics' },
     { id: 'right-leg', label: 'Right Leg', top: '88%', left: '58%', dept: 'Orthopedics' },
+    { id: 'left-foot', label: 'Left Foot', top: '94%', left: '38%', dept: 'Orthopedics' },
+    { id: 'right-foot', label: 'Right Foot', top: '94%', left: '62%', dept: 'Orthopedics' },
   ];
 
   const handlePartClick = (part) => {
@@ -61,6 +63,8 @@ const BodyMap = ({ onPartSelect }) => {
       'right-knee': ['Knee Pain', 'Swelling', 'Difficulty Walking'],
       'left-leg': ['Leg Pain', 'Cramps', 'Swelling'],
       'right-leg': ['Leg Pain', 'Cramps', 'Swelling'],
+      'left-foot': ['Foot Pain', 'Cramps', 'Swelling'],
+      'right-foot': ['Foot Pain', 'Cramps', 'Swelling'],
     };
     return symptomsMap[partId] || ['Pain', 'Swelling', 'Discomfort'];
   };
@@ -344,19 +348,21 @@ const BodyMap = ({ onPartSelect }) => {
           {/* Left Foot */}
           <ellipse 
             cx="75" cy="380" rx="14" ry="10" 
-            fill={selectedPart?.id === 'left-leg' ? '#3b82f6' : '#ddd6fe'} 
+            fill={selectedPart?.id === 'left-foot' ? '#3b82f6' : '#ddd6fe'} 
             stroke="#6366f1" 
             strokeWidth="2"
-            className="pointer-events-none"
+            className="cursor-pointer hover:fill-blue-300 transition-all duration-200"
+            onClick={() => handlePartClick(bodyParts.find(p => p.id === 'left-foot'))}
           />
           
           {/* Right Foot */}
           <ellipse 
             cx="125" cy="380" rx="14" ry="10" 
-            fill={selectedPart?.id === 'right-leg' ? '#3b82f6' : '#ddd6fe'} 
+            fill={selectedPart?.id === 'right-foot' ? '#3b82f6' : '#ddd6fe'} 
             stroke="#6366f1" 
             strokeWidth="2"
-            className="pointer-events-none"
+            className="cursor-pointer hover:fill-blue-300 transition-all duration-200"
+            onClick={() => handlePartClick(bodyParts.find(p => p.id === 'right-foot'))}
           />
         </svg>
       </div>

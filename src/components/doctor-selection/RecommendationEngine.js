@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   Brain, 
   TrendingUp, 
@@ -26,11 +27,31 @@ const RecommendationEngine = ({
   onRecommendationsChange,
   showDetails = true
 }) => {
+  const navigate = useNavigate();
   const { settings } = useAccessibility();
   const [recommendations, setRecommendations] = useState([]);
   const [confidenceScore, setConfidenceScore] = useState(0);
   const [explanation, setExplanation] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Handler functions
+  const handleViewMatches = () => {
+    alert('Viewing all recommended specialists. Redirecting to doctor selection page...');
+    navigate('/doctors');
+  };
+
+  const handleScheduleAppointment = () => {
+    alert('Scheduling appointment with recommended specialist.');
+    navigate('/booking');
+  };
+
+  const handleChatAssistant = () => {
+    alert('Opening AI Assistant for medical consultation.');
+  };
+
+  const handleSecondOpinion = () => {
+    alert('Requesting second opinion from another specialist.');
+  };
 
   // Symptom to specialty mapping
   const symptomMapping = {
@@ -503,7 +524,7 @@ const RecommendationEngine = ({
                   </div>
                   
                   {index === 0 && (
-                    <button className="mt-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium flex items-center justify-center gap-2">
+                    <button onClick={handleViewMatches} className="mt-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium flex items-center justify-center gap-2">
                       View Top Matches
                       <ChevronRight size={16} />
                     </button>
@@ -569,13 +590,13 @@ const RecommendationEngine = ({
               <h4 className="font-bold">Next Steps</h4>
             </div>
             <div className="space-y-3">
-              <button className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium">
+              <button onClick={handleScheduleAppointment} className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium">
                 Schedule Appointment
               </button>
-              <button className="w-full px-4 py-2 border-2 border-green-600 text-green-600 rounded-lg hover:bg-green-50 font-medium">
+              <button onClick={handleChatAssistant} className="w-full px-4 py-2 border-2 border-green-600 text-green-600 rounded-lg hover:bg-green-50 font-medium">
                 Chat with AI Assistant
               </button>
-              <button className="w-full px-4 py-2 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium">
+              <button onClick={handleSecondOpinion} className="w-full px-4 py-2 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium">
                 Get Second Opinion
               </button>
             </div>

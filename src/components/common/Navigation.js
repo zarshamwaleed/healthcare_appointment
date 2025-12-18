@@ -23,7 +23,9 @@ import {
   Shield,
   Volume2,
   Moon,
-  Sun
+  Sun,
+  AlertTriangle,
+  Sparkles
 } from 'lucide-react';
 import { useAccessibility } from '../../context/AccessibilityContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -44,6 +46,63 @@ const Navigation = ({
   const navigate = useNavigate();
   const [activePath, setActivePath] = useState('/');
   const [openSubmenus, setOpenSubmenus] = useState({});
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  // Handler for view all notifications
+  const handleViewAllNotifications = () => {
+    setShowNotifications(false);
+    alert('Viewing all notifications and alerts.');
+    // Could navigate to a dedicated notifications page if it exists
+  };
+
+  // Hardcoded notifications
+  const notifications = [
+    {
+      id: 1,
+      type: 'appointment',
+      title: 'Appointment Confirmed',
+      message: 'Your appointment with Dr. Sarah Johnson is confirmed for tomorrow at 10:30 AM',
+      timestamp: '2 hours ago',
+      icon: <Calendar size={16} />,
+      color: 'bg-blue-100 dark:bg-blue-900/30 border-blue-200 dark:border-blue-800'
+    },
+    {
+      id: 2,
+      type: 'reminder',
+      title: 'Medication Reminder',
+      message: 'Time to take your daily medication - Amlodipine 5mg',
+      timestamp: '30 minutes ago',
+      icon: <Bell size={16} />,
+      color: 'bg-amber-100 dark:bg-amber-900/30 border-amber-200 dark:border-amber-800'
+    },
+    {
+      id: 3,
+      type: 'lab-result',
+      title: 'Lab Results Available',
+      message: 'Your blood test results are now available. All values are normal.',
+      timestamp: '1 day ago',
+      icon: <Shield size={16} />,
+      color: 'bg-green-100 dark:bg-green-900/30 border-green-200 dark:border-green-800'
+    },
+    {
+      id: 4,
+      type: 'alert',
+      title: 'Health Alert',
+      message: 'Your blood pressure reading is slightly elevated. Consider scheduling a follow-up.',
+      timestamp: '2 days ago',
+      icon: <AlertTriangle size={16} />,
+      color: 'bg-red-100 dark:bg-red-900/30 border-red-200 dark:border-red-800'
+    },
+    {
+      id: 5,
+      type: 'info',
+      title: 'New Feature Available',
+      message: 'Check out our new AI symptom checker to get personalized health insights.',
+      timestamp: '3 days ago',
+      icon: <Sparkles size={16} />,
+      color: 'bg-purple-100 dark:bg-purple-900/30 border-purple-200 dark:border-purple-800'
+    }
+  ];
 
   useEffect(() => {
     setActivePath(location.pathname);
@@ -433,32 +492,73 @@ const Navigation = ({
                 />
               </div>
               
-              {settings.voiceAssistance && (
+              
+              
+              {/* Notifications Dropdown */}
+              <div className="relative">
                 <button
-                  className="p-2 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800"
-                  aria-label="Voice assistant"
+                  onClick={() => setShowNotifications(!showNotifications)}
+                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 relative transition-colors"
+                  aria-label="Notifications"
                 >
-                  <Volume2 size={20} />
+                  <Bell size={20} className="dark:text-gray-200" />
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                    {notifications.length}
+                  </span>
                 </button>
-              )}
-              
-              <button
-                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 relative"
-                aria-label="Notifications"
-              >
-                <Bell size={20} className="dark:text-gray-200" />
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                  3
-                </span>
-              </button>
-              
-              <button
-                onClick={() => navigate('/profile')}
-                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700"
-                aria-label="User profile"
-              >
-                <User size={20} className="dark:text-gray-200" />
-              </button>
+
+                {/* Notification Dropdown Menu */}
+                {showNotifications && (
+                  <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-gray-200 dark:border-slate-700 z-50 max-h-96 overflow-y-auto">
+                    {/* Header */}
+                    <div className="sticky top-0 p-4 border-b border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-bold text-gray-900 dark:text-white">Notifications</h3>
+                        <button
+                          onClick={() => setShowNotifications(false)}
+                          className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                        >
+                          <X size={18} />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Notifications List */}
+                    <div className="divide-y divide-gray-100 dark:divide-slate-700">
+                      {notifications.map(notification => (
+                        <div
+                          key={notification.id}
+                          className={`p-4 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors cursor-pointer border-l-4 ${notification.color}`}
+                        >
+                          <div className="flex gap-3">
+                            <div className="flex-shrink-0 mt-1 text-gray-600 dark:text-gray-400">
+                              {notification.icon}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-semibold text-gray-900 dark:text-white text-sm">
+                                {notification.title}
+                              </p>
+                              <p className="text-gray-600 dark:text-gray-400 text-sm mt-1 line-clamp-2">
+                                {notification.message}
+                              </p>
+                              <p className="text-xs text-gray-500 dark:text-gray-500 mt-2">
+                                {notification.timestamp}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Footer */}
+                    <div className="sticky bottom-0 p-4 border-t border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+                      <button onClick={handleViewAllNotifications} className="w-full py-2 px-4 text-center text-primary-600 dark:text-primary-400 font-semibold hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors">
+                        View All Notifications
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

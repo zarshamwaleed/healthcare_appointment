@@ -23,9 +23,10 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
       level: 1,
       label: 'Emergency',
       color: 'from-red-500 to-red-600',
-      bgColor: 'bg-red-50',
-      textColor: 'text-red-700',
-      borderColor: 'border-red-200',
+      darkColor: 'from-red-600 to-red-700',
+      bgColor: 'bg-red-50 dark:bg-red-950/20',
+      textColor: 'text-red-700 dark:text-red-300',
+      borderColor: 'border-red-200 dark:border-red-800',
       icon: <AlertTriangle size={24} />,
       description: 'Immediate medical attention required',
       waitTime: 'Immediate',
@@ -35,9 +36,10 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
       level: 2,
       label: 'Urgent',
       color: 'from-amber-500 to-orange-600',
-      bgColor: 'bg-amber-50',
-      textColor: 'text-amber-700',
-      borderColor: 'border-amber-200',
+      darkColor: 'from-amber-600 to-orange-700',
+      bgColor: 'bg-amber-50 dark:bg-amber-950/20',
+      textColor: 'text-amber-700 dark:text-amber-300',
+      borderColor: 'border-amber-200 dark:border-amber-800',
       icon: <Zap size={24} />,
       description: 'Same-day appointment recommended',
       waitTime: 'Within 2 hours',
@@ -46,10 +48,11 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
     high: {
       level: 3,
       label: 'High Priority',
-      color: 'from-purple-500 to-purple-600',
-      bgColor: 'bg-purple-50',
-      textColor: 'text-purple-700',
-      borderColor: 'border-purple-200',
+      color: 'from-violet-500 to-purple-600',
+      darkColor: 'from-violet-600 to-purple-700',
+      bgColor: 'bg-violet-50 dark:bg-violet-950/20',
+      textColor: 'text-violet-700 dark:text-violet-300',
+      borderColor: 'border-violet-200 dark:border-violet-800',
       icon: <Shield size={24} />,
       description: 'Priority booking within 24 hours',
       waitTime: '24 hours',
@@ -59,9 +62,10 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
       level: 4,
       label: 'Normal',
       color: 'from-blue-500 to-blue-600',
-      bgColor: 'bg-blue-50',
-      textColor: 'text-blue-700',
-      borderColor: 'border-blue-200',
+      darkColor: 'from-blue-600 to-blue-700',
+      bgColor: 'bg-blue-50 dark:bg-blue-950/20',
+      textColor: 'text-blue-700 dark:text-blue-300',
+      borderColor: 'border-blue-200 dark:border-blue-800',
       icon: <Clock size={24} />,
       description: 'Routine care',
       waitTime: '2-3 days',
@@ -70,10 +74,11 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
     low: {
       level: 5,
       label: 'Low Priority',
-      color: 'from-green-500 to-green-600',
-      bgColor: 'bg-green-50',
-      textColor: 'text-green-700',
-      borderColor: 'border-green-200',
+      color: 'from-emerald-500 to-green-600',
+      darkColor: 'from-emerald-600 to-green-700',
+      bgColor: 'bg-emerald-50 dark:bg-emerald-950/20',
+      textColor: 'text-emerald-700 dark:text-emerald-300',
+      borderColor: 'border-emerald-200 dark:border-emerald-800',
       icon: <CheckCircle size={24} />,
       description: 'Non-urgent follow-up',
       waitTime: '1-2 weeks',
@@ -86,25 +91,29 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
       icon: <User size={20} />,
       label: 'Elderly Priority',
       benefits: ['Priority slots', 'Extended consultation', 'Wheelchair access'],
-      color: 'bg-blue-100 text-blue-800'
+      color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300',
+      borderColor: 'border-blue-200 dark:border-blue-800'
     },
     pregnant: {
       icon: <Heart size={20} />,
       label: 'Maternity Priority',
       benefits: ['Priority booking', 'Specialist care', 'Extended time'],
-      color: 'bg-pink-100 text-pink-800'
+      color: 'bg-pink-100 dark:bg-pink-900/30 text-pink-800 dark:text-pink-300',
+      borderColor: 'border-pink-200 dark:border-pink-800'
     },
     disability: {
       icon: <Shield size={20} />,
       label: 'Accessibility Priority',
       benefits: ['Wheelchair access', 'Sign language support', 'Priority seating'],
-      color: 'bg-purple-100 text-purple-800'
+      color: 'bg-violet-100 dark:bg-violet-900/30 text-violet-800 dark:text-violet-300',
+      borderColor: 'border-violet-200 dark:border-violet-800'
     },
     veteran: {
       icon: <Star size={20} />,
       label: 'Veteran Priority',
       benefits: ['Priority access', 'Dedicated staff', 'Expedited service'],
-      color: 'bg-amber-100 text-amber-800'
+      color: 'bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300',
+      borderColor: 'border-amber-200 dark:border-amber-800'
     }
   };
 
@@ -153,10 +162,10 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
     return (
       <button
         onClick={() => setIsVisible(true)}
-        className="fixed top-20 right-4 z-50 p-3 bg-white rounded-full shadow-lg border hover:shadow-xl transition-shadow"
+        className="fixed top-20 right-4 z-50 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow"
         aria-label="Show priority indicator"
       >
-        <AlertTriangle size={20} className="text-red-500" />
+        <AlertTriangle size={20} className="text-red-500 dark:text-red-400" />
       </button>
     );
   }
@@ -167,7 +176,7 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
       <div className={`relative overflow-hidden rounded-2xl border-2 ${displayPriority.borderColor} ${displayPriority.bgColor} p-6 animate-fade-in`}>
         <button
           onClick={() => setIsVisible(false)}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
           aria-label="Close priority indicator"
         >
           ×
@@ -175,44 +184,44 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
 
         <div className="flex flex-col md:flex-row md:items-center gap-6">
           {/* Priority Icon */}
-          <div className={`p-4 rounded-xl bg-gradient-to-br ${displayPriority.color} text-white shadow-lg`}>
+          <div className={`p-4 rounded-xl bg-gradient-to-br ${displayPriority.color} dark:${displayPriority.darkColor} text-white shadow-lg`}>
             {displayPriority.icon}
           </div>
 
           {/* Priority Info */}
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <h2 className="text-2xl font-bold">{displayPriority.label} Priority</h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{displayPriority.label} Priority</h2>
               <span className={`px-3 py-1 rounded-full ${displayPriority.textColor} ${displayPriority.bgColor} border ${displayPriority.borderColor} text-sm font-semibold`}>
                 Level {displayPriority.level}
               </span>
             </div>
             
-            <p className="text-gray-700 mb-4">{displayPriority.description}</p>
+            <p className="text-gray-700 dark:text-gray-300 mb-4">{displayPriority.description}</p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-3 bg-white/80 rounded-lg">
+              <div className="p-3 bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
                 <div className="flex items-center gap-2 mb-1">
-                  <Clock size={16} className="text-gray-500" />
-                  <span className="font-semibold">Expected Wait</span>
+                  <Clock size={16} className="text-gray-500 dark:text-gray-400" />
+                  <span className="font-semibold text-gray-700 dark:text-gray-300">Expected Wait</span>
                 </div>
-                <p className="text-xl font-bold">{displayPriority.waitTime}</p>
+                <p className="text-xl font-bold text-gray-900 dark:text-white">{displayPriority.waitTime}</p>
               </div>
               
-              <div className="p-3 bg-white/80 rounded-lg">
+              <div className="p-3 bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
                 <div className="flex items-center gap-2 mb-1">
-                  <Calendar size={16} className="text-gray-500" />
-                  <span className="font-semibold">Recommendation</span>
+                  <Calendar size={16} className="text-gray-500 dark:text-gray-400" />
+                  <span className="font-semibold text-gray-700 dark:text-gray-300">Recommendation</span>
                 </div>
-                <p className="font-medium">{displayPriority.recommendation}</p>
+                <p className="font-medium text-gray-900 dark:text-gray-300">{displayPriority.recommendation}</p>
               </div>
               
-              <div className="p-3 bg-white/80 rounded-lg">
+              <div className="p-3 bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
                 <div className="flex items-center gap-2 mb-1">
-                  <Info size={16} className="text-gray-500" />
-                  <span className="font-semibold">Based On</span>
+                  <Info size={16} className="text-gray-500 dark:text-gray-400" />
+                  <span className="font-semibold text-gray-700 dark:text-gray-300">Based On</span>
                 </div>
-                <p className="font-medium">
+                <p className="font-medium text-gray-900 dark:text-gray-300">
                   {symptoms.length > 0 ? `${symptoms.length} symptoms` : 'User profile'}
                 </p>
               </div>
@@ -222,21 +231,21 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
 
         {/* Priority Bar */}
         <div className="mt-6">
-          <div className="flex justify-between text-sm text-gray-600 mb-2">
+          <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-2">
             <span>Low Priority</span>
             <span>High Priority</span>
           </div>
-          <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+          <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
             <div 
-              className={`h-full bg-gradient-to-r ${displayPriority.color} transition-all duration-500`}
+              className={`h-full bg-gradient-to-r ${displayPriority.color} dark:${displayPriority.darkColor} transition-all duration-500`}
               style={{ width: `${(1 - (displayPriority.level - 1) / 4) * 100}%` }}
             ></div>
           </div>
-          <div className="flex justify-between mt-2 text-xs text-gray-500">
+          <div className="flex justify-between mt-2 text-xs text-gray-500 dark:text-gray-400">
             {Object.values(priorityLevels).map(level => (
               <div
                 key={level.label}
-                className={`text-center ${calculatedPriority === Object.keys(priorityLevels).find(k => priorityLevels[k] === level) ? 'font-bold' : ''}`}
+                className={`text-center ${calculatedPriority === Object.keys(priorityLevels).find(k => priorityLevels[k] === level) ? 'font-bold text-gray-900 dark:text-white' : ''}`}
               >
                 {level.label}
               </div>
@@ -247,29 +256,29 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
 
       {/* User-Specific Priority Benefits */}
       {userPriority && (
-        <div className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-200">
+        <div className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-blue-200 dark:border-gray-700">
           <div className="flex items-center gap-3 mb-4">
-            <div className={`p-2 rounded-lg ${userPriority.color}`}>
+            <div className={`p-2 rounded-lg ${userPriority.color} border ${userPriority.borderColor}`}>
               {userPriority.icon}
             </div>
             <div>
-              <h3 className="text-xl font-bold">{userPriority.label} Activated</h3>
-              <p className="text-gray-600">Special benefits for your user category</p>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white">{userPriority.label} Activated</h3>
+              <p className="text-gray-600 dark:text-gray-400">Special benefits for your user category</p>
             </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {userPriority.benefits.map((benefit, index) => (
-              <div key={index} className="p-3 bg-white rounded-lg border border-blue-100">
+              <div key={index} className="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
                 <div className="flex items-center gap-2">
-                  <CheckCircle size={16} className="text-green-500" />
-                  <span className="font-medium">{benefit}</span>
+                  <CheckCircle size={16} className="text-emerald-500 dark:text-emerald-400" />
+                  <span className="font-medium text-gray-900 dark:text-gray-200">{benefit}</span>
                 </div>
               </div>
             ))}
           </div>
           
-          <div className="mt-4 text-sm text-blue-700">
+          <div className="mt-4 text-sm text-blue-700 dark:text-blue-300">
             These benefits are automatically applied to your appointment booking.
           </div>
         </div>
@@ -277,20 +286,20 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
 
       {/* Symptom-Based Priority Breakdown */}
       {symptoms.length > 0 && (
-        <div className="p-6 bg-white rounded-2xl border border-gray-200">
+        <div className="p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700">
           <button
             onClick={() => setExpanded(!expanded)}
             className="w-full flex items-center justify-between mb-4"
           >
-            <h3 className="text-xl font-bold">How Your Priority Was Determined</h3>
-            <span className="text-gray-500">{expanded ? '▲' : '▼'}</span>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white">How Your Priority Was Determined</h3>
+            <span className="text-gray-500 dark:text-gray-400">{expanded ? '▲' : '▼'}</span>
           </button>
           
           {expanded && (
             <div className="space-y-4 animate-fade-in">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <h4 className="font-semibold mb-2 text-gray-700">Your Symptoms</h4>
+                  <h4 className="font-semibold mb-2 text-gray-700 dark:text-gray-300">Your Symptoms</h4>
                   <div className="space-y-2">
                     {symptoms.map((symptom, index) => {
                       const isEmergency = emergencySymptoms.includes(symptom.toLowerCase());
@@ -303,14 +312,14 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
                             isUrgent ? 'bg-amber-500' :
                             'bg-blue-500'
                           }`}></div>
-                          <span>{symptom}</span>
+                          <span className="text-gray-900 dark:text-gray-300">{symptom}</span>
                           {isEmergency && (
-                            <span className="px-2 py-0.5 bg-red-100 text-red-700 text-xs rounded-full">
+                            <span className="px-2 py-0.5 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs rounded-full">
                               Emergency
                             </span>
                           )}
                           {isUrgent && !isEmergency && (
-                            <span className="px-2 py-0.5 bg-amber-100 text-amber-700 text-xs rounded-full">
+                            <span className="px-2 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 text-xs rounded-full">
                               Urgent
                             </span>
                           )}
@@ -321,15 +330,15 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
                 </div>
                 
                 <div>
-                  <h4 className="font-semibold mb-2 text-gray-700">Priority Factors</h4>
+                  <h4 className="font-semibold mb-2 text-gray-700 dark:text-gray-300">Priority Factors</h4>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-2">
-                      <div className="p-1 bg-blue-100 rounded mt-0.5">
-                        <AlertTriangle size={12} className="text-blue-600" />
+                      <div className="p-1 bg-blue-100 dark:bg-blue-900/30 rounded mt-0.5">
+                        <AlertTriangle size={12} className="text-blue-600 dark:text-blue-400" />
                       </div>
                       <div>
-                        <span className="font-medium">Symptom Severity:</span>
-                        <p className="text-sm text-gray-600">
+                        <span className="font-medium text-gray-900 dark:text-gray-300">Symptom Severity:</span>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
                           {calculatedPriority === 'emergency' ? 'Emergency symptoms detected' :
                            calculatedPriority === 'urgent' ? 'Urgent symptoms present' :
                            'Routine symptoms only'}
@@ -338,24 +347,24 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
                     </li>
                     
                     <li className="flex items-start gap-2">
-                      <div className="p-1 bg-blue-100 rounded mt-0.5">
-                        <User size={12} className="text-blue-600" />
+                      <div className="p-1 bg-blue-100 dark:bg-blue-900/30 rounded mt-0.5">
+                        <User size={12} className="text-blue-600 dark:text-blue-400" />
                       </div>
                       <div>
-                        <span className="font-medium">User Category:</span>
-                        <p className="text-sm text-gray-600">
+                        <span className="font-medium text-gray-900 dark:text-gray-300">User Category:</span>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
                           {userType ? `${userType.replace('-', ' ')} priority applied` : 'Standard user'}
                         </p>
                       </div>
                     </li>
                     
                     <li className="flex items-start gap-2">
-                      <div className="p-1 bg-blue-100 rounded mt-0.5">
-                        <Clock size={12} className="text-blue-600" />
+                      <div className="p-1 bg-blue-100 dark:bg-blue-900/30 rounded mt-0.5">
+                        <Clock size={12} className="text-blue-600 dark:text-blue-400" />
                       </div>
                       <div>
-                        <span className="font-medium">Time Sensitivity:</span>
-                        <p className="text-sm text-gray-600">
+                        <span className="font-medium text-gray-900 dark:text-gray-300">Time Sensitivity:</span>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
                           Based on symptom urgency and recommended response time
                         </p>
                       </div>
@@ -364,12 +373,12 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
                 </div>
               </div>
               
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <h4 className="font-semibold mb-2 flex items-center gap-2">
-                  <Info size={16} />
+              <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                <h4 className="font-semibold mb-2 flex items-center gap-2 text-gray-900 dark:text-gray-300">
+                  <Info size={16} className="text-gray-600 dark:text-gray-400" />
                   What This Means For You
                 </h4>
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-gray-400">
                   Your {displayPriority.label.toLowerCase()} priority level means you should {
                     calculatedPriority === 'emergency' ? 'seek immediate medical attention.' :
                     calculatedPriority === 'urgent' ? 'book an appointment within the next few hours.' :
@@ -385,80 +394,84 @@ const PriorityIndicator = ({ urgencyLevel = 'normal', userType = 'standard', sym
 
       {/* Action Recommendations */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-200">
-          <h3 className="text-xl font-bold mb-3 text-green-800">✅ Recommended Action</h3>
+        <div className="p-6 bg-gradient-to-r from-emerald-50 to-green-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-emerald-200 dark:border-gray-700">
+          <h3 className="text-xl font-bold mb-3 text-emerald-800 dark:text-emerald-300">✅ Recommended Action</h3>
           <ul className="space-y-3">
             <li className="flex items-start gap-2">
-              <CheckCircle size={18} className="text-green-600 mt-0.5 flex-shrink-0" />
-              <span>
+              <CheckCircle size={18} className="text-emerald-600 dark:text-emerald-400 mt-0.5 flex-shrink-0" />
+              <span className="text-gray-700 dark:text-gray-300">
                 {calculatedPriority === 'emergency' ? 'Call emergency services or visit nearest ER immediately' :
                  calculatedPriority === 'urgent' ? 'Book same-day appointment using priority slots' :
                  'Schedule appointment using the calendar below'}
               </span>
             </li>
             <li className="flex items-start gap-2">
-              <CheckCircle size={18} className="text-green-600 mt-0.5 flex-shrink-0" />
-              <span>Keep emergency contacts accessible</span>
+              <CheckCircle size={18} className="text-emerald-600 dark:text-emerald-400 mt-0.5 flex-shrink-0" />
+              <span className="text-gray-700 dark:text-gray-300">Keep emergency contacts accessible</span>
             </li>
             <li className="flex items-start gap-2">
-              <CheckCircle size={18} className="text-green-600 mt-0.5 flex-shrink-0" />
-              <span>Monitor symptoms and seek help if they worsen</span>
+              <CheckCircle size={18} className="text-emerald-600 dark:text-emerald-400 mt-0.5 flex-shrink-0" />
+              <span className="text-gray-700 dark:text-gray-300">Monitor symptoms and seek help if they worsen</span>
             </li>
           </ul>
         </div>
         
-        <div className="p-6 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl border border-blue-200">
-          <h3 className="text-xl font-bold mb-3 text-blue-800">📞 Emergency Contacts</h3>
+        <div className="p-6 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-blue-200 dark:border-gray-700">
+          <h3 className="text-xl font-bold mb-3 text-blue-800 dark:text-blue-300">📞 Emergency Contacts</h3>
           <div className="space-y-3">
-            <div className="p-3 bg-white rounded-lg">
-              <div className="font-semibold">Medical Emergency</div>
-              <div className="text-2xl font-bold text-red-600">102</div>
-              <p className="text-sm text-gray-600">24/7 Ambulance Service</p>
+            <div className="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+              <div className="font-semibold text-gray-900 dark:text-gray-300">Medical Emergency</div>
+              <div className="text-2xl font-bold text-red-600 dark:text-red-400">102</div>
+              <p className="text-sm text-gray-600 dark:text-gray-400">24/7 Ambulance Service</p>
             </div>
-            <div className="p-3 bg-white rounded-lg">
-              <div className="font-semibold">Poison Control</div>
-              <div className="text-2xl font-bold text-amber-600">1-800-222-1222</div>
-              <p className="text-sm text-gray-600">24/7 Poison Helpline</p>
+            <div className="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+              <div className="font-semibold text-gray-900 dark:text-gray-300">Poison Control</div>
+              <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">1-800-222-1222</div>
+              <p className="text-sm text-gray-600 dark:text-gray-400">24/7 Poison Helpline</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Priority Comparison */}
-      <div className="p-6 bg-white rounded-2xl border border-gray-200">
-        <h3 className="text-xl font-bold mb-4">Priority Level Comparison</h3>
+      <div className="p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700">
+        <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Priority Level Comparison</h3>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-gray-50">
-                <th className="p-3 text-left">Priority</th>
-                <th className="p-3 text-left">Response Time</th>
-                <th className="p-3 text-left">Booking Window</th>
-                <th className="p-3 text-left">Typical Symptoms</th>
+              <tr className="bg-gray-50 dark:bg-gray-700">
+                <th className="p-3 text-left text-gray-900 dark:text-gray-300">Priority</th>
+                <th className="p-3 text-left text-gray-900 dark:text-gray-300">Response Time</th>
+                <th className="p-3 text-left text-gray-900 dark:text-gray-300">Booking Window</th>
+                <th className="p-3 text-left text-gray-900 dark:text-gray-300">Typical Symptoms</th>
               </tr>
             </thead>
             <tbody>
               {Object.entries(priorityLevels).map(([key, level]) => (
                 <tr 
                   key={key}
-                  className={`border-t ${calculatedPriority === key ? 'bg-blue-50' : ''}`}
+                  className={`border-t border-gray-200 dark:border-gray-700 ${
+                    calculatedPriority === key ? 'bg-blue-50 dark:bg-blue-900/20' : ''
+                  }`}
                 >
                   <td className="p-3">
                     <div className="flex items-center gap-2">
-                      <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${level.color}`}></div>
-                      <span className={`font-medium ${calculatedPriority === key ? 'text-blue-700' : ''}`}>
+                      <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${level.color} dark:${level.darkColor}`}></div>
+                      <span className={`font-medium ${
+                        calculatedPriority === key ? 'text-blue-700 dark:text-blue-300' : 'text-gray-900 dark:text-gray-300'
+                      }`}>
                         {level.label}
                       </span>
                     </div>
                   </td>
-                  <td className="p-3">{level.waitTime}</td>
-                  <td className="p-3">
+                  <td className="p-3 text-gray-900 dark:text-gray-300">{level.waitTime}</td>
+                  <td className="p-3 text-gray-900 dark:text-gray-300">
                     {key === 'emergency' ? 'Immediate' :
                      key === 'urgent' ? 'Same day' :
                      key === 'high' ? '24 hours' :
                      key === 'normal' ? '2-3 days' : '1-2 weeks'}
                   </td>
-                  <td className="p-3 text-sm text-gray-600">
+                  <td className="p-3 text-sm text-gray-600 dark:text-gray-400">
                     {key === 'emergency' ? 'Chest pain, severe bleeding' :
                      key === 'urgent' ? 'High fever, severe pain' :
                      key === 'high' ? 'Multiple symptoms, elderly' :

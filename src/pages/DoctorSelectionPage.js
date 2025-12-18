@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAccessibility } from '../context/AccessibilityContext';
 import { useUser } from '../context/UserContext';
 import { 
@@ -24,9 +24,11 @@ import {
 import RecommendationEngine from '../components/doctor-selection/RecommendationEngine';
 import DepartmentFilter from '../components/doctor-selection/DepartmentFilter';
 import DoctorList from '../components/doctor-selection/DoctorList';
+import specialtiesMap from '../data/doctorSpecialties.json';
 
 const DoctorSelectionPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { settings } = useAccessibility();
   const { user, updateUser } = useUser();
   
@@ -66,6 +68,8 @@ const DoctorSelectionPage = () => {
   }, [doctors, searchTerm, filters, sortBy, settings.mode]);
 
   const generateMockDoctors = () => {
+    const bodyPartFromState = location.state?.bodyPart || '';
+
     const doctorNames = [
       'Dr. Sarah Johnson', 'Dr. Michael Chen', 'Dr. Robert Williams',
       'Dr. Maria Garcia', 'Dr. James Wilson', 'Dr. Lisa Brown',
@@ -86,6 +90,19 @@ const DoctorSelectionPage = () => {
     };
 
     const getRecommendedSpecialties = () => {
+      // Prefer mapping based on selected body part (if available via navigation state)
+      const bp = (bodyPartFromState || '').toLowerCase();
+      if (bp) {
+        const matched = new Set();
+        Object.entries(specialtiesMap).forEach(([key, specs]) => {
+          if (bp.includes(key) || key.includes(bp)) {
+            specs.forEach(s => matched.add(s));
+          }
+        });
+        if (matched.size > 0) return Array.from(matched);
+      }
+
+      // Fallback to symptom-based mapping
       if (!user.symptoms || user.symptoms.length === 0) {
         return ['General Physician'];
       }
@@ -451,19 +468,7 @@ const DoctorSelectionPage = () => {
               onViewModeChange={() => {}}
             />
 
-            {/* Empty State */}
-            {filteredDoctors.length === 0 && (
-              <Card className="p-12 text-center bg-white">
-                <Stethoscope size={48} className="mx-auto text-gray-300 dark:text-gray-600 mb-4" />
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">No doctors found</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-6">
-                  Try adjusting your filters or search terms
-                </p>
-                <PrimaryButton onClick={clearFilters}>
-                  Clear All Filters
-                </PrimaryButton>
-              </Card>
-            )}
+          
 
             {/* Tips Section */}
             {filteredDoctors.length > 0 && (

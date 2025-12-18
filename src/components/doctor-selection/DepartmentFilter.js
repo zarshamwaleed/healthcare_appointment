@@ -325,7 +325,7 @@ const DepartmentFilter = ({
       {/* Rating & Experience */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <h4 className="font-semibold mb-3 text-gray-900">Minimum Rating</h4>
+          <h4 className="font-semibold mb-3 text-white-900">Minimum Rating</h4>
           <div className="space-y-2">
               {ratingOptions.map(option => (
                 <button
@@ -347,7 +347,7 @@ const DepartmentFilter = ({
         </div>
 
         <div>
-          <h4 className="font-semibold mb-3 text-gray-900">Experience</h4>
+          <h4 className="font-semibold mb-3 text-white-900">Experience</h4>
           <div className="space-y-2">
             {experienceOptions.map(option => (
               <button
@@ -371,7 +371,7 @@ const DepartmentFilter = ({
 
       {/* Distance */}
       <div>
-        <h4 className="font-semibold mb-3 text-gray-900">Maximum Distance</h4>
+        <h4 className="font-semibold mb-3 text-white-900">Maximum Distance</h4>
         <div className="grid grid-cols-2 gap-3">
           {distanceOptions.map(option => (
             <button
@@ -392,7 +392,7 @@ const DepartmentFilter = ({
 
       {/* Accessibility Features */}
       <div>
-        <h4 className="font-semibold mb-3 text-gray-900">Accessibility Features</h4>
+        <h4 className="font-semibold mb-3 text-white-900">Accessibility Features</h4>
         <div className="grid grid-cols-1 gap-3">
           <button
             onClick={handleTelemedicineChange}

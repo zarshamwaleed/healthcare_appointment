@@ -7,14 +7,13 @@ import {
   Thermometer,
   Eye,
   Ear,
-  Wind,      // ✅ Replacing Lungs with Wind
- 
+  Wind,
   Bone,
   Clock,
   Shield,
   Zap,
   ChevronRight,
-    Check // <-- Add this line
+  Check
 } from 'lucide-react';
 import { useAccessibility } from '../../context/AccessibilityContext';
 import { useUser } from '../../context/UserContext';
@@ -164,9 +163,9 @@ const UrgencyHandler = ({ symptoms = [], onUrgencyChange }) => {
     switch(level) {
       case 'emergency': return 'from-red-600 to-red-700';
       case 'urgent': return 'from-amber-600 to-orange-600';
-      case 'high': return 'from-purple-600 to-purple-700';
+      case 'high': return 'from-violet-600 to-purple-700';
       case 'moderate': return 'from-blue-600 to-blue-700';
-      default: return 'from-green-600 to-green-700';
+      default: return 'from-emerald-600 to-green-700';
     }
   };
 
@@ -271,21 +270,21 @@ const UrgencyHandler = ({ symptoms = [], onUrgencyChange }) => {
       )}
 
       {/* Recommended Action */}
-      <div className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-200">
+      <div className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-blue-200 dark:border-gray-700">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-white rounded-lg shadow-sm">
-            <ChevronRight size={24} className="text-blue-600" />
+          <div className="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+            <ChevronRight size={24} className="text-blue-600 dark:text-blue-400" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-blue-800">Recommended Action</h3>
-            <p className="text-blue-700">{recommendedAction}</p>
+            <h3 className="text-xl font-bold text-blue-800 dark:text-blue-300">Recommended Action</h3>
+            <p className="text-blue-700 dark:text-blue-400">{recommendedAction}</p>
           </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-          <div className="p-4 bg-white rounded-lg">
-            <h4 className="font-semibold mb-2">Response Time</h4>
-            <p className="text-2xl font-bold">
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h4 className="font-semibold mb-2 text-gray-900 dark:text-gray-300">Response Time</h4>
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">
               {urgencyLevel === 'emergency' ? 'Immediate' :
                urgencyLevel === 'urgent' ? 'Within 2 hours' :
                urgencyLevel === 'high' ? '24 hours' :
@@ -293,20 +292,20 @@ const UrgencyHandler = ({ symptoms = [], onUrgencyChange }) => {
             </p>
           </div>
           
-          <div className="p-4 bg-white rounded-lg">
-            <h4 className="font-semibold mb-2">Care Setting</h4>
-            <p className="text-2xl font-bold">
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h4 className="font-semibold mb-2 text-gray-900 dark:text-gray-300">Care Setting</h4>
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">
               {urgencyLevel === 'emergency' ? 'Emergency Room' :
                urgencyLevel === 'urgent' ? 'Urgent Care' :
                'Clinic Appointment'}
             </p>
           </div>
           
-          <div className="p-4 bg-white rounded-lg">
-            <h4 className="font-semibold mb-2">Priority Level</h4>
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h4 className="font-semibold mb-2 text-gray-900 dark:text-gray-300">Priority Level</h4>
             <div className="flex items-center gap-2">
               <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${getUrgencyColor(urgencyLevel)}`}></div>
-              <span className="text-xl font-bold capitalize">{urgencyLevel}</span>
+              <span className="text-xl font-bold capitalize text-gray-900 dark:text-white">{urgencyLevel}</span>
             </div>
           </div>
         </div>
@@ -314,55 +313,55 @@ const UrgencyHandler = ({ symptoms = [], onUrgencyChange }) => {
 
       {/* Symptom Analysis */}
       {symptomAnalysis.length > 0 && (
-        <div className="p-6 bg-white rounded-2xl border border-gray-200">
-          <h3 className="text-xl font-bold mb-4">Symptom Analysis</h3>
+        <div className="p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700">
+          <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Symptom Analysis</h3>
           
           <div className="space-y-4">
             {symptomAnalysis.map((symptom, index) => (
               <div 
                 key={index}
                 className={`p-4 rounded-xl border-2 ${
-                  symptom.level === 'emergency' ? 'border-red-200 bg-red-50' :
-                  symptom.level === 'urgent' ? 'border-amber-200 bg-amber-50' :
-                  'border-blue-200 bg-blue-50'
+                  symptom.level === 'emergency' ? 'border-red-200 dark:border-red-700 bg-red-50 dark:bg-red-900/20' :
+                  symptom.level === 'urgent' ? 'border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20' :
+                  'border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20'
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className={`p-2 rounded-lg ${
-                      symptom.level === 'emergency' ? 'bg-red-100 text-red-600' :
-                      symptom.level === 'urgent' ? 'bg-amber-100 text-amber-600' :
-                      'bg-blue-100 text-blue-600'
+                      symptom.level === 'emergency' ? 'bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-300' :
+                      symptom.level === 'urgent' ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-300' :
+                      'bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300'
                     }`}>
                       {symptom.icon}
                     </div>
                     <div>
-                      <h4 className="font-bold">{symptom.name}</h4>
+                      <h4 className="font-bold text-gray-900 dark:text-white">{symptom.name}</h4>
                       <div className="flex items-center gap-2 mt-1">
                         <span className={`px-2 py-0.5 rounded-full text-xs ${
-                          symptom.level === 'emergency' ? 'bg-red-100 text-red-800' :
-                          symptom.level === 'urgent' ? 'bg-amber-100 text-amber-800' :
-                          'bg-blue-100 text-blue-800'
+                          symptom.level === 'emergency' ? 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300' :
+                          symptom.level === 'urgent' ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300' :
+                          'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300'
                         }`}>
                           {symptom.level.toUpperCase()}
                         </span>
-                        <span className="text-sm text-gray-600">{symptom.system} System</span>
+                        <span className="text-sm text-gray-600 dark:text-gray-400">{symptom.system} System</span>
                       </div>
                     </div>
                   </div>
                   
                   <div className="text-right">
-                    <div className="text-2xl font-bold">{symptom.severity}</div>
-                    <div className="text-sm text-gray-600">Severity Score</div>
+                    <div className="text-2xl font-bold text-gray-900 dark:text-white">{symptom.severity}</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">Severity Score</div>
                   </div>
                 </div>
                 
                 <div className="mt-3">
-                  <div className="flex justify-between text-sm text-gray-600 mb-1">
+                  <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
                     <span>Symptom Impact</span>
                     <span>{symptom.severity}/10</span>
                   </div>
-                  <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                     <div 
                       className={`h-full ${
                         symptom.level === 'emergency' ? 'bg-red-500' :
@@ -380,36 +379,36 @@ const UrgencyHandler = ({ symptoms = [], onUrgencyChange }) => {
       )}
 
       {/* Urgency Scale Explanation */}
-      <div className="p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200">
-        <h3 className="text-xl font-bold mb-4">Understanding Urgency Levels</h3>
+      <div className="p-6 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700">
+        <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Understanding Urgency Levels</h3>
         
         <div className="space-y-3">
           {[
             { level: 'emergency', label: 'Emergency', color: 'bg-red-500', description: 'Life-threatening conditions requiring immediate care' },
             { level: 'urgent', label: 'Urgent', color: 'bg-amber-500', description: 'Serious conditions needing same-day attention' },
-            { level: 'high', label: 'High Priority', color: 'bg-purple-500', description: 'Conditions requiring care within 24 hours' },
+            { level: 'high', label: 'High Priority', color: 'bg-violet-500', description: 'Conditions requiring care within 24 hours' },
             { level: 'moderate', label: 'Moderate', color: 'bg-blue-500', description: 'Conditions that should be addressed within days' },
-            { level: 'normal', label: 'Normal', color: 'bg-green-500', description: 'Routine care or follow-up appointments' }
+            { level: 'normal', label: 'Normal', color: 'bg-emerald-500', description: 'Routine care or follow-up appointments' }
           ].map((item, index) => (
             <div 
               key={index}
               className={`p-4 rounded-xl border-2 ${
                 urgencyLevel === item.level 
-                  ? 'border-gray-300 bg-white shadow-sm' 
-                  : 'border-gray-200 bg-white/50'
+                  ? 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 shadow-sm' 
+                  : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 bg-opacity-50'
               }`}
             >
               <div className="flex items-center gap-3">
                 <div className={`w-3 h-3 rounded-full ${item.color}`}></div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-bold">{item.label}</h4>
+                    <h4 className="font-bold text-gray-900 dark:text-white">{item.label}</h4>
                     <span className={`px-2 py-0.5 rounded-full text-xs ${
-                      item.level === 'emergency' ? 'bg-red-100 text-red-800' :
-                      item.level === 'urgent' ? 'bg-amber-100 text-amber-800' :
-                      item.level === 'high' ? 'bg-purple-100 text-purple-800' :
-                      item.level === 'moderate' ? 'bg-blue-100 text-blue-800' :
-                      'bg-green-100 text-green-800'
+                      item.level === 'emergency' ? 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300' :
+                      item.level === 'urgent' ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300' :
+                      item.level === 'high' ? 'bg-violet-100 dark:bg-violet-900/40 text-violet-800 dark:text-violet-300' :
+                      item.level === 'moderate' ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300' :
+                      'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-300'
                     }`}>
                       Score: {item.level === 'emergency' ? '25+' :
                              item.level === 'urgent' ? '15-24' :
@@ -417,7 +416,7 @@ const UrgencyHandler = ({ symptoms = [], onUrgencyChange }) => {
                              item.level === 'moderate' ? '5-9' : '0-4'}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600 mt-1">{item.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{item.description}</p>
                 </div>
               </div>
             </div>
@@ -427,9 +426,9 @@ const UrgencyHandler = ({ symptoms = [], onUrgencyChange }) => {
 
       {/* Risk Factors & Considerations */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-200">
-          <h3 className="text-xl font-bold mb-3 text-green-800">Factors Increasing Urgency</h3>
-          <ul className="space-y-2 text-green-700">
+        <div className="p-6 bg-gradient-to-r from-emerald-50 to-green-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-emerald-200 dark:border-gray-700">
+          <h3 className="text-xl font-bold mb-3 text-emerald-800 dark:text-emerald-300">Factors Increasing Urgency</h3>
+          <ul className="space-y-2 text-emerald-700 dark:text-emerald-400">
             <li className="flex items-start gap-2">
               <AlertTriangle size={16} className="mt-0.5 flex-shrink-0" />
               <span>Age over 60 or under 2 years</span>
@@ -439,7 +438,7 @@ const UrgencyHandler = ({ symptoms = [], onUrgencyChange }) => {
               <span>Chronic conditions (diabetes, heart disease)</span>
             </li>
             <li className="flex items-start gap-2">
-              <AlertTriangle size={16} className="mt=0.5 flex-shrink-0" />
+              <AlertTriangle size={16} className="mt-0.5 flex-shrink-0" />
               <span>Weakened immune system</span>
             </li>
             <li className="flex items-start gap-2">
@@ -453,9 +452,9 @@ const UrgencyHandler = ({ symptoms = [], onUrgencyChange }) => {
           </ul>
         </div>
         
-        <div className="p-6 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl border border-blue-200">
-          <h3 className="text-xl font-bold mb-3 text-blue-800">When to Seek Immediate Help</h3>
-          <ul className="space-y-2 text-blue-700">
+        <div className="p-6 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-blue-200 dark:border-gray-700">
+          <h3 className="text-xl font-bold mb-3 text-blue-800 dark:text-blue-300">When to Seek Immediate Help</h3>
+          <ul className="space-y-2 text-blue-700 dark:text-blue-400">
             <li className="flex items-start gap-2">
               <Shield size={16} className="mt-0.5 flex-shrink-0" />
               <span>Chest pain or pressure</span>
@@ -481,15 +480,15 @@ const UrgencyHandler = ({ symptoms = [], onUrgencyChange }) => {
       </div>
 
       {/* Next Steps */}
-      <div className="p-6 bg-white rounded-2xl border border-gray-200">
-        <h3 className="text-xl font-bold mb-4">Next Steps Based on Your Urgency Level</h3>
+      <div className="p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700">
+        <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Next Steps Based on Your Urgency Level</h3>
         
         <div className="space-y-4">
           {urgencyLevel === 'emergency' && (
             <div className="space-y-2">
-              <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                <h4 className="font-bold text-red-800 mb-2">IMMEDIATE ACTION REQUIRED</h4>
-                <ol className="space-y-2 text-red-700">
+              <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded-lg">
+                <h4 className="font-bold text-red-800 dark:text-red-300 mb-2">IMMEDIATE ACTION REQUIRED</h4>
+                <ol className="space-y-2 text-red-700 dark:text-red-400">
                   <li className="flex items-center gap-2">
                     <span className="font-bold">1.</span>
                     <span>Call 102 for emergency ambulance</span>
@@ -513,9 +512,9 @@ const UrgencyHandler = ({ symptoms = [], onUrgencyChange }) => {
           
           {urgencyLevel === 'urgent' && (
             <div className="space-y-2">
-              <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
-                <h4 className="font-bold text-amber-800 mb-2">URGENT CARE NEEDED</h4>
-                <ol className="space-y-2 text-amber-700">
+              <div className="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-lg">
+                <h4 className="font-bold text-amber-800 dark:text-amber-300 mb-2">URGENT CARE NEEDED</h4>
+                <ol className="space-y-2 text-amber-700 dark:text-amber-400">
                   <li className="flex items-center gap-2">
                     <span className="font-bold">1.</span>
                     <span>Book same-day appointment using priority slots</span>
@@ -539,23 +538,23 @@ const UrgencyHandler = ({ symptoms = [], onUrgencyChange }) => {
           
           {(urgencyLevel === 'high' || urgencyLevel === 'moderate' || urgencyLevel === 'normal') && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 bg-white border border-gray-200 rounded-lg">
-                <h4 className="font-bold mb-2">1. Book Appointment</h4>
-                <p className="text-sm text-gray-600">
+              <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+                <h4 className="font-bold mb-2 text-gray-900 dark:text-white">1. Book Appointment</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   Use the calendar to schedule your appointment within the recommended timeframe.
                 </p>
               </div>
               
-              <div className="p-4 bg-white border border-gray-200 rounded-lg">
-                <h4 className="font-bold mb-2">2. Monitor Symptoms</h4>
-                <p className="text-sm text-gray-600">
+              <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+                <h4 className="font-bold mb-2 text-gray-900 dark:text-white">2. Monitor Symptoms</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   Keep track of your symptoms and note any changes or worsening.
                 </p>
               </div>
               
-              <div className="p-4 bg-white border border-gray-200 rounded-lg">
-                <h4 className="font-bold mb-2">3. Prepare for Visit</h4>
-                <p className="text-sm text-gray-600">
+              <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+                <h4 className="font-bold mb-2 text-gray-900 dark:text-white">3. Prepare for Visit</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   Bring your ID, insurance information, and list of current medications.
                 </p>
               </div>
@@ -563,8 +562,8 @@ const UrgencyHandler = ({ symptoms = [], onUrgencyChange }) => {
           )}
         </div>
         
-        <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-          <p className="text-sm text-blue-700">
+        <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
+          <p className="text-sm text-blue-700 dark:text-blue-400">
             💡 <strong>Note:</strong> This urgency assessment is based on the symptoms you've reported. 
             If your symptoms change or worsen, reassess your urgency level or seek immediate medical attention.
           </p>
@@ -573,12 +572,12 @@ const UrgencyHandler = ({ symptoms = [], onUrgencyChange }) => {
 
       {/* Accessibility Note */}
       {settings.mode === 'elderly' && (
-        <div className="p-6 bg-gradient-to-r from-blue-100 to-blue-50 rounded-2xl border border-blue-300">
+        <div className="p-6 bg-gradient-to-r from-blue-100 to-blue-50 dark:from-blue-900/30 dark:to-blue-900/20 rounded-2xl border border-blue-300 dark:border-blue-700">
           <div className="flex items-center gap-3">
-            <Shield size={24} className="text-blue-600" />
+            <Shield size={24} className="text-blue-600 dark:text-blue-400" />
             <div>
-              <h3 className="text-xl font-bold text-blue-800">Elderly User Priority</h3>
-              <p className="text-blue-700">
+              <h3 className="text-xl font-bold text-blue-800 dark:text-blue-300">Elderly User Priority</h3>
+              <p className="text-blue-700 dark:text-blue-400">
                 As an elderly user, you receive priority booking and extended consultation times. 
                 Your urgency level has been adjusted to ensure you receive timely care.
               </p>
@@ -590,4 +589,4 @@ const UrgencyHandler = ({ symptoms = [], onUrgencyChange }) => {
   );
 };
 
-export default UrgencyHandler;
+export default UrgencyHandler;        

@@ -275,12 +275,7 @@ const DoctorList = ({
           >
             Clear All Filters
           </button>
-          <button
-            onClick={() => setShowFilters(true)}
-            className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50"
-          >
-            Adjust Filters
-          </button>
+       
         </div>
       </div>
     </Card>

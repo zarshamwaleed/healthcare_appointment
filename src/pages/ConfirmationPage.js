@@ -208,6 +208,12 @@ const ConfirmationPage = () => {
     URL.revokeObjectURL(url);
   };
 
+  const handleDownloadMobileApp = () => {
+    alert('Opening mobile app store. Redirecting to app download page...');
+    // In a real app, this would link to App Store or Google Play
+    window.open('https://play.google.com/store', '_blank');
+  };
+
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -521,7 +527,7 @@ const ConfirmationPage = () => {
           <div>
             <p className="text-gray-600">
               Having trouble?{' '}
-              <button className="text-primary-600 hover:text-primary-800 font-medium">
+              <button onClick={handleDownloadMobileApp} className="text-primary-600 hover:text-primary-800 font-medium">
                 Download our mobile app
               </button>{' '}
               for easier access.

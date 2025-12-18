@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   Star, 
   Heart, 
@@ -215,7 +216,12 @@ export const DoctorCard = ({
   isSelected,
   className = ''
 }) => {
+  const navigate = useNavigate();
   const { settings } = useAccessibility();
+
+  const handleViewProfile = () => {
+    alert(`Viewing profile for Dr. ${name}`);
+  };
 
   return (
     <Card
@@ -257,7 +263,7 @@ export const DoctorCard = ({
       </CardContent>
       
       <CardFooter>
-        <button className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center gap-1">
+        <button onClick={handleViewProfile} className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center gap-1">
           View Profile
           <ChevronRight size={16} />
         </button>

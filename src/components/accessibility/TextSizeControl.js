@@ -11,6 +11,15 @@ const TextSizeControl = () => {
     setIsMounted(true);
   }, []);
 
+  // Handler for preview buttons
+  const handleBookAppointmentPreview = () => {
+    alert('Booking appointment from preview');
+  };
+
+  const handleViewDoctorsPreview = () => {
+    alert('Viewing doctors from preview');
+  };
+
   const textSizes = [
     { id: 'small', name: 'Small', size: 'text-sm', description: 'Compact view for large screens', icon: <ZoomOut size={16} /> },
     { id: 'medium', name: 'Medium', size: 'text-base', description: 'Standard size for most users', icon: <Type size={16} /> },
@@ -249,10 +258,10 @@ const TextSizeControl = () => {
             <p className="mb-2">Welcome to our accessible healthcare booking interface.</p>
             <p className="mb-4 text-gray-600">This preview shows how text will appear throughout the application.</p>
             <div className="flex gap-3">
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              <button onClick={handleBookAppointmentPreview} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                 Book Appointment
               </button>
-              <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+              <button onClick={handleViewDoctorsPreview} className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
                 View Doctors
               </button>
             </div>

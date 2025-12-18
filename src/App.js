@@ -17,6 +17,7 @@ import ConfirmationPage from "./pages/ConfirmationPage";
 import AccessibilityPage from "./pages/AccessibilityPage";
 import SettingsPage from "./pages/SettingsPage";
 import UserProfilePage from "./pages/UserProfilePage";
+import HistoryPage from "./pages/HistoryPage";
 function App() {
   return (
     <ThemeProvider>
@@ -43,6 +44,7 @@ function App() {
                       />
                       <Route path="/settings" element={<SettingsPage />} />
                       <Route path="/profile" element={<UserProfilePage />} />
+                      <Route path="/history" element={<HistoryPage />} />
                     </Routes>
                   </MainLayout>
                   <AIAssistant />

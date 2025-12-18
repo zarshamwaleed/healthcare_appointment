@@ -1,0 +1,20 @@
+{
+  "head": ["Neurology", "ENT"],
+  "eyes": ["Ophthalmology"],
+  "neck": ["ENT", "General Physician"],
+  "shoulder": ["Orthopedics", "Physiotherapy"],
+  "chest": ["Cardiology", "Pulmonology"],
+  "stomach": ["Gastroenterology", "General Physician"],
+  "abdomen": ["Gastroenterology", "General Physician"],
+  "pelvis": ["General Physician", "Gynecology"],
+  "arm": ["Orthopedics", "General Physician"],
+  "hand": ["Orthopedics", "Plastic Surgery"],
+  "thigh": ["Orthopedics"],
+  "knee": ["Orthopedics"],
+  "leg": ["Orthopedics", "Vascular Surgery"],
+  "foot": ["Orthopedics", "Podiatry"],
+  "skin": ["Dermatology"],
+  "back": ["Orthopedics", "Physiotherapy"],
+  "chest/heart": ["Cardiology"],
+  "general": ["General Physician"]
+}
