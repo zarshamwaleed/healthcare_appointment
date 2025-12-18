@@ -259,25 +259,37 @@ const SettingsPage = () => {
             </h2>
             <div className="space-y-4">
               <div>
-                <label className={`block font-medium mb-1 ${styles.text} ${
-                  localSettings.mode === 'visual-impairment' ? 'text-lg' : ''
-                }`}>
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  defaultValue="user@example.com"
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                    localSettings.mode === 'visual-impairment' 
-                      ? 'text-lg border-2 border-gray-300 dark:border-gray-600' 
-                      : 'border-gray-300 dark:border-gray-600'
-                  } ${styles.text}`}
-                  style={{ backgroundColor: localSettings.mode === 'visual-impairment' && localSettings.highContrast 
-                    ? (localSettings.theme === 'dark' ? 'black' : 'white')
-                    : ''
-                  }}
-                />
-              </div>
+  <label
+    className={`block font-medium mb-1 ${styles.text} ${
+      localSettings.mode === 'visual-impairment' ? 'text-lg' : ''
+    }`}
+  >
+    Email Address
+  </label>
+
+  <input
+    type="email"
+    defaultValue="zarshamwaleedbutt@gmail.com"
+    className={`
+      w-full px-3 py-2 rounded-lg
+      border focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+      bg-white text-gray-900
+      dark:bg-gray-700 dark:text-white dark:border-gray-600
+      placeholder-gray-400 dark:placeholder-gray-300
+      ${
+        localSettings.mode === 'visual-impairment'
+          ? 'text-lg border-2'
+          : ''
+      }
+      ${
+        localSettings.highContrast
+          ? 'bg-white dark:bg-black text-black dark:text-white border-black dark:border-white'
+          : ''
+      }
+    `}
+  />
+</div>
+
             </div>
           </div>
 

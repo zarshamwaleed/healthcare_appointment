@@ -97,12 +97,12 @@ const UserProfilePage = () => {
                 <div className="flex-1 pt-2">
                   <div className="flex items-center gap-3 mb-2">
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                      {user?.name || 'User Profile'}
+                      {user?.name || 'Zarsham Butt'}
                     </h1>
                     <Shield size={24} className="text-green-500 dark:text-green-400" />
                   </div>
                   <p className="text-gray-600 dark:text-gray-400 text-lg mb-4">
-                    {user?.email || 'user@example.com'}
+                    {user?.email || 'zarshamwaleedbutt.com'}
                   </p>
                   
                   {/* Badges */}
@@ -261,19 +261,19 @@ const UserProfilePage = () => {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="p-4 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
                           <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-1">Full Name</p>
-                          <p className="text-gray-900 dark:text-white font-semibold">{user?.name || 'N/A'}</p>
+                          <p className="text-gray-900 dark:text-white font-semibold">{user?.name || 'Zarsham Waleed'}</p>
                         </div>
                         <div className="p-4 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
                           <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-1">Email Address</p>
-                          <p className="text-gray-900 dark:text-white font-semibold">{user?.email || 'N/A'}</p>
+                          <p className="text-gray-900 dark:text-white font-semibold">{user?.email || 'zarshamwaleedbutt@gmail.com'}</p>
                         </div>
                         <div className="p-4 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
                           <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-1">Phone Number</p>
-                          <p className="text-gray-900 dark:text-white font-semibold">{user?.phone || '+1 (555) 123-4567'}</p>
+                          <p className="text-gray-900 dark:text-white font-semibold">{user?.phone || '+923042825000'}</p>
                         </div>
                         <div className="p-4 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
                           <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-1">Date of Birth</p>
-                          <p className="text-gray-900 dark:text-white font-semibold">{user?.dateOfBirth || 'Jan 15, 1985'}</p>
+                          <p className="text-gray-900 dark:text-white font-semibold">{user?.dateOfBirth || 'Sep 16, 2003'}</p>
                         </div>
                       </div>
                     </div>

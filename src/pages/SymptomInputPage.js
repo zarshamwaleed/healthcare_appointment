@@ -119,23 +119,6 @@ const SymptomInputPage = () => {
           </div>
         </div>
 
-        {/* Symptom Suggestions */}
-        <div className="mb-8">
-          <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">Common Symptoms</h3>
-          <div className="flex flex-wrap gap-3">
-            {['Headache', 'Fever', 'Cough', 'Stomach Pain', 'Skin Rash', 'Back Pain', 'Fatigue', 'Dizziness'].map(
-              (symptom) => (
-                <button
-                  key={symptom}
-                  onClick={() => setSelectedSymptoms([...selectedSymptoms, symptom])}
-                  className="px-4 py-2 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-700 dark:text-gray-300 rounded-full transition-colors"
-                >
-                  {symptom}
-                </button>
-              )
-            )}
-          </div>
-        </div>
 
         {/* Selected Symptoms */}
         {selectedSymptoms.length > 0 && (

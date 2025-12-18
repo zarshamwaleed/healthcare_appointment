@@ -25,7 +25,8 @@ import {
   Moon,
   Sun,
   AlertTriangle,
-  Sparkles
+  Sparkles,
+  HeartHandshake
 } from 'lucide-react';
 import { useAccessibility } from '../../context/AccessibilityContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -151,7 +152,7 @@ const Navigation = ({
     {
       id: 'settings',
       path: '/settings',
-      label: 'Settings', // Moved Settings here from settingsMenuItems
+      label: 'Settings',
       icon: <Settings size={20} />,
       description: 'Account preferences'
     },
@@ -187,7 +188,6 @@ const Navigation = ({
       icon: <HelpCircle size={20} />,
       description: 'Get assistance'
     }
-    // Removed 'settings' item since it's now in userMenuItems
   ];
 
   const toggleSubmenu = (menuId) => {
@@ -265,7 +265,7 @@ const Navigation = ({
         ${collapsed ? 'w-16' : 'w-64'}
         ${className}
       `}>
-        {/* Header */}
+        {/* Header - Updated with professional logo */}
         <div className={`
           p-4 border-b border-gray-200 dark:border-slate-700
           ${collapsed ? 'text-center' : ''}
@@ -274,29 +274,33 @@ const Navigation = ({
             {!collapsed ? (
               <>
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
-                    <Stethoscope size={24} className="text-blue-600 dark:text-blue-300" />
+                  <div className="p-2 bg-blue-600 rounded-xl">
+                    <HeartHandshake size={28} className="text-white" />
                   </div>
                   <div>
-                    <h1 className="font-bold dark:text-white">SmartHealth</h1>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Navigation</p>
+                    <h1 className="font-extrabold text-xl text-gray-900 dark:text-white tracking-tight">
+                      SmartHealth
+                    </h1>
+                    <p className="text-xs text-blue-600 dark:text-blue-400 font-medium">Your Care Companion</p>
                   </div>
                 </div>
                 <button
                   onClick={onToggleCollapse}
-                  className="p-1 rounded hover:bg-gray-100 dark:hover:bg-slate-700"
-                  aria-label="Collapse menu"
+                  className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
+                  aria-label="Collapse sidebar"
                 >
-                  <ChevronRight size={18} />
+                  <ChevronRight size={20} className="text-gray-600 dark:text-gray-400" />
                 </button>
               </>
             ) : (
               <button
                 onClick={onToggleCollapse}
-                className="p-2 rounded hover:bg-gray-100 dark:hover:bg-slate-700 mx-auto"
-                aria-label="Expand menu"
+                className="p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-slate-700 mx-auto transition-colors"
+                aria-label="Expand sidebar"
               >
-                <Menu size={20} />
+                <div className="p-2 bg-blue-600 rounded-lg">
+                  <HeartHandshake size={24} className="text-white" />
+                </div>
               </button>
             )}
           </div>
@@ -399,17 +403,30 @@ const Navigation = ({
       `}>
         <div className="max-w-full px-6">
           <div className="flex items-center justify-between h-16">
-            {/* Mobile Menu Button */}
-            <button
-              onClick={onMobileMenuToggle}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 lg:hidden"
-              aria-label="Toggle mobile menu"
-            >
-              <Menu size={24} className="dark:text-gray-200" />
-            </button>
+            {/* Left: Mobile Menu Button + Logo (desktop) */}
+            <div className="flex items-center">
+              <button
+                onClick={onMobileMenuToggle}
+                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 lg:hidden"
+                aria-label="Toggle mobile menu"
+              >
+                <Menu size={24} className="dark:text-gray-200" />
+              </button>
 
-            {/* Left Section - Navigation Links */}
-            <div className="hidden lg:flex items-center space-x-2">
+              {/* Logo - visible on lg+ */}
+              <div className="hidden lg:flex items-center gap-3 ml-4">
+                <div className="p-2 bg-blue-600 rounded-xl">
+                  <HeartHandshake size={28} className="text-white" />
+                </div>
+                <div>
+                  <h1 className="font-extrabold text-xl text-gray-900 dark:text-white">SmartHealth</h1>
+                  <p className="text-xs text-blue-600 dark:text-blue-400">Your Care Companion</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Center: Navigation Links */}
+            <div className="hidden lg:flex flex-1 justify-center items-center space-x-2">
               {mainMenuItems.map(item => {
                 const isActive = item.exact 
                   ? activePath === item.path 
@@ -433,23 +450,8 @@ const Navigation = ({
                   </NavLink>
                 );
               })}
-              
-              {/* Profile link in top navigation */}
-              <NavLink
-                to="/profile"
-                className={`
-                  flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
-                  ${activePath === '/profile'
-                    ? 'bg-blue-600 dark:bg-blue-600 text-white'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'
-                  }
-                `}
-              >
-                <User size={20} />
-                <span>Profiles</span>
-              </NavLink>
-              
-              {/* Settings link in top navigation */}
+
+              {/* Settings link remains in center */}
               <NavLink
                 to="/settings"
                 className={`
@@ -465,14 +467,13 @@ const Navigation = ({
               </NavLink>
             </div>
 
-            {/* Right Section */}
-            <div className="flex items-center space-x-2">
-              {/* Theme Toggle Button */}
+            {/* Right Section: Theme Toggle, Mode Toggle, Notifications, Profile Icon */}
+            <div className="flex items-center space-x-3">
+              {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
                 aria-label="Toggle theme"
-                title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
               >
                 {theme === 'light' ? (
                   <Moon size={20} className="text-gray-700" />
@@ -491,9 +492,7 @@ const Navigation = ({
                   showLabels={true}
                 />
               </div>
-              
-              
-              
+
               {/* Notifications Dropdown */}
               <div className="relative">
                 <button
@@ -510,7 +509,7 @@ const Navigation = ({
                 {/* Notification Dropdown Menu */}
                 {showNotifications && (
                   <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-gray-200 dark:border-slate-700 z-50 max-h-96 overflow-y-auto">
-                    {/* Header */}
+                    {/* ... (unchanged notification dropdown content) ... */}
                     <div className="sticky top-0 p-4 border-b border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800">
                       <div className="flex items-center justify-between">
                         <h3 className="font-bold text-gray-900 dark:text-white">Notifications</h3>
@@ -523,7 +522,6 @@ const Navigation = ({
                       </div>
                     </div>
 
-                    {/* Notifications List */}
                     <div className="divide-y divide-gray-100 dark:divide-slate-700">
                       {notifications.map(notification => (
                         <div
@@ -550,15 +548,24 @@ const Navigation = ({
                       ))}
                     </div>
 
-                    {/* Footer */}
                     <div className="sticky bottom-0 p-4 border-t border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800">
-                      <button onClick={handleViewAllNotifications} className="w-full py-2 px-4 text-center text-primary-600 dark:text-primary-400 font-semibold hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors">
+                      <button onClick={handleViewAllNotifications} className="w-full py-2 px-4 text-center text-blue-600 dark:text-blue-400 font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors">
                         View All Notifications
                       </button>
                     </div>
                   </div>
                 )}
               </div>
+
+              {/* Profile Icon Only - Rightmost */}
+              <NavLink
+                to="/profile"
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
+                aria-label="Profile"
+                title="Profile"
+              >
+                <User size={20} className="text-gray-700 dark:text-gray-300" />
+              </NavLink>
             </div>
           </div>
         </div>
@@ -566,6 +573,7 @@ const Navigation = ({
     );
   };
 
+  // renderMobileMenu, renderBreadcrumb remain unchanged (except logo updates if desired)
   const renderMobileMenu = () => {
     if (!showMobileMenu) return null;
 
@@ -584,16 +592,16 @@ const Navigation = ({
           transform transition-transform duration-300
           ${showMobileMenu ? 'translate-x-0' : position === 'left' ? '-translate-x-full' : 'translate-x-full'}
         `}>
-          {/* Header */}
+          {/* Header - Updated with professional logo */}
           <div className="p-4 border-b border-gray-200 dark:border-slate-700">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
-                  <Stethoscope size={24} className="text-blue-600 dark:text-blue-300" />
+                <div className="p-2 bg-blue-600 rounded-xl">
+                  <HeartHandshake size={28} className="text-white" />
                 </div>
                 <div>
-                  <h1 className="font-bold dark:text-white">SmartHealth</h1>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Mobile Menu</p>
+                  <h1 className="font-extrabold text-xl dark:text-white">SmartHealth</h1>
+                  <p className="text-xs text-blue-600 dark:text-blue-400 font-medium">Your Care Companion</p>
                 </div>
               </div>
               <button

@@ -48,19 +48,7 @@ const ModeSelection = () => {
       buttonColor: 'bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600',
       buttonText: 'text-white',
     },
-    {
-      id: 'icon',
-      title: 'Icon Mode',
-      icon: <Eye size={48} />,
-      description: 'Visual interface for low-literacy users',
-      features: ['Icon-based navigation', 'Minimal text', 'Visual cues', 'Simple choices'],
-      color: 'from-amber-500 to-amber-600 dark:from-amber-600 dark:to-amber-700',
-      iconColor: 'text-amber-600 dark:text-amber-400',
-      textColor: 'text-amber-800 dark:text-amber-300',
-      bgColor: 'bg-amber-50 dark:bg-amber-900/20',
-      buttonColor: 'bg-amber-600 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-600',
-      buttonText: 'text-white',
-    },
+ 
     {
       id: 'sign-language',
       title: 'Sign Language Mode',

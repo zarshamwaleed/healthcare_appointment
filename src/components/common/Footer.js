@@ -74,7 +74,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-600 dark:border-slate-700 mt-8 pt-6 text-center">
           <p className="text-white text-base">
-            © {new Date().getFullYear()} SmartHealth Care. Part of HCI Research Project.
+            © {new Date().getFullYear()} SmartHealth Care.
           </p>
         </div>
       </div>

@@ -268,15 +268,7 @@ const DoctorList = ({
         <p className="text-gray-600 mb-6">
           We couldn't find any doctors matching your filters. Try adjusting your search criteria.
         </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <button
-            onClick={handleClearFilters}
-            className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
-          >
-            Clear All Filters
-          </button>
-       
-        </div>
+      
       </div>
     </Card>
   );
