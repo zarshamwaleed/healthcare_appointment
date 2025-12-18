@@ -158,7 +158,11 @@ const DoctorCard = ({
           <div className="flex items-start justify-between mb-2">
             <div>
               <h3 className={`font-bold text-lg truncate ${settings?.visuallyImpaired ? 'text-white' : 'text-gray-900'} dark:text-white`}>{name}</h3>
-              <p className={`${settings?.visuallyImpaired ? 'text-white' : 'text-gray-600'} dark:text-gray-300 text-sm`}>{specialty}</p>
+              <div className="flex items-center gap-2 mt-1">
+                <span className={`px-2 py-1 rounded-full text-xs font-semibold ${settings?.visuallyImpaired ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-700'} dark:bg-blue-900/40 dark:text-blue-300`}>
+                  {specialty}
+                </span>
+              </div>
             </div>
               <div className="flex items-center gap-1">
               {renderRatingStars(rating)}
@@ -222,7 +226,11 @@ const DoctorCard = ({
             </div>
             <div>
               <h3 className="font-bold text-lg text-gray-900 dark:text-white">{name}</h3>
-              <p className="text-gray-600 dark:text-gray-300">{specialty}</p>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="px-2 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
+                  {specialty}
+                </span>
+              </div>
             </div>
           </div>
           

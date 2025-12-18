@@ -25,6 +25,7 @@ import RecommendationEngine from '../components/doctor-selection/RecommendationE
 import DepartmentFilter from '../components/doctor-selection/DepartmentFilter';
 import DoctorList from '../components/doctor-selection/DoctorList';
 import specialtiesMap from '../data/doctorSpecialties.json';
+import { mockDataService } from '../services/mockDataService';
 
 const DoctorSelectionPage = () => {
   const navigate = useNavigate();
@@ -51,11 +52,54 @@ const DoctorSelectionPage = () => {
   const [sortBy, setSortBy] = useState('recommended');
 
   useEffect(() => {
-    const mockDoctors = generateMockDoctors();
-    setDoctors(mockDoctors);
-    setFilteredDoctors(mockDoctors);
-    setLoading(false);
-    
+    setLoading(true);
+    mockDataService.getDoctors()
+      .then(list => {
+        // Map specialization to specialty for consistency
+        const normalizeSpecialty = (s) => {
+          if (!s) return 'General Physician';
+          const lower = s.toLowerCase();
+          if (lower.includes('cardio')) return 'Cardiology';
+          if (lower.includes('neuro')) return 'Neurology';
+          if (lower.includes('pediat')) return 'Pediatrics';
+          if (lower.includes('ortho')) return 'Orthopedics';
+          if (lower.includes('derma')) return 'Dermatology';
+          if (lower.includes('ent') || lower.includes('otolaryn')) return 'ENT';
+          if (lower.includes('gastro')) return 'Gastroenterology';
+          if (lower.includes('ophthalm')) return 'Ophthalmology';
+          if (lower.includes('dent')) return 'Dentist';
+          if (lower.includes('gyne')) return 'Gynecology';
+          if (lower.includes('psych')) return 'Psychiatry';
+          if (lower.includes('pulmon')) return 'Pulmonology';
+          if (lower.includes('endocr')) return 'Endocrinology';
+          if (lower.includes('general')) return 'General Physician';
+          // fallback to capitalized input
+          return s.charAt(0).toUpperCase() + s.slice(1);
+        };
+
+        const doctorsWithSpecialty = list.map(doc => ({
+          ...doc,
+          specialty: normalizeSpecialty(doc.specialty || doc.specialization),
+          department: doc.department || doc.specialization,
+          availability: doc.availability || 'Available Today',
+          distance: doc.distance || 2.5,
+          hospital: doc.hospital || 'Central Hospital',
+          telemedicine: doc.telemedicine || false,
+          isElderlyFriendly: doc.isElderlyFriendly || false,
+          isRecommended: doc.isRecommended || false,
+          isPriority: doc.isPriority || false
+        }));
+        setDoctors(doctorsWithSpecialty);
+        setFilteredDoctors(doctorsWithSpecialty);
+      })
+      .catch(err => {
+        console.error('Error loading doctors from mockDataService, falling back to generated list', err);
+        const mockDoctors = generateMockDoctors();
+        setDoctors(mockDoctors);
+        setFilteredDoctors(mockDoctors);
+      })
+      .finally(() => setLoading(false));
+
     if (user.selectedDoctor) {
       setSelectedDoctor(user.selectedDoctor);
     }
@@ -66,6 +110,57 @@ const DoctorSelectionPage = () => {
       applyFiltersAndSearch();
     }
   }, [doctors, searchTerm, filters, sortBy, settings.mode]);
+
+  // If navigated from body map, set specialty filter based on selected body part
+  useEffect(() => {
+    const bodyPartLabel = location.state?.bodyPart || '';
+    if (!bodyPartLabel) return;
+
+    const bpLower = bodyPartLabel.toLowerCase();
+    const matchedSpecialties = [];
+    Object.entries(specialtiesMap).forEach(([key, specs]) => {
+      if (bpLower.includes(key) || key.includes(bpLower) || bpLower.includes(key.split('/')[0])) {
+        specs.forEach(s => matchedSpecialties.push(s));
+      }
+    });
+
+    if (matchedSpecialties.length === 0) return;
+
+    // Map specialty display names to DepartmentFilter ids when possible
+    const nameToId = {
+      'General Physician': 'general',
+      'Cardiology': 'cardio',
+      'Neurology': 'neuro',
+      'Orthopedics': 'ortho',
+      'Dermatology': 'derma',
+      'ENT': 'ent',
+      'Gastroenterology': 'gastro',
+      'Pediatrics': 'pediatric',
+      'Ophthalmology': 'ophthalmology',
+      'Dentist': 'dentistry',
+      'Gynecology': 'gynecology',
+      'Psychiatry': 'psychiatry',
+      'Pulmonology': 'pulmonology',
+      'Endocrinology': 'endocrinology'
+    };
+
+    // prefer the first specialty that maps to a known id
+    let selectedId = '';
+    for (const s of matchedSpecialties) {
+      const norm = s.charAt(0).toUpperCase() + s.slice(1);
+      if (nameToId[norm]) {
+        selectedId = nameToId[norm];
+        break;
+      }
+    }
+
+    if (selectedId) {
+      setFilters(prev => ({ ...prev, specialty: selectedId }));
+    } else {
+      // fallback: set specialty to first specialty name (normalized)
+      setFilters(prev => ({ ...prev, specialty: matchedSpecialties[0] }));
+    }
+  }, [location.state, doctors]);
 
   const generateMockDoctors = () => {
     const bodyPartFromState = location.state?.bodyPart || '';

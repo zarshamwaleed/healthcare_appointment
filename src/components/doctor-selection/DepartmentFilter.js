@@ -42,13 +42,19 @@ const DepartmentFilter = ({
 
   const departments = [
     { id: 'general', name: 'General Physician', icon: <Stethoscope size={18} />, color: 'bg-blue-100 text-blue-800' },
-    { id: 'cardio', name: 'Cardiology', icon: <Heart size={18} />, color: 'bg-red-100 text-red-800' },
-    { id: 'neuro', name: 'Neurology', icon: <Brain size={18} />, color: 'bg-purple-100 text-purple-800' },
-    { id: 'ortho', name: 'Orthopedics', icon: <Bone size={18} />, color: 'bg-amber-100 text-amber-800' },
-    { id: 'derma', name: 'Dermatology', icon: <Eye size={18} />, color: 'bg-green-100 text-green-800' },
-    { id: 'ent', name: 'ENT', icon: <Users size={18} />, color: 'bg-cyan-100 text-cyan-800' },
-    { id: 'gastro', name: 'Gastroenterology', icon: <Thermometer size={18} />, color: 'bg-orange-100 text-orange-800' },
-    { id: 'pediatric', name: 'Pediatrics', icon: <Award size={18} />, color: 'bg-pink-100 text-pink-800' },
+      { id: 'cardio', name: 'Cardiology', icon: <Heart size={18} />, color: 'bg-red-100 text-red-800' },
+      { id: 'neuro', name: 'Neurology', icon: <Brain size={18} />, color: 'bg-purple-100 text-purple-800' },
+      { id: 'ortho', name: 'Orthopedic Surgeon', icon: <Bone size={18} />, color: 'bg-amber-100 text-amber-800' },
+      { id: 'derma', name: 'Dermatologist', icon: <Eye size={18} />, color: 'bg-green-100 text-green-800' },
+      { id: 'ent', name: 'ENT Specialist', icon: <Users size={18} />, color: 'bg-cyan-100 text-cyan-800' },
+      { id: 'gastro', name: 'Gastroenterologist', icon: <Thermometer size={18} />, color: 'bg-orange-100 text-orange-800' },
+      { id: 'pediatric', name: 'Pediatrician', icon: <Award size={18} />, color: 'bg-pink-100 text-pink-800' },
+      { id: 'ophthalmology', name: 'Ophthalmologist', icon: <Eye size={18} />, color: 'bg-indigo-100 text-indigo-800' },
+      { id: 'dentistry', name: 'Dentist', icon: <Stethoscope size={18} />, color: 'bg-rose-100 text-rose-800' },
+      { id: 'gynecology', name: 'Gynecologist', icon: <Heart size={18} />, color: 'bg-fuchsia-100 text-fuchsia-800' },
+      { id: 'psychiatry', name: 'Psychiatrist', icon: <Brain size={18} />, color: 'bg-violet-100 text-violet-800' },
+      { id: 'pulmonology', name: 'Pulmonologist', icon: <Thermometer size={18} />, color: 'bg-sky-100 text-sky-800' },
+      { id: 'endocrinology', name: 'Endocrinologist', icon: <Stethoscope size={18} />, color: 'bg-lime-100 text-lime-800' },
   ];
 
   const availabilityOptions = [

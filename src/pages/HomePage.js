@@ -50,6 +50,7 @@ const HomePage = () => {
       type: 'elderly', 
       label: 'Elderly Care', 
       description: 'Enhanced visibility with larger text and simplified navigation',
+      icon: '👴',
       gradient: 'from-blue-500 to-indigo-600',
       bgPattern: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
     },
@@ -57,6 +58,7 @@ const HomePage = () => {
       type: 'low-literacy', 
       label: 'Visual Mode', 
       description: 'Icon-based interface with minimal text for easy understanding',
+      icon: '👁️',
       gradient: 'from-green-500 to-teal-600',
       bgPattern: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)'
     },
@@ -65,6 +67,7 @@ const HomePage = () => {
       type: 'voice', 
       label: 'Voice Enabled', 
       description: 'Complete voice control for hands-free appointment booking',
+      icon: '🎤',
       gradient: 'from-pink-500 to-rose-600',
       bgPattern: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)'
     },
@@ -72,6 +75,7 @@ const HomePage = () => {
       type: 'standard', 
       label: 'Standard Access', 
       description: 'Full-featured interface with all advanced capabilities',
+      icon: '⚙️',
       gradient: 'from-gray-600 to-gray-800',
       bgPattern: 'linear-gradient(135deg, #434343 0%, #000000 100%)'
     },
@@ -219,8 +223,8 @@ const HomePage = () => {
                   <div>
                     <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${user.gradient} 
                                   mb-6 shadow-md group-hover:shadow-lg transition-all group-hover:scale-110 
-                                  flex items-center justify-center`}>
-                      <div className="w-8 h-8 bg-white/30 rounded-lg"></div>
+                                  flex items-center justify-center text-3xl`}>
+                      {user.icon}
                     </div>
                     <h3 className={`font-bold mb-3 text-gray-900 dark:text-white group-hover:text-white transition-colors 
                                   ${settings.mode === 'elderly' ? 'text-2xl' : 'text-xl'}`}>

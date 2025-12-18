@@ -145,11 +145,56 @@ body.visually-impaired-theme .hover\:bg-blue-700 {
 }
 
 /* Accent/secondary: Color-blind-safe orange (#ff8c00) for warnings or alternatives */
-body.visually-impaired-theme [class*="bg-amber"],
-body.visually-impaired-theme [class*="bg-orange"],
-body.visually-impaired-theme [class*="bg-yellow"] {
+/* Exclude calendar day cells from aggressive orange override */
+body.visually-impaired-theme [class*="bg-amber"]:not([class*="h-24"]):not([class*="h-28"]),
+body.visually-impaired-theme [class*="bg-orange"]:not([class*="h-24"]):not([class*="h-28"]),
+body.visually-impaired-theme [class*="bg-yellow"]:not([class*="h-24"]):not([class*="h-28"]) {
   background-color: #ff8c00 !important;
   color: #000000 !important;
+}
+
+/* Calendar day cells in visual impaired mode: Use lighter orange/amber with high contrast text */
+body.visually-impaired-theme [class*="h-24"],
+body.visually-impaired-theme [class*="h-28"] {
+  background-color: #141926 !important;
+  color: #f0f0f0 !important;
+  border-color: #555555 !important;
+}
+
+/* Peak hours in calendar: Light orange background with dark text */
+body.visually-impaired-theme .bg-amber-50,
+body.visually-impaired-theme .bg-amber-100,
+body.visually-impaired-theme .dark\:bg-amber-950 {
+  background-color: #2d1f0a !important;
+  color: #ffd699 !important;
+  border-color: #5a3a14 !important;
+}
+
+/* Recommended slots: Green-tinted with high contrast */
+body.visually-impaired-theme .bg-emerald-50,
+body.visually-impaired-theme .bg-emerald-100,
+body.visually-impaired-theme .dark\:bg-emerald-950 {
+  background-color: #0a2a1f !important;
+  color: #66d9b3 !important;
+  border-color: #1a5a3f !important;
+}
+
+/* Limited/priority slots: Violet tint with high contrast */
+body.visually-impaired-theme .bg-violet-50,
+body.visually-impaired-theme .bg-violet-100,
+body.visually-impaired-theme .dark\:bg-violet-950 {
+  background-color: #1a0a2a !important;
+  color: #c999ff !important;
+  border-color: #3a1a5a !important;
+}
+
+/* Unavailable/red slots: Red-orange tint with high contrast */
+body.visually-impaired-theme .bg-red-50,
+body.visually-impaired-theme .bg-red-100,
+body.visually-impaired-theme .dark\:bg-red-950 {
+  background-color: #2a0a0a !important;
+  color: #ff9999 !important;
+  border-color: #5a1a1a !important;
 }
 
 /* Text: High contrast light */
@@ -270,4 +315,29 @@ body.visually-impaired-theme .disabled {
   cursor: not-allowed !important;
   background-color: #0a0e1a !important;
   color: #888888 !important;
+}
+
+/* High-contrast text for slot details in visual impaired mode */
+body.visually-impaired-theme .text-sm,
+body.visually-impaired-theme .text-xs,
+body.visually-impaired-theme .text-lg {
+  color: #f0f0f0 !important;
+}
+
+/* Slot quality bar and badges: Ensure visibility */
+body.visually-impaired-theme [class*="px-2"] [class*="py-1"],
+body.visually-impaired-theme [class*="px-3"] [class*="py-1"] {
+  color: inherit !important;
+  background-color: rgba(13, 153, 255, 0.15) !important;
+  border: 1px solid #0d99ff !important;
+}
+
+/* Badge text contrast for slot cards */
+body.visually-impaired-theme .bg-emerald-100,
+body.visually-impaired-theme .bg-emerald-900,
+body.visually-impaired-theme .bg-purple-100,
+body.visually-impaired-theme .bg-purple-900,
+body.visually-impaired-theme .bg-blue-100,
+body.visually-impaired-theme .bg-blue-900 {
+  color: #f0f0f0 !important;
 }

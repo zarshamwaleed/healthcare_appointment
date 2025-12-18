@@ -105,10 +105,12 @@ const MapView = ({
   };
 
   const getDirectionsUrl = () => {
-    const { lat, lng } = currentLocation.coordinates;
+    const coords = currentLocation && currentLocation.coordinates ? currentLocation.coordinates : null;
+    if (!coords) return '#';
+    const { lat, lng } = coords;
     const destination = `${lat},${lng}`;
-    const origin = userLocation ? `${userLocation.lat},${userLocation.lng}` : '';
-    
+    const origin = userLocation && userLocation.lat && userLocation.lng ? `${userLocation.lat},${userLocation.lng}` : '';
+
     return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=${transportMode}`;
   };
 
@@ -416,8 +418,8 @@ const MapView = ({
               
               {/* Coordinates display */}
               <div className="absolute bottom-4 right-4 bg-black/80 text-white px-3 py-2 rounded-lg text-sm">
-                <div>Lat: {currentLocation.coordinates.lat.toFixed(4)}</div>
-                <div>Lng: {currentLocation.coordinates.lng.toFixed(4)}</div>
+                <div>Lat: {currentLocation?.coordinates?.lat ? currentLocation.coordinates.lat.toFixed(4) : '—'}</div>
+                <div>Lng: {currentLocation?.coordinates?.lng ? currentLocation.coordinates.lng.toFixed(4) : '—'}</div>
               </div>
             </>
           )}
@@ -478,7 +480,7 @@ const MapView = ({
         <Card>
           <h3 className="font-bold mb-4">🏥 Hospital Facilities</h3>
           <div className="space-y-3">
-            {currentLocation.facilities.map((facility, index) => (
+            {(currentLocation?.facilities || []).map((facility, index) => (
               <div key={index} className="flex items-center gap-3">
                 {facility === 'Parking' && <ParkingCircle size={20} className="text-green-600" />}
                 {facility === 'Wheelchair Access' && <WheelchairIcon size={20} className="text-blue-600" />}
@@ -496,7 +498,7 @@ const MapView = ({
           <h3 className="font-bold mb-4">🏢 Floor Plan</h3>
           <div className="space-y-3">
             <div className="flex flex-wrap gap-2 mb-4">
-              {currentLocation.floors.map(floor => (
+              {(currentLocation?.floors || []).map(floor => (
                 <button
                   key={floor.id}
                   onClick={() => setSelectedFloor(floor.id)}
@@ -511,13 +513,13 @@ const MapView = ({
               ))}
             </div>
             
-            {currentLocation.floors.find(f => f.id === selectedFloor) && (
+            {(currentLocation?.floors || []).find(f => f.id === selectedFloor) && (
               <div className="p-4 bg-gray-50 rounded-lg">
                 <h4 className="font-semibold mb-2">
-                  {currentLocation.floors.find(f => f.id === selectedFloor)?.name}
+                  {(currentLocation?.floors || []).find(f => f.id === selectedFloor)?.name}
                 </h4>
                 <ul className="space-y-2">
-                  {currentLocation.floors.find(f => f.id === selectedFloor)?.departments.map((dept, idx) => (
+                  {(currentLocation?.floors || []).find(f => f.id === selectedFloor)?.departments?.map((dept, idx) => (
                     <li key={idx} className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-primary-600 rounded-full"></div>
                       <span className="text-sm">{dept}</span>

@@ -107,17 +107,17 @@ const AppointmentSummary = ({ appointment, onAction, variant = 'detailed' }) => 
       {/* Status Banner */}
       <div className={`p-4 rounded-xl border ${statusColors.border} ${statusColors.bg}`}>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <CheckCircle size={24} className={statusColors.text} />
-            <div>
-              <h3 className="font-bold">Status: {appointment.status}</h3>
-              <p className="text-sm">
-                {appointment.status === 'confirmed' 
-                  ? 'Your appointment is confirmed and ready!' 
-                  : 'Please check the status for updates.'}
-              </p>
-            </div>
-          </div>
+   <div className="flex items-center gap-3 p-4 rounded-lg bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
+  <CheckCircle size={24} className={`${statusColors.text} dark:${statusColors.text.includes('text-') ? statusColors.text.replace('text-', 'text-') : 'text-gray-400'}`} />
+  <div>
+    <h3 className="font-bold text-gray-900 dark:text-white">Status: {appointment.status}</h3>
+    <p className="text-sm text-gray-700 dark:text-gray-300">
+      {appointment.status === 'confirmed' 
+        ? 'Your appointment is confirmed and ready!' 
+        : 'Please check the status for updates.'}
+    </p>
+  </div>
+</div>
           <div className="text-right">
             <p className="text-sm text-gray-600">Booked on</p>
             <p className="font-medium">{new Date(appointment.createdAt).toLocaleDateString()}</p>
